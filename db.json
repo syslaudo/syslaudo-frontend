@@ -1,0 +1,60 @@
+{
+  "doctors": [
+    {
+      "name": "Alisson Felipe Lima Santos",
+      "crm": "1565",
+      "type": "Professor",
+      "title": "Mestre",
+      "date": null,
+      "id": 1
+    },
+    {
+      "name": "Bruno César Fontes Vieira",
+      "crm": 8422,
+      "type": "Residente",
+      "title": null,
+      "date": "2021-04-13T00:00:00.000Z",
+      "id": 2
+    },
+    {
+      "name": "Fernanda Amaral de Souza",
+      "crm": 5454,
+      "type": "Professor",
+      "title": "Doutor",
+      "date": null,
+      "id": 3
+    },
+    {
+      "name": "Lucas Santos Souza",
+      "crm": 8233,
+      "type": "Professor",
+      "title": "Doutor",
+      "date": null,
+      "id": 4
+    },
+    {
+      "name": "Natalia Braga da Fonseca",
+      "crm": 4545,
+      "type": "Médico",
+      "title": null,
+      "date": null,
+      "id": 5
+    },
+    {
+      "name": "Natan Nascimento Oliveira Matos",
+      "crm": "4546",
+      "type": "Professor",
+      "title": "Especialista",
+      "date": null,
+      "id": 6
+    },
+    {
+      "name": "Natalie Pereira Macedo",
+      "crm": 8484,
+      "type": "Residente",
+      "title": null,
+      "date": "2021-04-13T00:00:00.000Z",
+      "id": 7
+    }
+  ]
+}
