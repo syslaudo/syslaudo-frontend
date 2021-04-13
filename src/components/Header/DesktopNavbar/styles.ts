@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledDesktopNavbar = styled.header`
+export const StyledDesktopNavbar = styled.header<{ isAuthenticated: boolean }>`
   height: 5rem;
   border-bottom: 1px solid var(--hover);
 
@@ -141,6 +141,11 @@ export const StyledDesktopNavbar = styled.header`
         z-index: 999999;
       }
 
+      &:hover > ul.logoutButton {
+        display: ${(props) => (props.isAuthenticated ? "block" : "none")};
+        z-index: 999999;
+      }
+
       > ul {
         display: none;
         position: absolute;
@@ -156,6 +161,7 @@ export const StyledDesktopNavbar = styled.header`
           text-align: center;
           padding: 0 1rem;
           transition: 0.2ms;
+          min-width: 5rem;
 
           &:hover {
             background: var(--primary);

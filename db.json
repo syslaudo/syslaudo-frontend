@@ -1,13 +1,13 @@
 {
-  "doctors": [
+  "users": [
     {
       "cpf": "12345678900",
       "email": "alisson@syslaudo.com",
       "password": "123456",
       "name": "Alisson Felipe Lima Santos",
-      "crm": "1565",
-      "type": "Professor",
-      "title": "Mestre",
+      "crm": "null",
+      "type": "Administrador",
+      "title": null,
       "date": null,
       "id": 1
     },
@@ -16,7 +16,7 @@
       "email": "bruno@syslaudo.com",
       "password": "123456",
       "name": "Bruno César Fontes Vieira",
-      "crm": 8422,
+      "crm": "8422",
       "type": "Residente",
       "title": null,
       "date": "2021-04-13T00:00:00.000Z",
@@ -27,7 +27,7 @@
       "email": "fernanda@syslaudo.com",
       "password": "123456",
       "name": "Fernanda Amaral de Souza",
-      "crm": 5454,
+      "crm": "5454",
       "type": "Professor",
       "title": "Doutor",
       "date": null,
@@ -38,9 +38,9 @@
       "email": "lucas@syslaudo.com",
       "password": "123456",
       "name": "Lucas Santos Souza",
-      "crm": 8233,
-      "type": "Professor",
-      "title": "Doutor",
+      "crm": "8233",
+      "type": "Médico",
+      "title": null,
       "date": null,
       "id": 4
     },
@@ -49,8 +49,8 @@
       "email": "natalia@syslaudo.com",
       "password": "123456",
       "name": "Natalia Braga da Fonseca",
-      "crm": 4545,
-      "type": "Médico",
+      "crm": "null",
+      "type": "Administrador",
       "title": null,
       "date": null,
       "id": 5
@@ -71,7 +71,7 @@
       "email": "natalie@syslaudo.com",
       "password": "123456",
       "name": "Natalie Pereira Macedo",
-      "crm": 8484,
+      "crm": "8484",
       "type": "Residente",
       "title": null,
       "date": "2021-04-13T00:00:00.000Z",

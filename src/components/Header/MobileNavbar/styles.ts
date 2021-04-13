@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const StyledMobileNavbar = styled.nav<{ displayMobile: boolean }>`
+export const StyledMobileNavbar = styled.nav<{
+  displayMobile: boolean;
+  isAuthenticated: boolean;
+}>`
   width: 100vw;
   display: ${(props) => (props.displayMobile ? "flex" : "none")};
   flex-direction: column;
@@ -27,6 +30,10 @@ export const StyledMobileNavbar = styled.nav<{ displayMobile: boolean }>`
         }
       }
     }
+  }
+
+  .logoutButton {
+    display: ${(props) => (props.isAuthenticated ? "" : "none")};
   }
 
   @media screen and (min-width: 901px) {

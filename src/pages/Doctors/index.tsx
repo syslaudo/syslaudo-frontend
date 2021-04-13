@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import { toast } from "react-toastify";
 import { Button } from "../../components/FormComponents/Button";
 import { Table } from "../../components/Table";
-import { useDoctors } from "../../hooks/useDoctors";
+import { useUsers } from "../../hooks/useUsers";
 import { DoctorCreateModal } from "./DoctorCreateModal";
 import { DoctorUpdateModal } from "./DoctorUpdateModal";
 import { StyledContainer } from "./styles";
@@ -16,14 +16,14 @@ interface Doctor {
   email: string;
   password: string;
   name: string;
-  crm: string;
   type: string;
+  crm?: string;
   date?: Date;
   title?: string;
 }
 
 export function Doctors() {
-  const { doctors, removeDoctor } = useDoctors();
+  const { users: doctors, removeUser: removeDoctor } = useUsers();
   const [doctorCreateModalIsOpen, setDoctorCreateModalIsOpen] = useState(false);
   const [doctorUpdateModalIsOpen, setDoctorUpdateModalIsOpen] = useState(false);
   const [editingDoctor, setEditingDoctor] = useState({} as Doctor);
@@ -46,7 +46,7 @@ export function Doctors() {
 
   const columns = [
     { name: "Id", selector: "id", sortable: true, omit: true },
-    { name: "Nome", selector: "name", sortable: true, grow: 9 },
+    { name: "Nome", selector: "name", sortable: true, grow: 8 },
     {
       name: "CPF",
       selector: "cpf",
@@ -114,7 +114,7 @@ export function Doctors() {
       <Table
         title="Lista de Médicos"
         columns={columns}
-        data={doctors}
+        data={doctors.filter((doctor) => doctor.type !== "Administrador")}
         onEdit={onEdit}
         onRemove={onRemove}
         expandableRows

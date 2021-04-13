@@ -6,11 +6,12 @@ import { StyledDesktopNavbar } from "./styles";
 
 interface NavbarProps {
   toggleMobile: () => void;
+  isAuthenticated: boolean;
 }
 
 export function DesktopNavbar(props: NavbarProps) {
   return (
-    <StyledDesktopNavbar>
+    <StyledDesktopNavbar isAuthenticated={props.isAuthenticated}>
       <div>
         <Link to="/inicio">
           <Logo className="svg" />

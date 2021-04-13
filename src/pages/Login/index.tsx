@@ -46,7 +46,12 @@ export function Login() {
           onChange={(e) => setSenha(e.target.value)}
           mask=""
         />
-        <Link to="/">
+        <Link
+          to="#"
+          onClick={() =>
+            alert("Para resetar sua senha, entre em contato com o setor de TI.")
+          }
+        >
           <p>Esqueceu sua senha?</p>
         </Link>
         <ButtonGroup>

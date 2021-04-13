@@ -8,15 +8,19 @@ export function Navlinks() {
       </li>
 
       <li>
-        <Link to="/medicos">MÉDICOS</Link>
-      </li>
-
-      <li>
         <Link to="/pacientes">PACIENTES</Link>
       </li>
 
       <li>
         <Link to="/exames">EXAMES</Link>
+      </li>
+
+      <li>
+        <Link to="/medicos">MÉDICOS</Link>
+      </li>
+
+      <li>
+        <Link to="/usuarios">USUÁRIOS</Link>
       </li>
     </ul>
   );
