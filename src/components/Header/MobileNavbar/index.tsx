@@ -5,6 +5,7 @@ import { StyledMobileNavbar } from "./styles";
 interface MobileNavbarProps {
   displayMobile: boolean;
   isAuthenticated: boolean;
+  isAdmin: boolean;
 }
 
 export function MobileNavbar(props: MobileNavbarProps) {
@@ -12,6 +13,7 @@ export function MobileNavbar(props: MobileNavbarProps) {
     <StyledMobileNavbar
       displayMobile={props.displayMobile}
       isAuthenticated={props.isAuthenticated}
+      isAdmin={props.isAdmin}
     >
       <Navlinks />
       <ProfileSubmenu />

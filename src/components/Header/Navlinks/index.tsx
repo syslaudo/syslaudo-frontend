@@ -15,11 +15,11 @@ export function Navlinks() {
         <Link to="/exames">EXAMES</Link>
       </li>
 
-      <li>
+      <li className="adminFunction">
         <Link to="/medicos">MÉDICOS</Link>
       </li>
 
-      <li>
+      <li className="adminFunction">
         <Link to="/usuarios">USUÁRIOS</Link>
       </li>
     </ul>

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { Body } from "./components/Body";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -26,6 +26,19 @@ const PrivateRoute = ({ component, ...rest }: any) => {
   return <Route {...rest} render={routeComponent} />;
 };
 
+const privileges = localStorage.getItem("FUNCTION");
+const isAdmin = privileges === "admin";
+
+const AdminRoute = ({ component, ...rest }: any) => {
+  const routeComponent = (props: any) =>
+    isAdmin ? (
+      React.createElement(component, props)
+    ) : (
+      <Redirect to={{ pathname: "/inicio" }} />
+    );
+  return <Route {...rest} render={routeComponent} />;
+};
+
 function App() {
   return (
     <UsersProvider>
@@ -38,9 +51,9 @@ function App() {
               <Route path="/login" exact={true} component={Login} />
               <PrivateRoute exact={true} path="/" component={Home} />
               <PrivateRoute exact={true} path="/inicio" component={Home} />
-              <PrivateRoute exact={true} path="/usuarios" component={Users} />
+              <AdminRoute exact={true} path="/usuarios" component={Users} />
               <PrivateRoute exact={true} path="/exames" component={Exams} />
-              <PrivateRoute exact={true} path="/medicos" component={Doctors} />
+              <AdminRoute exact={true} path="/medicos" component={Doctors} />
               <PrivateRoute
                 exact={true}
                 path="/pacientes"

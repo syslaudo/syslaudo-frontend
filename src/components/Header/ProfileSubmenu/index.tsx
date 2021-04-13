@@ -6,6 +6,7 @@ export function ProfileSubmenu() {
 
   const logoutUser = () => {
     localStorage.removeItem("USERNAME");
+    localStorage.removeItem("FUNCTION");
     logout();
     window.location.reload();
   };
@@ -14,7 +15,7 @@ export function ProfileSubmenu() {
     <ul className="profile">
       <li>
         <div>
-          <span>{nomeUserName} &nbsp;&nbsp;</span>
+          <span>{nomeUserName?.split(" ")[0]} &nbsp;&nbsp;</span>
           <span>
             <i className="far fa-user-circle"></i>
           </span>

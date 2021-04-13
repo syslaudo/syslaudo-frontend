@@ -7,6 +7,9 @@ import { isAuthenticated } from "../../services/Auth";
 export function Header() {
   const [displayMobile, setDisplayMobile] = useState(false);
 
+  const privileges = localStorage.getItem("FUNCTION");
+  const isAdmin = privileges === "admin";
+
   const history = useHistory();
   useEffect(() => {
     return history.listen(() => {
@@ -23,10 +26,12 @@ export function Header() {
       <DesktopNavbar
         toggleMobile={toggleMobile}
         isAuthenticated={isAuthenticated()}
+        isAdmin={isAdmin}
       />
       <MobileNavbar
         displayMobile={displayMobile}
         isAuthenticated={isAuthenticated()}
+        isAdmin={isAdmin}
       />
     </div>
   );

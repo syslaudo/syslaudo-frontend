@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { FormComponents } from "../../components/FormComponents";
 import { LoginForm } from "./styles";
 import syslaudoApi from "../../services/syslaudoApi";
-import { login, setUserName } from "../../services/Auth";
+import { login, setPermission, setUserName } from "../../services/Auth";
 
 const { Button, ButtonGroup, Input } = FormComponents;
 
@@ -21,6 +21,7 @@ export function Login() {
       });
       login(response.data.token);
       setUserName(response.data.user.nome);
+      setPermission(response.data.user.funcao);
       history.push("/inicio");
       window.location.reload();
     } catch (error) {
