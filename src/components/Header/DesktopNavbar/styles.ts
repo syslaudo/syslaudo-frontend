@@ -44,13 +44,14 @@ export const StyledDesktopNavbar = styled.header<{ isAuthenticated: boolean }>`
       }
 
       button {
-        display: inline-block;
+        display: ${(props) =>
+          props.isAuthenticated ? "inline-block" : "none"};
       }
     }
   }
 
   .navlinks {
-    display: flex;
+    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
 
     > li {
       display: inline-block;
@@ -103,7 +104,7 @@ export const StyledDesktopNavbar = styled.header<{ isAuthenticated: boolean }>`
   }
 
   .profile {
-    display: flex;
+    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
 
     > li {
       display: inline-block;
@@ -142,7 +143,7 @@ export const StyledDesktopNavbar = styled.header<{ isAuthenticated: boolean }>`
       }
 
       &:hover > ul.logoutButton {
-        display: ${(props) => (props.isAuthenticated ? "block" : "none")};
+        display: block;
         z-index: 999999;
       }
 
