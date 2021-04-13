@@ -1,8 +1,8 @@
-import { FormComponents } from "../../components/FormComponents";
+import { FormComponents } from "../../../components/FormComponents";
 
 const { Form, Button, ButtonGroup, Input, MultilineInput } = FormComponents;
 
-export function ExamCreate() {
+export function ExamCreateForm() {
   return (
     <>
       <h1>Cadastro de Exame</h1>

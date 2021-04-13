@@ -46,9 +46,6 @@ export function Users() {
 
   const columns = [
     { name: "Id", selector: "id", sortable: true, omit: true },
-    { name: "Nome", selector: "name", sortable: true, grow: 7 },
-    { name: "E-mail", selector: "email", sortable: true, grow: 5 },
-    { name: "Tipo", selector: "type", sortable: true, grow: 4 },
     {
       name: "CPF",
       selector: "cpf",
@@ -57,6 +54,9 @@ export function Users() {
       sortable: true,
       grow: 4,
     },
+    { name: "Nome", selector: "name", sortable: true, grow: 7 },
+    { name: "E-mail", selector: "email", sortable: true, grow: 5 },
+    { name: "Tipo", selector: "type", sortable: true, grow: 4 },
   ];
 
   function onRemove(e: any) {

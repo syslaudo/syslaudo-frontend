@@ -14,6 +14,7 @@ import { isAuthenticated } from "./services/Auth";
 import { GlobalStyle } from "./styles/global";
 import { PatientsProvider } from "./hooks/usePatients";
 import { Users } from "./pages/Users";
+import { Exams } from "./pages/Exams";
 
 const PrivateRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
@@ -38,6 +39,7 @@ function App() {
               <PrivateRoute exact={true} path="/" component={Home} />
               <PrivateRoute exact={true} path="/inicio" component={Home} />
               <PrivateRoute exact={true} path="/usuarios" component={Users} />
+              <PrivateRoute exact={true} path="/exames" component={Exams} />
               <PrivateRoute exact={true} path="/medicos" component={Doctors} />
               <PrivateRoute
                 exact={true}

@@ -8,7 +8,7 @@ export function Home() {
       <CardGroup>
         <Link to="/pacientes">
           <Card>
-            <span>Cadastrar Patiente</span>
+            <span>Cadastrar Paciente</span>
           </Card>
         </Link>
         <Link to="/exames">

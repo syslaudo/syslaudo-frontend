@@ -47,7 +47,6 @@ export function Patients() {
 
   const columns = [
     { name: "Id", selector: "id", sortable: true, omit: true },
-    { name: "Nome", selector: "name", sortable: true, grow: 6 },
     {
       name: "CPF",
       selector: "cpf",
@@ -56,6 +55,7 @@ export function Patients() {
       sortable: true,
       grow: 4,
     },
+    { name: "Nome", selector: "name", sortable: true, grow: 6 },
     { name: "Sexo", selector: "sex", sortable: true, grow: 3 },
     { name: "Cor", selector: "race", sortable: true, grow: 3 },
     {
