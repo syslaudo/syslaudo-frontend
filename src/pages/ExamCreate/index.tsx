@@ -7,7 +7,7 @@ export function ExamCreate() {
     <>
       <h1>Cadastro de Exame</h1>
       <Form>
-        <Input id="nome" label="Nome do Exame" />
+        <Input id="nome" label="Nome do Exame" mask="" />
         <MultilineInput id="crm" label="Recomendações" />
 
         <ButtonGroup>

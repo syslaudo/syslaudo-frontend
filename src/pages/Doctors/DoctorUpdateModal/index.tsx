@@ -3,6 +3,9 @@ import { Modal } from "../../../components/Modal";
 
 interface Doctor {
   id: number;
+  cpf: string;
+  email: string;
+  password: string;
   name: string;
   crm: string;
   type: string;

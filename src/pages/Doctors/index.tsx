@@ -12,6 +12,9 @@ ReactModal.setAppElement("#root");
 
 interface Doctor {
   id: number;
+  cpf: string;
+  email: string;
+  password: string;
   name: string;
   crm: string;
   type: string;
@@ -25,14 +28,6 @@ export function Doctors() {
   const [doctorUpdateModalIsOpen, setDoctorUpdateModalIsOpen] = useState(false);
   const [editingDoctor, setEditingDoctor] = useState({} as Doctor);
 
-  function handleOpenDoctorUpdateModal() {
-    setDoctorUpdateModalIsOpen(true);
-  }
-
-  function handleCloseDoctorUpdateModal() {
-    setDoctorUpdateModalIsOpen(false);
-  }
-
   function handleOpenDoctorCreateModal() {
     setDoctorCreateModalIsOpen(true);
   }
@@ -41,11 +36,28 @@ export function Doctors() {
     setDoctorCreateModalIsOpen(false);
   }
 
+  function handleOpenDoctorUpdateModal() {
+    setDoctorUpdateModalIsOpen(true);
+  }
+
+  function handleCloseDoctorUpdateModal() {
+    setDoctorUpdateModalIsOpen(false);
+  }
+
   const columns = [
     { name: "Id", selector: "id", sortable: true, omit: true },
-    { name: "Nome", selector: "name", sortable: true, grow: 8 },
-    { name: "Tipo", selector: "type", sortable: true, grow: 3 },
-    { name: "CRM", selector: "crm", sortable: true, grow: 3 },
+    { name: "Nome", selector: "name", sortable: true, grow: 9 },
+    {
+      name: "CPF",
+      selector: "cpf",
+      cell: (row: any) =>
+        row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
+      sortable: true,
+      grow: 4,
+    },
+    { name: "E-mail", selector: "email", sortable: true, grow: 7 },
+    { name: "Tipo", selector: "type", sortable: true, grow: 1 },
+    { name: "CRM", selector: "crm", sortable: true, grow: 1 },
   ];
 
   function onRemove(e: any) {

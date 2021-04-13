@@ -9,6 +9,9 @@ import { api } from "../services/api";
 
 interface Doctor {
   id: number;
+  cpf: string;
+  email: string;
+  password: string;
   name: string;
   crm: string;
   type: string;

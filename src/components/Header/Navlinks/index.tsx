@@ -16,7 +16,7 @@ export function Navlinks() {
       </li>
 
       <li>
-        <Link to="/medicos">EXAMES</Link>
+        <Link to="/exames">EXAMES</Link>
       </li>
     </ul>
   );

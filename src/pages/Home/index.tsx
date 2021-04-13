@@ -6,12 +6,12 @@ export function Home() {
     <>
       <h1>Solicitações</h1>
       <CardGroup>
-        <Link to="/pacientes/cadastro">
+        <Link to="/pacientes">
           <Card>
-            <span>Cadastrar Paciente</span>
+            <span>Cadastrar Patiente</span>
           </Card>
         </Link>
-        <Link to="/exames/solicitacao">
+        <Link to="/exames">
           <Card>
             <span>Solicitar Exame</span>
           </Card>
@@ -20,22 +20,22 @@ export function Home() {
 
       <h1>Exames</h1>
       <CardGroup>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
             <span>Lista de Exames</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
             <span>Exames Pendentes</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
             <span>Laudos Pendentes</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
             <span>Laudos Aprovados</span>
           </Card>
