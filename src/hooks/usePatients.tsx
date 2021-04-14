@@ -4,27 +4,28 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { api } from "../services/api";
+} from 'react';
+import api from '../services/api';
+import { isAuthenticated } from '../services/Auth';
 
 interface Patient {
-  id: number;
+  id: string;
   cpf: string;
-  name: string;
-  sex: string;
-  race: string;
-  birth: Date;
+  nome_paciente: string;
+  sexo_paciente: string;
+  cor_paciente: string;
+  datanasc_paciente: Date;
 }
 
-type PatientInput = Omit<Patient, "id">;
+type PatientInput = Omit<Patient, 'id'>;
 
 interface PatientsContextData {
   patients: Patient[];
   createPatient: (patientInput: PatientInput) => Promise<void>;
   removePatient: (patientId: string) => Promise<void>;
   updatePatient: (
-    patientId: number,
-    patientInput: PatientInput
+    patientId: string,
+    patientInput: PatientInput,
   ) => Promise<void>;
 }
 
@@ -33,7 +34,7 @@ interface PatientsProviderProps {
 }
 
 const PatientsContext = createContext<PatientsContextData>(
-  {} as PatientsContextData
+  {} as PatientsContextData,
 );
 
 export function PatientsProvider({ children }: PatientsProviderProps) {
@@ -41,35 +42,55 @@ export function PatientsProvider({ children }: PatientsProviderProps) {
 
   useEffect(() => {
     async function loadPatients() {
-      await api.get("/patients").then((response) => setPatients(response.data));
+      const response = await api.get('/paciente/listAll');
+      console.log(response);
+
+      const patients = response.data.map(
+        (patient: any) =>
+          (patient = {
+            id: patient.id_paciente,
+            cpf: patient.cpf,
+            nome_paciente: patient.nome_paciente,
+            sexo_paciente: patient.sexo_paciente,
+            cor_paciente: patient.cor_paciente,
+            datanasc_paciente: patient.datanasc_paciente,
+          }),
+      );
+
+      setPatients(patients);
     }
 
-    loadPatients();
+    if (isAuthenticated()) {
+      loadPatients();
+    }
   }, []);
 
   async function createPatient(patientInput: PatientInput) {
-    const response = await api.post("/patients", patientInput);
+    const response = await api.post('/paciente/create', {
+      ...patientInput,
+      aguardando_realizacao: false,
+    });
     setPatients([...patients, response.data]);
   }
 
   async function removePatient(patientId: string) {
-    await api.delete(`/patients/${patientId}`);
+    await api.delete(`/paciente/delete/${patientId}`);
 
     const patientsFiltered = patients.filter(
-      (patient) => patient.id !== Number(patientId)
+      (patient) => patient.id !== patientId,
     );
 
     setPatients(patientsFiltered);
   }
 
-  async function updatePatient(patientId: number, patientInput: PatientInput) {
-    const updatedPatient = await api.put(`/patients/${patientId}`, {
+  async function updatePatient(patientId: string, patientInput: PatientInput) {
+    const updatedPatient = await api.put(`/paciente/update/${patientId}`, {
       ...patientInput,
-      id: patientId,
+      aguardando_realizacao: false,
     });
 
     const updatedPatients = patients.map((patient) =>
-      patient.id !== updatedPatient.data.id ? patient : updatedPatient.data
+      patient.id !== updatedPatient.data.id ? patient : updatedPatient.data,
     );
 
     setPatients(updatedPatients);

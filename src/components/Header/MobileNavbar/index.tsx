@@ -1,6 +1,6 @@
-import { Navlinks } from "../Navlinks";
-import { ProfileSubmenu } from "../ProfileSubmenu";
-import { StyledMobileNavbar } from "./styles";
+import { Navlinks } from '../Navlinks';
+import { ProfileSubmenu } from '../ProfileSubmenu';
+import { StyledMobileNavbar } from './styles';
 
 interface MobileNavbarProps {
   displayMobile: boolean;

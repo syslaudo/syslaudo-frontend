@@ -1,70 +1,70 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const customStyles = {
   table: {
     style: {
-      color: "var(--text)",
-      backgroundColor: "var(--background)",
+      color: 'var(--text)',
+      backgroundColor: 'var(--background)',
     },
   },
   tableWrapper: {
     style: {
-      display: "table",
+      display: 'table',
     },
   },
   headRow: {
     style: {
-      backgroundColor: "var(--background)",
-      minHeight: "2rem",
-      borderBottomWidth: "1px",
-      borderBottomColor: "var(--hover)",
+      backgroundColor: 'var(--background)',
+      minHeight: '2rem',
+      borderBottomWidth: '1px',
+      borderBottomColor: 'var(--hover)',
     },
   },
   rows: {
     style: {
-      backgroundColor: "var(--shadow)",
-      fontSize: "1rem",
-      color: "var(--text)",
-      minHeight: "2rem",
-      "&:not(:last-of-type)": {
-        borderBottomStyle: "solid",
-        borderBottomWidth: "1px",
-        borderBottomColor: "var(--hover)",
+      backgroundColor: 'var(--shadow)',
+      fontSize: '1rem',
+      color: 'var(--text)',
+      minHeight: '2rem',
+      '&:not(:last-of-type)': {
+        borderBottomStyle: 'solid',
+        borderBottomWidth: '1px',
+        borderBottomColor: 'var(--hover)',
       },
     },
     stripedStyle: {
-      backgroundColor: "var(--background)",
+      backgroundColor: 'var(--background)',
     },
   },
   headCells: {
     style: {
-      color: "var(--text)",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
+      color: 'var(--text)',
+      paddingLeft: '0.5rem',
+      paddingRight: '0.5rem',
       fontWeight: 700,
-      fontSize: "1rem",
+      fontSize: '1rem',
     },
   },
   cells: {
     style: {
-      color: "var(--text)",
-      paddingLeft: "0.5rem",
-      paddingRight: "0.5rem",
-      fontSize: "1rem",
+      color: 'var(--text)',
+      paddingLeft: '0.5rem',
+      paddingRight: '0.5rem',
+      fontSize: '1rem',
     },
   },
   pagination: {
     style: {
-      fontSize: "1rem",
-      minHeight: "2rem",
-      backgroundColor: "var(--background)",
+      fontSize: '1rem',
+      minHeight: '2rem',
+      backgroundColor: 'var(--background)',
     },
   },
   expanderRow: {
     style: {
-      color: "var(--text)",
-      backgroundColor: "var(--white)",
-      paddingLeft: "4rem",
+      color: 'var(--text)',
+      backgroundColor: 'var(--white)',
+      paddingLeft: '4rem',
     },
   },
 };
@@ -81,7 +81,7 @@ export const FilterInput = styled.div`
     line-height: 2rem;
     padding: 0 0.5rem;
     color: var(--text);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     border: 1px solid var(--border);
     background: var(--background);
@@ -109,7 +109,7 @@ export const FilterInput = styled.div`
     line-height: 2rem;
     padding: 0 0.5rem;
     color: var(--white);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     border: 1px solid var(--border);
     border-left: none;
@@ -141,7 +141,7 @@ export const FilterInput = styled.div`
     text-align: center;
     line-height: 2rem;
     color: var(--text);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     border: 1px solid var(--border);
     background: var(--background);

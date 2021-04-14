@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { FormComponents } from "../../components/FormComponents";
-import { LoginForm } from "./styles";
-import syslaudoApi from "../../services/syslaudoApi";
-import { login, setPermission, setUserName } from "../../services/Auth";
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FormComponents } from '../../components/FormComponents';
+import { LoginForm } from './styles';
+import api from '../../services/api';
+import { login, setPermission, setUserName } from '../../services/Auth';
 
 const { Button, ButtonGroup, Input } = FormComponents;
 
 export function Login() {
-  const [email_usuario, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email_usuario, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
   const history = useHistory();
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await syslaudoApi.post("/session/login", {
+      const response = await api.post('/session/login', {
         email_usuario,
         senha,
       });
       login(response.data.token);
       setUserName(response.data.user.nome);
-      setPermission(response.data.user.funcao);
-      history.push("/inicio");
+      setPermission(response.data.user.tipo);
+      history.push('/inicio');
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ export function Login() {
         <Link
           to="#"
           onClick={() =>
-            alert("Para resetar sua senha, entre em contato com o setor de TI.")
+            alert('Para resetar sua senha, entre em contato com o setor de TI.')
           }
         >
           <p>Esqueceu sua senha?</p>

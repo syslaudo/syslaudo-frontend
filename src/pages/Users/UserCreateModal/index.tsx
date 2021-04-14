@@ -1,5 +1,5 @@
-import { UserForm } from "../UserForm";
-import { Modal } from "../../../components/Modal";
+import { UserForm } from '../UserForm';
+import { Modal } from '../../../components/Modal';
 
 interface UserCreateModalProps {
   isOpen: boolean;

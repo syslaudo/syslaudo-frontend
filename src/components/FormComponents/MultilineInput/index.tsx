@@ -1,4 +1,4 @@
-import { StyledMultilineInput } from "./styles";
+import { StyledMultilineInput } from './styles';
 
 interface MultilineInputProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

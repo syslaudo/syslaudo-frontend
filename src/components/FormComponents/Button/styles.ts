@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledButton = styled.button<{ primary?: boolean }>`
   padding: 0.5rem 1.5rem;
@@ -6,15 +6,15 @@ export const StyledButton = styled.button<{ primary?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => (props.primary ? "var(--background)" : "var(--text)")};
+  color: ${(props) => (props.primary ? 'var(--background)' : 'var(--text)')};
   background: ${(props) =>
-    props.primary ? "var(--primary)" : "var(--background)"};
+    props.primary ? 'var(--primary)' : 'var(--background)'};
   transition: 0.1s;
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
   border-color: ${(props) =>
-    props.primary ? "var(--primary)" : "var(--text)"};
+    props.primary ? 'var(--primary)' : 'var(--text)'};
   font-size: 1rem;
   text-transform: uppercase;
 

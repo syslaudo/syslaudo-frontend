@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { StyledTabs } from "./styles";
-import { Tabs as ReactTabs } from "react-tabs";
+import { ReactNode } from 'react';
+import { StyledTabs } from './styles';
+import { Tabs as ReactTabs } from 'react-tabs';
 
 interface TabsProps {
   children: ReactNode;

@@ -4,28 +4,29 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { api } from "../services/api";
+} from 'react';
+import api from '../services/api';
+import { isAdmin } from '../services/Auth';
 
 interface User {
-  id: number;
+  id: string;
   cpf: string;
-  email: string;
-  password: string;
-  name: string;
-  type: string;
+  email_usuario: string;
+  senha?: string;
+  nome_do_usuario: string;
+  tipo: string;
   crm?: string;
-  date?: Date;
-  title?: string;
+  data_residencia?: string;
+  titulacao?: string;
 }
 
-type UserInput = Omit<User, "id">;
+type UserInput = Omit<User, 'id'>;
 
 interface UsersContextData {
   users: User[];
   createUser: (userInput: UserInput) => Promise<void>;
   removeUser: (userId: string) => Promise<void>;
-  updateUser: (userId: number, userInput: UserInput) => Promise<void>;
+  updateUser: (userId: string, userInput: UserInput) => Promise<void>;
 }
 
 interface UsersProviderProps {
@@ -39,33 +40,34 @@ export function UsersProvider({ children }: UsersProviderProps) {
 
   useEffect(() => {
     async function loadUsers() {
-      await api.get("/users").then((response) => setUsers(response.data));
+      await api
+        .get('/usuario/listAll')
+        .then((response) => setUsers(response.data));
     }
 
-    loadUsers();
+    if (isAdmin()) {
+      loadUsers();
+    }
   }, []);
 
   async function createUser(userInput: UserInput) {
-    const response = await api.post("/users", userInput);
+    const response = await api.post('/usuario/create', userInput);
     setUsers([...users, response.data]);
   }
 
   async function removeUser(userId: string) {
-    await api.delete(`/users/${userId}`);
+    await api.delete(`/usuario/delete/${userId}`);
 
-    const usersFiltered = users.filter((user) => user.id !== Number(userId));
+    const usersFiltered = users.filter((user) => user.id !== userId);
 
     setUsers(usersFiltered);
   }
 
-  async function updateUser(userId: number, userInput: UserInput) {
-    const updatedUser = await api.put(`/users/${userId}`, {
-      ...userInput,
-      id: userId,
-    });
+  async function updateUser(userId: string, userInput: UserInput) {
+    const updatedUser = await api.put(`/usuario/update/${userId}`, userInput);
 
     const updatedUsers = users.map((user) =>
-      user.id !== updatedUser.data.id ? user : updatedUser.data
+      user.id !== updatedUser.data.id ? user : updatedUser.data,
     );
 
     setUsers(updatedUsers);

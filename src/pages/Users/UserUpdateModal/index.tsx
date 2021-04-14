@@ -1,16 +1,16 @@
-import { UserForm } from "../UserForm";
-import { Modal } from "../../../components/Modal";
+import { UserForm } from '../UserForm';
+import { Modal } from '../../../components/Modal';
 
 interface User {
-  id: number;
+  id: string;
+  email_usuario: string;
   cpf: string;
-  email: string;
-  password: string;
-  name: string;
-  type: string;
+  senha?: string;
+  nome_do_usuario: string;
+  tipo: string;
   crm?: string;
-  date?: Date;
-  title?: string;
+  data_residencia?: string;
+  titulacao?: string;
 }
 
 interface UserUpdateModalProps {
@@ -24,7 +24,7 @@ export function UserUpdateModal(props: UserUpdateModalProps) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
-      <h1>Atualizar Médico</h1>
+      <h1>Atualizar Usuário</h1>
       <UserForm editingUser={editingUser} onRequestClose={onRequestClose} />
     </Modal>
   );

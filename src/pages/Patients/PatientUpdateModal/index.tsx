@@ -1,13 +1,13 @@
-import { Modal } from "../../../components/Modal";
-import { PatientForm } from "../PatientForm";
+import { Modal } from '../../../components/Modal';
+import { PatientForm } from '../PatientForm';
 
 interface Patient {
-  id: number;
+  id: string;
   cpf: string;
-  name: string;
-  sex: string;
-  race: string;
-  birth: Date;
+  nome_paciente: string;
+  sexo_paciente: string;
+  cor_paciente: string;
+  datanasc_paciente: Date;
 }
 
 interface PatientUpdateModalProps {
