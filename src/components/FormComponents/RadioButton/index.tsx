@@ -1,4 +1,4 @@
-import { StyledRadioButton } from "./styles";
+import { StyledRadioButton } from './styles';
 
 interface RadioButtonProps
   extends React.InputHTMLAttributes<HTMLInputElement>,

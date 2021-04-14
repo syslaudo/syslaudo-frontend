@@ -1,4 +1,4 @@
-import { StyledForm } from "./styles";
+import { StyledForm } from './styles';
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {}
 

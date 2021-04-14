@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
-import { DesktopNavbar } from "./DesktopNavbar";
-import { MobileNavbar } from "./MobileNavbar";
-import { useHistory } from "react-router-dom";
-import { isAuthenticated } from "../../services/Auth";
+import { useEffect, useState } from 'react';
+import { DesktopNavbar } from './DesktopNavbar';
+import { MobileNavbar } from './MobileNavbar';
+import { useHistory } from 'react-router-dom';
+import { isAuthenticated, isAdmin } from '../../services/Auth';
 
 export function Header() {
   const [displayMobile, setDisplayMobile] = useState(false);
-
-  const privileges = localStorage.getItem("FUNCTION");
-  const isAdmin = privileges === "admin";
 
   const history = useHistory();
   useEffect(() => {
@@ -26,12 +23,12 @@ export function Header() {
       <DesktopNavbar
         toggleMobile={toggleMobile}
         isAuthenticated={isAuthenticated()}
-        isAdmin={isAdmin}
+        isAdmin={isAdmin()}
       />
       <MobileNavbar
         displayMobile={displayMobile}
         isAuthenticated={isAuthenticated()}
-        isAdmin={isAdmin}
+        isAdmin={isAdmin()}
       />
     </div>
   );

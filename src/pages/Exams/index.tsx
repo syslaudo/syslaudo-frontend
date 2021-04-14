@@ -1,4 +1,4 @@
-import { ExamRequestForm } from "./ExamRequestForm";
+import { ExamRequestForm } from './ExamRequestForm';
 
 export function Exams() {
   return (

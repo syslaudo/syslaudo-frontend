@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledDesktopNavbar = styled.header<{
   isAuthenticated: boolean;
@@ -48,16 +48,16 @@ export const StyledDesktopNavbar = styled.header<{
 
       button {
         display: ${(props) =>
-          props.isAuthenticated ? "inline-block" : "none"};
+          props.isAuthenticated ? 'inline-block' : 'none'};
       }
     }
   }
 
   .navlinks {
-    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
+    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
 
     .adminFunction {
-      display: ${(props) => (props.isAdmin ? "inline-block" : "none")};
+      display: ${(props) => (props.isAdmin ? 'inline-block' : 'none')};
     }
 
     > li {
@@ -111,7 +111,7 @@ export const StyledDesktopNavbar = styled.header<{
   }
 
   .profile {
-    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
+    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
 
     > li {
       display: inline-block;

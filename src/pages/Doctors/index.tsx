@@ -1,25 +1,25 @@
-import { useState } from "react";
-import ReactModal from "react-modal";
-import { toast } from "react-toastify";
-import { Button } from "../../components/FormComponents/Button";
-import { Table } from "../../components/Table";
-import { useUsers } from "../../hooks/useUsers";
-import { DoctorCreateModal } from "./DoctorCreateModal";
-import { DoctorUpdateModal } from "./DoctorUpdateModal";
-import { StyledContainer } from "./styles";
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import { toast } from 'react-toastify';
+import { Button } from '../../components/FormComponents/Button';
+import { Table } from '../../components/Table';
+import { useUsers } from '../../hooks/useUsers';
+import { DoctorCreateModal } from './DoctorCreateModal';
+import { DoctorUpdateModal } from './DoctorUpdateModal';
+import { StyledContainer } from './styles';
 
-ReactModal.setAppElement("#root");
+ReactModal.setAppElement('#root');
 
 interface Doctor {
-  id: number;
+  id: string;
   cpf: string;
-  email: string;
-  password: string;
-  name: string;
-  type: string;
+  email_usuario: string;
+  senha: string;
+  nome_do_usuario: string;
+  tipo: string;
   crm?: string;
-  date?: Date;
-  title?: string;
+  data_residencia?: string;
+  titulacao?: string;
 }
 
 export function Doctors() {
@@ -45,46 +45,45 @@ export function Doctors() {
   }
 
   const columns = [
-    { name: "Id", selector: "id", sortable: true, omit: true },
+    { name: 'Id', selector: 'id', sortable: true, omit: true },
     {
-      name: "CPF",
-      selector: "cpf",
+      name: 'CPF',
+      selector: 'cpf',
       cell: (row: any) =>
-        row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
+        row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
       sortable: true,
       grow: 3,
     },
-    { name: "Nome", selector: "name", sortable: true, grow: 6 },
-    { name: "CRM", selector: "crm", sortable: true, grow: 1 },
-    { name: "Tipo", selector: "type", sortable: true, grow: 2 },
+    { name: 'Nome', selector: 'nome_do_usuario', sortable: true, grow: 6 },
+    { name: 'CRM', selector: 'crm', sortable: true, grow: 1 },
+    { name: 'Tipo', selector: 'tipo', sortable: true, grow: 2 },
     {
-      name: "Início da Residência",
-      selector: "date",
-      cell: (row: any) => (row.date ? String(row.date).split("T")[0] : ""),
+      name: 'Início da Residência',
+      selector: 'data_residencia',
       sortable: true,
       grow: 2,
     },
-    { name: "Titulação", selector: "title", sortable: true, grow: 2 },
+    { name: 'Titulação', selector: 'titulacao', sortable: true, grow: 2 },
   ];
 
   function onRemove(e: any) {
     var id = e.target.parentNode.id;
     if (
       window.confirm(
-        "Tem certeza que deseja remover esse item? Esta ação é irreversível!"
+        'Tem certeza que deseja remover esse item? Esta ação é irreversível!',
       )
     ) {
       removeDoctor(id);
-      toast.success("Removido com sucesso!");
+      toast.success('Removido com sucesso!');
     }
   }
 
   function onEdit(e: any) {
     var id = e.target.parentNode.id;
-    const doctor = doctors.find((doctor) => doctor.id === Number(id));
+    const doctor = doctors.find((doctor) => doctor.id === id);
 
     if (!doctor) {
-      toast.error("Doctor not in database.");
+      toast.error('Doctor not in database.');
       return;
     }
 
@@ -101,7 +100,7 @@ export function Doctors() {
       <Table
         title="Lista de Médicos"
         columns={columns}
-        data={doctors.filter((doctor) => doctor.type !== "Administrador")}
+        data={doctors.filter((doctor) => doctor.tipo !== 'Administrador')}
         onEdit={onEdit}
         onRemove={onRemove}
       />

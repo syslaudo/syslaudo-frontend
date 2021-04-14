@@ -1,4 +1,4 @@
-import { StyledBody } from "./styles";
+import { StyledBody } from './styles';
 
 interface BodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 

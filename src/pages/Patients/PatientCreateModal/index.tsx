@@ -1,5 +1,5 @@
-import { Modal } from "../../../components/Modal";
-import { PatientForm } from "../PatientForm";
+import { Modal } from '../../../components/Modal';
+import { PatientForm } from '../PatientForm';
 
 interface PatientCreateModalProps {
   isOpen: boolean;

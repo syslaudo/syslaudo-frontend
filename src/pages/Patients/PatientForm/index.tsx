@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { FormComponents } from "../../../components/FormComponents";
-import { usePatients } from "../../../hooks/usePatients";
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { FormComponents } from '../../../components/FormComponents';
+import { usePatients } from '../../../hooks/usePatients';
 
 const {
   Form,
@@ -13,12 +13,12 @@ const {
 } = FormComponents;
 
 interface Patient {
-  id: number;
+  id: string;
   cpf: string;
-  name: string;
-  sex: string;
-  race: string;
-  birth: Date;
+  nome_paciente: string;
+  sexo_paciente: string;
+  cor_paciente: string;
+  datanasc_paciente: Date;
 }
 
 interface PatientFormProps {
@@ -31,46 +31,50 @@ export function PatientForm({
   onRequestClose,
 }: PatientFormProps) {
   const { createPatient, updatePatient } = usePatients();
-  const [cpf, setCpf] = useState("");
-  const [name, setName] = useState("");
-  const [sex, setSex] = useState("Masculino");
-  const [race, setRace] = useState("Amarelo");
-  const [birth, setBirth] = useState("");
+  const [cpf, setCpf] = useState('');
+  const [name, setName] = useState('');
+  const [sex, setSex] = useState('Masculino');
+  const [race, setRace] = useState('Amarelo');
+  const [birth, setBirth] = useState('');
 
   useEffect(() => {
-    setName(editingPatient ? editingPatient.name : "");
-    setCpf(editingPatient ? editingPatient.cpf : "");
-    setSex(editingPatient ? editingPatient.sex : "Masculino");
-    setRace(editingPatient ? editingPatient.race : "Amarelo");
-    setBirth(editingPatient ? String(editingPatient.birth).split("T")[0] : "");
+    setName(editingPatient ? editingPatient.nome_paciente : '');
+    setCpf(editingPatient ? editingPatient.cpf : '');
+    setSex(editingPatient ? editingPatient.sexo_paciente : 'Masculino');
+    setRace(editingPatient ? editingPatient.cor_paciente : 'Amarelo');
+    setBirth(
+      editingPatient
+        ? String(editingPatient.datanasc_paciente).split('T')[0]
+        : '',
+    );
   }, [editingPatient]);
 
   function handleReset() {
     if (editingPatient) {
-      setName(editingPatient.name);
+      setName(editingPatient.nome_paciente);
       setCpf(editingPatient.cpf);
-      setSex(editingPatient.sex);
-      setRace(editingPatient.race);
-      setBirth(String(editingPatient.birth).split("T")[0]);
+      setSex(editingPatient.sexo_paciente);
+      setRace(editingPatient.cor_paciente);
+      setBirth(String(editingPatient.datanasc_paciente).split('T')[0]);
     } else {
-      setName("");
-      setCpf("");
-      setSex("Masculino");
-      setRace("Amarelo");
-      setBirth("");
+      setName('');
+      setCpf('');
+      setSex('Masculino');
+      setRace('Amarelo');
+      setBirth('');
     }
   }
 
+  const patient = {
+    cpf: cpf.replace(/[^0-9]+/g, ''),
+    nome_paciente: name,
+    sexo_paciente: sex,
+    cor_paciente: race,
+    datanasc_paciente: new Date(birth),
+  };
+
   async function handleCreateNewPatient(event: FormEvent) {
     event.preventDefault();
-
-    const patient = {
-      cpf: cpf.replace(/[^0-9]+/g, ""),
-      name,
-      sex,
-      race,
-      birth: new Date(birth),
-    };
 
     try {
       await createPatient(patient);
@@ -79,22 +83,14 @@ export function PatientForm({
       } else {
         handleReset();
       }
-      toast.success("Cadastro realizado com sucesso!");
+      toast.success('Cadastro realizado com sucesso!');
     } catch {
-      toast.error("Erro! Cadastro não efetuado");
+      toast.error('Erro! Cadastro não efetuado');
     }
   }
 
   async function handleUpdatePatient(event: FormEvent) {
     event.preventDefault();
-
-    const patient = {
-      cpf: cpf.replace(/[^0-9]+/g, ""),
-      name,
-      sex,
-      race,
-      birth: new Date(birth),
-    };
 
     try {
       if (!editingPatient) {
@@ -106,9 +102,9 @@ export function PatientForm({
       if (onRequestClose) {
         onRequestClose();
       }
-      toast.success("Cadastro atualizado com sucesso!");
+      toast.success('Cadastro atualizado com sucesso!');
     } catch {
-      toast.error("Erro! Atualização não efetuada");
+      toast.error('Erro! Atualização não efetuada');
     }
   }
 
@@ -149,28 +145,28 @@ export function PatientForm({
           id="Masculino"
           value="Masculino"
           onChange={(event) => setSex(event.target.value)}
-          checked={sex === "Masculino"}
+          checked={sex === 'Masculino'}
         />
         <RadioButton
           name="sex"
           id="Feminino"
           value="Feminino"
           onChange={(event) => setSex(event.target.value)}
-          checked={sex === "Feminino"}
+          checked={sex === 'Feminino'}
         />
         <RadioButton
           name="sex"
           id="Outro"
           value="Outro"
           onChange={(event) => setSex(event.target.value)}
-          checked={sex === "Outro"}
+          checked={sex === 'Outro'}
         />
         <RadioButton
           name="sex"
           id="Não informar"
           value="Não informado"
           onChange={(event) => setSex(event.target.value)}
-          checked={sex === "Não informado"}
+          checked={sex === 'Não informado'}
         />
       </RadioGroup>
 
@@ -180,42 +176,42 @@ export function PatientForm({
           id="Amarelo"
           value="Amarelo"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Amarelo"}
+          checked={race === 'Amarelo'}
         />
         <RadioButton
           name="race"
           id="Branco"
           value="Branco"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Branco"}
+          checked={race === 'Branco'}
         />
         <RadioButton
           name="race"
           id="Indígena"
           value="Indígena"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Indígena"}
+          checked={race === 'Indígena'}
         />
         <RadioButton
           name="race"
           id="Preto"
           value="Negro"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Negro"}
+          checked={race === 'Negro'}
         />
         <RadioButton
           name="race"
           id="Pardo"
           value="Pardo"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Pardo"}
+          checked={race === 'Pardo'}
         />
         <RadioButton
           name="race"
           id="Não informar"
           value="Não informado"
           onChange={(event) => setRace(event.target.value)}
-          checked={race === "Não informado"}
+          checked={race === 'Não informado'}
         />
       </RadioGroup>
 

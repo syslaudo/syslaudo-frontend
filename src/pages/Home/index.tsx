@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Card, CardGroup } from "./styles";
+import { Link } from 'react-router-dom';
+import { Card, CardGroup } from './styles';
 
 export function Home() {
   return (

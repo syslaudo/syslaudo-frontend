@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledMobileNavbar = styled.nav<{
   displayMobile: boolean;
@@ -6,7 +6,7 @@ export const StyledMobileNavbar = styled.nav<{
   isAdmin: boolean;
 }>`
   width: 100vw;
-  display: ${(props) => (props.displayMobile ? "flex" : "none")};
+  display: ${(props) => (props.displayMobile ? 'flex' : 'none')};
   flex-direction: column;
   font-size: 1.1rem;
 
@@ -34,7 +34,7 @@ export const StyledMobileNavbar = styled.nav<{
   }
 
   .logoutButton {
-    display: ${(props) => (props.isAuthenticated ? "" : "none")};
+    display: ${(props) => (props.isAuthenticated ? '' : 'none')};
   }
 
   @media screen and (min-width: 901px) {

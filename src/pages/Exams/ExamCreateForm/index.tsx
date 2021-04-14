@@ -1,4 +1,4 @@
-import { FormComponents } from "../../../components/FormComponents";
+import { FormComponents } from '../../../components/FormComponents';
 
 const { Form, Button, ButtonGroup, Input, MultilineInput } = FormComponents;
 

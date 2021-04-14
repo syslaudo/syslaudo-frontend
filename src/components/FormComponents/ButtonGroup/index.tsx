@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { StyledButtonGroup } from "./styles";
+import { ReactNode } from 'react';
+import { StyledButtonGroup } from './styles';
 
 interface ButtonGroupProps {
   children: ReactNode;

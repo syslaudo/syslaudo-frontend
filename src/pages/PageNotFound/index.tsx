@@ -1,5 +1,5 @@
-import { ReactComponent as PageNotFoundImg } from "../../assets/undraw_not_found_60pq.svg";
-import { PageNotFoundContainer } from "./style";
+import { ReactComponent as PageNotFoundImg } from '../../assets/undraw_not_found_60pq.svg';
+import { PageNotFoundContainer } from './style';
 
 export function PageNotFound() {
   return (

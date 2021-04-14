@@ -1,25 +1,25 @@
-import { useState } from "react";
-import ReactModal from "react-modal";
-import { toast } from "react-toastify";
-import { useUsers } from "../../hooks/useUsers";
-import { StyledContainer } from "./styles";
-import { Button } from "../../components/FormComponents/Button";
-import { Table } from "../../components/Table";
-import { UserCreateModal } from "./UserCreateModal";
-import { UserUpdateModal } from "./UserUpdateModal";
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import { toast } from 'react-toastify';
+import { useUsers } from '../../hooks/useUsers';
+import { StyledContainer } from './styles';
+import { Button } from '../../components/FormComponents/Button';
+import { Table } from '../../components/Table';
+import { UserCreateModal } from './UserCreateModal';
+import { UserUpdateModal } from './UserUpdateModal';
 
-ReactModal.setAppElement("#root");
+ReactModal.setAppElement('#root');
 
 interface User {
-  id: number;
+  id: string;
   cpf: string;
-  email: string;
-  password: string;
-  name: string;
-  type: string;
+  email_usuario: string;
+  senha: string;
+  nome_do_usuario: string;
+  tipo: string;
   crm?: string;
-  date?: Date;
-  title?: string;
+  data_residencia?: string;
+  titulacao?: string;
 }
 
 export function Users() {
@@ -45,38 +45,38 @@ export function Users() {
   }
 
   const columns = [
-    { name: "Id", selector: "id", sortable: true, omit: true },
+    { name: 'Id', selector: 'id', sortable: true, omit: true },
     {
-      name: "CPF",
-      selector: "cpf",
+      name: 'CPF',
+      selector: 'cpf',
       cell: (row: any) =>
-        row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"),
+        row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
       sortable: true,
       grow: 4,
     },
-    { name: "Nome", selector: "name", sortable: true, grow: 7 },
-    { name: "E-mail", selector: "email", sortable: true, grow: 5 },
-    { name: "Tipo", selector: "type", sortable: true, grow: 4 },
+    { name: 'Nome', selector: 'nome_do_usuario', sortable: true, grow: 7 },
+    { name: 'E-mail', selector: 'email_usuario', sortable: true, grow: 5 },
+    { name: 'Tipo', selector: 'tipo', sortable: true, grow: 4 },
   ];
 
   function onRemove(e: any) {
     var id = e.target.parentNode.id;
     if (
       window.confirm(
-        "Tem certeza que deseja remover esse item? Esta ação é irreversível!"
+        'Tem certeza que deseja remover esse item? Esta ação é irreversível!',
       )
     ) {
       removeUser(id);
-      toast.success("Removido com sucesso!");
+      toast.success('Removido com sucesso!');
     }
   }
 
   function onEdit(e: any) {
     var id = e.target.parentNode.id;
-    const user = users.find((user) => user.id === Number(id));
+    const user = users.find((user) => user.id === id);
 
     if (!user) {
-      toast.error("Doctor not in database.");
+      toast.error('Doctor not in database.');
       return;
     }
 

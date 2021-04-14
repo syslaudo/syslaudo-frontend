@@ -1,4 +1,4 @@
-import { StyledRadioGroup } from "./styles";
+import { StyledRadioGroup } from './styles';
 
 interface RadioGroupProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   label: string;

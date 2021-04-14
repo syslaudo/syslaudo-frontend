@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { StyledForm } from "../../components/FormComponents/Form/styles";
+import styled from 'styled-components';
+import { StyledForm } from '../../components/FormComponents/Form/styles';
 
 export const LoginForm = styled(StyledForm)`
   margin-top: 5vh;

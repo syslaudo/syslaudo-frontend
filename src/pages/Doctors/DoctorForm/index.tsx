@@ -1,8 +1,8 @@
-import { FormEvent, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { FormComponents } from "../../../components/FormComponents";
-import { useUsers } from "../../../hooks/useUsers";
-import { StyledDoctorForm } from "./styles";
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { FormComponents } from '../../../components/FormComponents';
+import { useUsers } from '../../../hooks/useUsers';
+import { StyledDoctorForm } from './styles';
 
 const {
   Button,
@@ -14,15 +14,15 @@ const {
 } = FormComponents;
 
 interface Doctor {
-  id: number;
-  email: string;
+  id: string;
+  email_usuario: string;
   cpf: string;
-  password: string;
-  name: string;
-  type: string;
+  senha: string;
+  nome_do_usuario: string;
+  tipo: string;
   crm?: string;
-  date?: Date;
-  title?: string;
+  data_residencia?: string;
+  titulacao?: string;
 }
 
 interface DoctorFormProps {
@@ -32,78 +32,83 @@ interface DoctorFormProps {
 
 export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   const { createUser: createDoctor, updateUser: updateDoctor } = useUsers();
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [name, setName] = useState("");
-  const [crm, setCrm] = useState("");
-  const [type, setType] = useState("Médico");
-  const [residencyStartingDate, setResidencyStartingDate] = useState("");
-  const [title, setTitle] = useState("");
+  const [cpf, setCpf] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [name, setName] = useState('');
+  const [crm, setCrm] = useState('');
+  const [type, setType] = useState('Médico');
+  const [residencyDate, setResidencyDate] = useState('');
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
-    setCpf(editingDoctor ? editingDoctor.cpf : "");
-    setEmail(editingDoctor ? editingDoctor.email : "");
-    setPassword(editingDoctor ? editingDoctor.password : "");
-    setPasswordCheck(editingDoctor ? editingDoctor.password : "");
-    setName(editingDoctor ? editingDoctor.name : "");
-    setCrm(editingDoctor?.crm ? editingDoctor.crm : "");
-    setType(editingDoctor ? editingDoctor.type : "Médico");
-    setResidencyStartingDate(
-      editingDoctor?.date ? String(editingDoctor.date).split("T")[0] : ""
+    setCpf(editingDoctor ? editingDoctor.cpf : '');
+    setEmail(editingDoctor ? editingDoctor.email_usuario : '');
+    setPassword('');
+    setPasswordCheck('');
+    setName(editingDoctor ? editingDoctor.nome_do_usuario : '');
+    setCrm(editingDoctor?.crm ? editingDoctor.crm : '');
+    setType(editingDoctor ? editingDoctor.tipo : 'Médico');
+    setResidencyDate(
+      editingDoctor?.data_residencia
+        ? String(editingDoctor.data_residencia).split('T')[0]
+        : '',
     );
-    setTitle(editingDoctor?.title ? editingDoctor.title : "");
+    setTitle(editingDoctor?.titulacao ? editingDoctor.titulacao : '');
   }, [editingDoctor]);
 
   function handleReset() {
     if (editingDoctor) {
       setCpf(editingDoctor.cpf);
-      setEmail(editingDoctor.email);
-      setPassword(editingDoctor.password);
-      setPasswordCheck(editingDoctor.password);
-      setName(editingDoctor.name);
-      setCrm(editingDoctor.crm ? editingDoctor.crm : "");
-      setType(editingDoctor.type);
-      setResidencyStartingDate(
-        editingDoctor.date ? String(editingDoctor.date).split("T")[0] : ""
+      setEmail(editingDoctor.email_usuario);
+      setPassword('');
+      setPasswordCheck('');
+      setName(editingDoctor.nome_do_usuario);
+      setCrm(editingDoctor.crm ? editingDoctor.crm : '');
+      setType(editingDoctor.tipo);
+      setResidencyDate(
+        editingDoctor.data_residencia
+          ? String(editingDoctor.data_residencia).split('T')[0]
+          : '',
       );
-      setTitle(editingDoctor.title ? editingDoctor.title : "");
+      setTitle(editingDoctor.titulacao ? editingDoctor.titulacao : '');
     } else {
-      setCpf("");
-      setEmail("");
-      setPassword("");
-      setPasswordCheck("");
-      setName("");
-      setCrm("");
-      setType("Médico");
-      setResidencyStartingDate("");
-      setTitle("");
+      setCpf('');
+      setEmail('');
+      setPassword('');
+      setPasswordCheck('');
+      setName('');
+      setCrm('');
+      setType('Médico');
+      setResidencyDate('');
+      setTitle('');
     }
+  }
+
+  const doctor = {
+    cpf: cpf.replace(/[^0-9]+/g, ''),
+    email_usuario: email,
+    senha: password,
+    nome_do_usuario: name,
+    tipo: type,
+    crm: '',
+    titulacao: '',
+    data_residencia: '',
+  };
+
+  if (type !== 'Administrador') {
+    doctor.crm = crm;
+  }
+  if (type === 'Professor') {
+    doctor.titulacao = title;
+  }
+  if (type === 'Residente') {
+    doctor.data_residencia = residencyDate;
   }
 
   async function handleCreateNewDoctor(event: FormEvent) {
     event.preventDefault();
-
-    const doctor = {
-      cpf: cpf.replace(/[^0-9]+/g, ""),
-      email,
-      password,
-      name,
-      crm,
-      type,
-    };
-
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
-    } else {
-      Object.assign(doctor, { title: null });
-    }
-    if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
-    } else {
-      Object.assign(doctor, { date: null });
-    }
 
     try {
       await createDoctor(doctor);
@@ -112,34 +117,14 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       } else {
         handleReset();
       }
-      toast.success("Cadastro realizado com sucesso!");
+      toast.success('Cadastro realizado com sucesso!');
     } catch {
-      toast.error("Erro! Cadastro não efetuado");
+      toast.error('Erro! Cadastro não efetuado');
     }
   }
 
   async function handleUpdateDoctor(event: FormEvent) {
     event.preventDefault();
-
-    const doctor = {
-      cpf: cpf.replace(/[^0-9]+/g, ""),
-      email,
-      password,
-      name,
-      crm,
-      type,
-    };
-
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
-    } else {
-      Object.assign(doctor, { title: null });
-    }
-    if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
-    } else {
-      Object.assign(doctor, { date: null });
-    }
 
     try {
       if (!editingDoctor) {
@@ -150,9 +135,9 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       if (onRequestClose) {
         onRequestClose();
       }
-      toast.success("Cadastro atualizado com sucesso!");
+      toast.success('Cadastro atualizado com sucesso!');
     } catch {
-      toast.error("Erro! Atualização não efetuada");
+      toast.error('Erro! Atualização não efetuada');
     }
   }
 
@@ -224,21 +209,21 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
           id="Médico Padrão"
           value="Médico"
           onChange={(event) => setType(event.target.value)}
-          checked={type === "Médico"}
+          checked={type === 'Médico'}
         />
         <RadioButton
           name="tipo"
           id="Médico Residente"
           value="Residente"
           onChange={(event) => setType(event.target.value)}
-          checked={type === "Residente"}
+          checked={type === 'Residente'}
         />
         <RadioButton
           name="tipo"
           id="Médico Professor"
           value="Professor"
           onChange={(event) => setType(event.target.value)}
-          checked={type === "Professor"}
+          checked={type === 'Professor'}
         />
       </RadioGroup>
 
@@ -247,9 +232,9 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         label="Data de Início da Residência"
         id="data-residencia"
         type="date"
-        value={residencyStartingDate}
-        onChange={(event) => setResidencyStartingDate(event.target.value)}
-        required={type === "Residente" ? true : false}
+        value={residencyDate}
+        onChange={(event) => setResidencyDate(event.target.value)}
+        required={type === 'Residente' ? true : false}
         mask=""
       />
 
@@ -259,7 +244,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         id="titulacao"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
-        required={type === "Professor" ? true : false}
+        required={type === 'Professor' ? true : false}
       >
         <option value="Especialista">Especialista</option>
         <option value="Mestre">Mestre</option>
