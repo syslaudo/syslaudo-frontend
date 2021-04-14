@@ -14,7 +14,7 @@ interface Doctor {
   id: string;
   cpf: string;
   email_usuario: string;
-  senha: string;
+  senha?: string;
   nome_do_usuario: string;
   tipo: string;
   crm?: string;

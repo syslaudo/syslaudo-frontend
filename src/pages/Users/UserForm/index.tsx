@@ -17,7 +17,7 @@ interface User {
   id: string;
   email_usuario: string;
   cpf: string;
-  senha: string;
+  senha?: string;
   nome_do_usuario: string;
   tipo: string;
   crm?: string;
@@ -34,8 +34,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
   const { createUser, updateUser } = useUsers();
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
   const [name, setName] = useState('');
   const [crm, setCrm] = useState('');
   const [type, setType] = useState('Administrador');
@@ -45,8 +43,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
   useEffect(() => {
     setCpf(editingUser ? editingUser.cpf : '');
     setEmail(editingUser ? editingUser.email_usuario : '');
-    setPassword('');
-    setPasswordCheck('');
     setName(editingUser ? editingUser.nome_do_usuario : '');
     setType(editingUser ? editingUser.tipo : 'Administrador');
     setCrm(editingUser?.crm ? editingUser.crm : '');
@@ -62,8 +58,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
     if (editingUser) {
       setCpf(editingUser.cpf);
       setEmail(editingUser.email_usuario);
-      setPassword('');
-      setPasswordCheck('');
       setName(editingUser.nome_do_usuario);
       setCrm(editingUser.crm ? editingUser.crm : '');
       setType(editingUser.tipo);
@@ -76,8 +70,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
     } else {
       setCpf('');
       setEmail('');
-      setPassword('');
-      setPasswordCheck('');
       setName('');
       setCrm('');
       setType('Administrador');
@@ -89,7 +81,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
   const user = {
     cpf: cpf.replace(/[^0-9]+/g, ''),
     email_usuario: email,
-    senha: password,
     nome_do_usuario: name,
     tipo: type,
     crm: '',
@@ -111,7 +102,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
     event.preventDefault();
 
     try {
-      await createUser(user);
+      await createUser({ ...user, senha: '123456' });
       if (onRequestClose) {
         onRequestClose();
       } else {
@@ -172,28 +163,6 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         onChange={(event) => setEmail(event.target.value)}
         type="email"
         required
-        mask=""
-      />
-      <Input
-        id="password"
-        label="Senha"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        type="password"
-        required
-        pattern="\S{6,}"
-        title="Mínimo de 6 dígitos"
-        mask=""
-      />
-      <Input
-        id="password-check"
-        label="Confirme a senha"
-        value={passwordCheck}
-        onChange={(event) => setPasswordCheck(event.target.value)}
-        type="password"
-        required
-        pattern={password}
-        title="Senhas não conferem"
         mask=""
       />
       <RadioGroup id="tipo" label="Tipo">

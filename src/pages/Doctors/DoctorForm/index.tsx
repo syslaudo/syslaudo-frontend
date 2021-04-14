@@ -17,7 +17,7 @@ interface Doctor {
   id: string;
   email_usuario: string;
   cpf: string;
-  senha: string;
+  senha?: string;
   nome_do_usuario: string;
   tipo: string;
   crm?: string;
@@ -34,8 +34,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   const { createUser: createDoctor, updateUser: updateDoctor } = useUsers();
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
   const [name, setName] = useState('');
   const [crm, setCrm] = useState('');
   const [type, setType] = useState('Médico');
@@ -45,8 +43,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   useEffect(() => {
     setCpf(editingDoctor ? editingDoctor.cpf : '');
     setEmail(editingDoctor ? editingDoctor.email_usuario : '');
-    setPassword('');
-    setPasswordCheck('');
     setName(editingDoctor ? editingDoctor.nome_do_usuario : '');
     setCrm(editingDoctor?.crm ? editingDoctor.crm : '');
     setType(editingDoctor ? editingDoctor.tipo : 'Médico');
@@ -62,8 +58,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     if (editingDoctor) {
       setCpf(editingDoctor.cpf);
       setEmail(editingDoctor.email_usuario);
-      setPassword('');
-      setPasswordCheck('');
       setName(editingDoctor.nome_do_usuario);
       setCrm(editingDoctor.crm ? editingDoctor.crm : '');
       setType(editingDoctor.tipo);
@@ -76,8 +70,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     } else {
       setCpf('');
       setEmail('');
-      setPassword('');
-      setPasswordCheck('');
       setName('');
       setCrm('');
       setType('Médico');
@@ -89,7 +81,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   const doctor = {
     cpf: cpf.replace(/[^0-9]+/g, ''),
     email_usuario: email,
-    senha: password,
     nome_do_usuario: name,
     tipo: type,
     crm: '',
@@ -111,7 +102,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     event.preventDefault();
 
     try {
-      await createDoctor(doctor);
+      await createDoctor({ ...doctor, senha: '123456' });
       if (onRequestClose) {
         onRequestClose();
       } else {
@@ -178,28 +169,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         onChange={(event) => setEmail(event.target.value)}
         type="email"
         required
-        mask=""
-      />
-      <Input
-        id="password"
-        label="Senha"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        type="password"
-        required
-        pattern="\S{6,}"
-        title="Mínimo de 6 dígitos"
-        mask=""
-      />
-      <Input
-        id="password-check"
-        label="Confirme a senha"
-        value={passwordCheck}
-        onChange={(event) => setPasswordCheck(event.target.value)}
-        type="password"
-        required
-        pattern={password}
-        title="Senhas não conferem"
         mask=""
       />
 

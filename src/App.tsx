@@ -13,6 +13,7 @@ import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
+import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
 import { isAdmin, isAuthenticated } from './services/Auth';
 import { GlobalStyle } from './styles/global';
 
@@ -49,6 +50,11 @@ function App() {
               <PrivateRoute exact={true} path="/" component={Home} />
               <PrivateRoute exact={true} path="/inicio" component={Home} />
               <AdminRoute exact={true} path="/usuarios" component={Users} />
+              <AdminRoute
+                exact={true}
+                path="/trocar-senha"
+                component={UserPasswordUpdateForm}
+              />
               <PrivateRoute exact={true} path="/exames" component={Exams} />
               <AdminRoute exact={true} path="/medicos" component={Doctors} />
               <PrivateRoute

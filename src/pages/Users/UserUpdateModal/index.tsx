@@ -5,7 +5,7 @@ interface User {
   id: string;
   email_usuario: string;
   cpf: string;
-  senha: string;
+  senha?: string;
   nome_do_usuario: string;
   tipo: string;
   crm?: string;
