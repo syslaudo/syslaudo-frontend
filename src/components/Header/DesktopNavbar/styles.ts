@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-export const StyledDesktopNavbar = styled.header`
+export const StyledDesktopNavbar = styled.header<{
+  isAuthenticated: boolean;
+  isAdmin: boolean;
+}>`
   height: 5rem;
   border-bottom: 1px solid var(--hover);
 
@@ -44,13 +47,18 @@ export const StyledDesktopNavbar = styled.header`
       }
 
       button {
-        display: inline-block;
+        display: ${(props) =>
+          props.isAuthenticated ? "inline-block" : "none"};
       }
     }
   }
 
   .navlinks {
-    display: flex;
+    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
+
+    .adminFunction {
+      display: ${(props) => (props.isAdmin ? "inline-block" : "none")};
+    }
 
     > li {
       display: inline-block;
@@ -103,7 +111,7 @@ export const StyledDesktopNavbar = styled.header`
   }
 
   .profile {
-    display: flex;
+    display: ${(props) => (props.isAuthenticated ? "flex" : "none")};
 
     > li {
       display: inline-block;
@@ -141,6 +149,11 @@ export const StyledDesktopNavbar = styled.header`
         z-index: 999999;
       }
 
+      &:hover > ul.logoutButton {
+        display: block;
+        z-index: 999999;
+      }
+
       > ul {
         display: none;
         position: absolute;
@@ -156,6 +169,7 @@ export const StyledDesktopNavbar = styled.header`
           text-align: center;
           padding: 0 1rem;
           transition: 0.2ms;
+          min-width: 5rem;
 
           &:hover {
             background: var(--primary);

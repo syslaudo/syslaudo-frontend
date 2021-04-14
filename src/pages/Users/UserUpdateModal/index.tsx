@@ -1,7 +1,7 @@
-import { DoctorForm } from "../DoctorForm";
+import { UserForm } from "../UserForm";
 import { Modal } from "../../../components/Modal";
 
-interface Doctor {
+interface User {
   id: number;
   cpf: string;
   email: string;
@@ -13,22 +13,19 @@ interface Doctor {
   title?: string;
 }
 
-interface DoctorUpdateModalProps {
+interface UserUpdateModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  editingDoctor: Doctor;
+  editingUser: User;
 }
 
-export function DoctorUpdateModal(props: DoctorUpdateModalProps) {
-  const { isOpen, onRequestClose, editingDoctor } = props;
+export function UserUpdateModal(props: UserUpdateModalProps) {
+  const { isOpen, onRequestClose, editingUser } = props;
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
       <h1>Atualizar Médico</h1>
-      <DoctorForm
-        editingDoctor={editingDoctor}
-        onRequestClose={onRequestClose}
-      />
+      <UserForm editingUser={editingUser} onRequestClose={onRequestClose} />
     </Modal>
   );
 }

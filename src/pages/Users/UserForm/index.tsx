@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FormComponents } from "../../../components/FormComponents";
 import { useUsers } from "../../../hooks/useUsers";
-import { StyledDoctorForm } from "./styles";
+import { StyledUserForm } from "./styles";
 
 const {
   Button,
@@ -13,7 +13,7 @@ const {
   Select,
 } = FormComponents;
 
-interface Doctor {
+interface User {
   id: number;
   email: string;
   cpf: string;
@@ -26,49 +26,49 @@ interface Doctor {
 }
 
 interface DoctorFormProps {
-  editingDoctor?: Doctor;
+  editingUser?: User;
   onRequestClose?: () => void;
 }
 
-export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
-  const { createUser: createDoctor, updateUser: updateDoctor } = useUsers();
+export function UserForm({ editingUser, onRequestClose }: DoctorFormProps) {
+  const { createUser, updateUser } = useUsers();
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
   const [crm, setCrm] = useState("");
-  const [type, setType] = useState("Médico");
+  const [type, setType] = useState("Administrador");
   const [residencyStartingDate, setResidencyStartingDate] = useState("");
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    setCpf(editingDoctor ? editingDoctor.cpf : "");
-    setEmail(editingDoctor ? editingDoctor.email : "");
-    setPassword(editingDoctor ? editingDoctor.password : "");
-    setPasswordCheck(editingDoctor ? editingDoctor.password : "");
-    setName(editingDoctor ? editingDoctor.name : "");
-    setCrm(editingDoctor?.crm ? editingDoctor.crm : "");
-    setType(editingDoctor ? editingDoctor.type : "Médico");
+    setCpf(editingUser ? editingUser.cpf : "");
+    setEmail(editingUser ? editingUser.email : "");
+    setPassword(editingUser ? editingUser.password : "");
+    setPasswordCheck(editingUser ? editingUser.password : "");
+    setName(editingUser ? editingUser.name : "");
+    setType(editingUser ? editingUser.type : "Administrador");
+    setCrm(editingUser?.crm ? editingUser.crm : "");
     setResidencyStartingDate(
-      editingDoctor?.date ? String(editingDoctor.date).split("T")[0] : ""
+      editingUser?.date ? String(editingUser.date).split("T")[0] : ""
     );
-    setTitle(editingDoctor?.title ? editingDoctor.title : "");
-  }, [editingDoctor]);
+    setTitle(editingUser?.title ? editingUser.title : "");
+  }, [editingUser]);
 
   function handleReset() {
-    if (editingDoctor) {
-      setCpf(editingDoctor.cpf);
-      setEmail(editingDoctor.email);
-      setPassword(editingDoctor.password);
-      setPasswordCheck(editingDoctor.password);
-      setName(editingDoctor.name);
-      setCrm(editingDoctor.crm ? editingDoctor.crm : "");
-      setType(editingDoctor.type);
+    if (editingUser) {
+      setCpf(editingUser.cpf);
+      setEmail(editingUser.email);
+      setPassword(editingUser.password);
+      setPasswordCheck(editingUser.password);
+      setName(editingUser.name);
+      setCrm(editingUser.crm ? editingUser.crm : "");
+      setType(editingUser.type);
       setResidencyStartingDate(
-        editingDoctor.date ? String(editingDoctor.date).split("T")[0] : ""
+        editingUser.date ? String(editingUser.date).split("T")[0] : ""
       );
-      setTitle(editingDoctor.title ? editingDoctor.title : "");
+      setTitle(editingUser.title ? editingUser.title : "");
     } else {
       setCpf("");
       setEmail("");
@@ -76,37 +76,41 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       setPasswordCheck("");
       setName("");
       setCrm("");
-      setType("Médico");
+      setType("Administrador");
       setResidencyStartingDate("");
       setTitle("");
     }
   }
 
-  async function handleCreateNewDoctor(event: FormEvent) {
+  async function handleCreateNewUser(event: FormEvent) {
     event.preventDefault();
 
-    const doctor = {
+    const user = {
       cpf: cpf.replace(/[^0-9]+/g, ""),
       email,
       password,
       name,
-      crm,
       type,
     };
 
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
+    if (type === "Administrador") {
+      Object.assign(user, { crm: null });
     } else {
-      Object.assign(doctor, { title: null });
+      Object.assign(user, { crm });
+    }
+    if (type === "Professor") {
+      Object.assign(user, { title });
+    } else {
+      Object.assign(user, { title: null });
     }
     if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
+      Object.assign(user, { date: new Date(residencyStartingDate) });
     } else {
-      Object.assign(doctor, { date: null });
+      Object.assign(user, { date: null });
     }
 
     try {
-      await createDoctor(doctor);
+      await createUser(user);
       if (onRequestClose) {
         onRequestClose();
       } else {
@@ -118,35 +122,39 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     }
   }
 
-  async function handleUpdateDoctor(event: FormEvent) {
+  async function handleUpdateUser(event: FormEvent) {
     event.preventDefault();
 
-    const doctor = {
+    const user = {
       cpf: cpf.replace(/[^0-9]+/g, ""),
       email,
       password,
       name,
-      crm,
       type,
     };
 
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
+    if (type === "Administrador") {
+      Object.assign(user, { crm: null });
     } else {
-      Object.assign(doctor, { title: null });
+      Object.assign(user, { crm });
+    }
+    if (type === "Professor") {
+      Object.assign(user, { title });
+    } else {
+      Object.assign(user, { title: null });
     }
     if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
+      Object.assign(user, { date: new Date(residencyStartingDate) });
     } else {
-      Object.assign(doctor, { date: null });
+      Object.assign(user, { date: null });
     }
 
     try {
-      if (!editingDoctor) {
+      if (!editingUser) {
         return;
       }
 
-      await updateDoctor(editingDoctor.id, doctor);
+      await updateUser(editingUser.id, user);
       if (onRequestClose) {
         onRequestClose();
       }
@@ -157,9 +165,9 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   }
 
   return (
-    <StyledDoctorForm
-      doctorType={type}
-      onSubmit={editingDoctor ? handleUpdateDoctor : handleCreateNewDoctor}
+    <StyledUserForm
+      userType={type}
+      onSubmit={editingUser ? handleUpdateUser : handleCreateNewUser}
     >
       <Input
         id="name"
@@ -177,14 +185,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         required
         pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
         mask="999.999.999-99"
-      />
-      <Input
-        id="crm"
-        label="CRM"
-        value={crm}
-        onChange={(event) => setCrm(event.target.value)}
-        required
-        mask=""
       />
       <Input
         id="email"
@@ -221,6 +221,13 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       <RadioGroup id="tipo" label="Tipo">
         <RadioButton
           name="tipo"
+          id="Administrador"
+          value="Administrador"
+          onChange={(event) => setType(event.target.value)}
+          checked={type === "Administrador"}
+        />
+        <RadioButton
+          name="tipo"
           id="Médico Padrão"
           value="Médico"
           onChange={(event) => setType(event.target.value)}
@@ -241,6 +248,16 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
           checked={type === "Professor"}
         />
       </RadioGroup>
+
+      <Input
+        className="inputMedico"
+        id="crm"
+        label="CRM"
+        value={crm}
+        onChange={(event) => setCrm(event.target.value)}
+        required={type === "Administrador" ? false : true}
+        mask=""
+      />
 
       <Input
         className="inputResidente"
@@ -274,6 +291,6 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
           Descartar
         </Button>
       </ButtonGroup>
-    </StyledDoctorForm>
+    </StyledUserForm>
   );
 }

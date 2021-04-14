@@ -1,5 +1,5 @@
-import { FormComponents } from "../../components/FormComponents";
-import { MultilineInput } from "../../components/FormComponents/MultilineInput";
+import { FormComponents } from "../../../components/FormComponents";
+import { MultilineInput } from "../../../components/FormComponents/MultilineInput";
 
 const {
   Form,
@@ -10,13 +10,13 @@ const {
   RadioGroup,
 } = FormComponents;
 
-export function ExamRequestCreate() {
+export function ExamRequestForm() {
   return (
     <>
       <h1>Solicitação de Exame</h1>
       <Form>
-        <Input id="registro" label="Registro do Paciente" />
-        <Input id="nome" label="Nome do Paciente" disabled />
+        <Input id="cpf-paciente" label="CPF do Patiente" mask="" />
+        <Input id="nome" label="Nome do Patiente" mask="" disabled />
 
         <RadioGroup id="tipo" label="Exame">
           <RadioButton
@@ -34,7 +34,7 @@ export function ExamRequestCreate() {
           <RadioButton name="tipo" id="Router" value="Router" />
         </RadioGroup>
 
-        <Input id="data-prevista" label="Data Prevista" type="date" />
+        <Input id="data-prevista" label="Data Prevista" type="date" mask="" />
         <MultilineInput id="hipotese" label="Hipótese Diagnosticada - CID" />
 
         <MultilineInput id="recomendações" label="Recomendações" />
