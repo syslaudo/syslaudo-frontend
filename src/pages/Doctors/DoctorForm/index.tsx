@@ -15,14 +15,14 @@ const {
 
 interface Doctor {
   id: string;
-  email_usuario: string;
+  email: string;
   cpf: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 interface DoctorFormProps {
@@ -42,31 +42,31 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
 
   useEffect(() => {
     setCpf(editingDoctor ? editingDoctor.cpf : '');
-    setEmail(editingDoctor ? editingDoctor.email_usuario : '');
-    setName(editingDoctor ? editingDoctor.nome_do_usuario : '');
+    setEmail(editingDoctor ? editingDoctor.email : '');
+    setName(editingDoctor ? editingDoctor.name : '');
     setCrm(editingDoctor?.crm ? editingDoctor.crm : '');
-    setType(editingDoctor ? editingDoctor.tipo : 'Médico');
+    setType(editingDoctor ? editingDoctor.type : 'Médico');
     setResidencyDate(
-      editingDoctor?.data_residencia
-        ? String(editingDoctor.data_residencia).split('T')[0]
+      editingDoctor?.residencyDate
+        ? String(editingDoctor.residencyDate).split('T')[0]
         : '',
     );
-    setTitle(editingDoctor?.titulacao ? editingDoctor.titulacao : '');
+    setTitle(editingDoctor?.title ? editingDoctor.title : '');
   }, [editingDoctor]);
 
   function handleReset() {
     if (editingDoctor) {
       setCpf(editingDoctor.cpf);
-      setEmail(editingDoctor.email_usuario);
-      setName(editingDoctor.nome_do_usuario);
+      setEmail(editingDoctor.email);
+      setName(editingDoctor.name);
       setCrm(editingDoctor.crm ? editingDoctor.crm : '');
-      setType(editingDoctor.tipo);
+      setType(editingDoctor.type);
       setResidencyDate(
-        editingDoctor.data_residencia
-          ? String(editingDoctor.data_residencia).split('T')[0]
+        editingDoctor.residencyDate
+          ? String(editingDoctor.residencyDate).split('T')[0]
           : '',
       );
-      setTitle(editingDoctor.titulacao ? editingDoctor.titulacao : '');
+      setTitle(editingDoctor.title ? editingDoctor.title : '');
     } else {
       setCpf('');
       setEmail('');
@@ -80,29 +80,29 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
 
   const doctor = {
     cpf: cpf.replace(/[^0-9]+/g, ''),
-    email_usuario: email,
-    nome_do_usuario: name,
-    tipo: type,
+    email: email,
+    name: name,
+    type: type,
     crm: '',
-    titulacao: '',
-    data_residencia: '',
+    title: '',
+    residencyDate: '',
   };
 
   if (type !== 'Administrador') {
     doctor.crm = crm;
   }
   if (type === 'Professor') {
-    doctor.titulacao = title;
+    doctor.title = title;
   }
   if (type === 'Residente') {
-    doctor.data_residencia = residencyDate;
+    doctor.residencyDate = residencyDate;
   }
 
   async function handleCreateNewDoctor(event: FormEvent) {
     event.preventDefault();
 
     try {
-      await createDoctor({ ...doctor, senha: '123456' });
+      await createDoctor({ ...doctor, password: '123456' });
       if (onRequestClose) {
         onRequestClose();
       } else {
@@ -126,7 +126,12 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       if (onRequestClose) {
         onRequestClose();
       }
+      
       toast.success('Cadastro atualizado com sucesso!');
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch {
       toast.error('Erro! Atualização não efetuada');
     }
@@ -172,23 +177,23 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         mask=""
       />
 
-      <RadioGroup id="tipo" label="Tipo">
+      <RadioGroup id="type" label="Tipo">
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Padrão"
           value="Médico"
           onChange={(event) => setType(event.target.value)}
           checked={type === 'Médico'}
         />
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Residente"
           value="Residente"
           onChange={(event) => setType(event.target.value)}
           checked={type === 'Residente'}
         />
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Professor"
           value="Professor"
           onChange={(event) => setType(event.target.value)}
@@ -210,7 +215,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       <Select
         className="inputProfessor"
         label="Titulação"
-        id="titulacao"
+        id="title"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
         required={type === 'Professor' ? true : false}

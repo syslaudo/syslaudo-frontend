@@ -3,14 +3,14 @@ import { Modal } from '../../../components/Modal';
 
 interface Doctor {
   id: string;
+  email: string;
   cpf: string;
-  email_usuario: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 interface DoctorUpdateModalProps {

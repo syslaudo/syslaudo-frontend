@@ -4,10 +4,10 @@ import { PatientForm } from '../PatientForm';
 interface Patient {
   id: string;
   cpf: string;
-  nome_paciente: string;
-  sexo_paciente: string;
-  cor_paciente: string;
-  datanasc_paciente: Date;
+  name: string;
+  sex: string;
+  race: string;
+  birthdate: Date;
 }
 
 interface PatientUpdateModalProps {

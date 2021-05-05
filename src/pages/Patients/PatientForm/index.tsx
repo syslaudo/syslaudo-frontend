@@ -15,10 +15,10 @@ const {
 interface Patient {
   id: string;
   cpf: string;
-  nome_paciente: string;
-  sexo_paciente: string;
-  cor_paciente: string;
-  datanasc_paciente: Date;
+  name: string;
+  sex: string;
+  race: string;
+  birthdate: Date;
 }
 
 interface PatientFormProps {
@@ -35,42 +35,42 @@ export function PatientForm({
   const [name, setName] = useState('');
   const [sex, setSex] = useState('Masculino');
   const [race, setRace] = useState('Amarelo');
-  const [birth, setBirth] = useState('');
+  const [birthdate, setBirthdate] = useState('');
 
   useEffect(() => {
-    setName(editingPatient ? editingPatient.nome_paciente : '');
+    setName(editingPatient ? editingPatient.name : '');
     setCpf(editingPatient ? editingPatient.cpf : '');
-    setSex(editingPatient ? editingPatient.sexo_paciente : 'Masculino');
-    setRace(editingPatient ? editingPatient.cor_paciente : 'Amarelo');
-    setBirth(
+    setSex(editingPatient ? editingPatient.sex : 'Masculino');
+    setRace(editingPatient ? editingPatient.race : 'Amarelo');
+    setBirthdate(
       editingPatient
-        ? String(editingPatient.datanasc_paciente).split('T')[0]
+        ? String(editingPatient.birthdate).split('T')[0]
         : '',
     );
   }, [editingPatient]);
 
   function handleReset() {
     if (editingPatient) {
-      setName(editingPatient.nome_paciente);
+      setName(editingPatient.name);
       setCpf(editingPatient.cpf);
-      setSex(editingPatient.sexo_paciente);
-      setRace(editingPatient.cor_paciente);
-      setBirth(String(editingPatient.datanasc_paciente).split('T')[0]);
+      setSex(editingPatient.sex);
+      setRace(editingPatient.race);
+      setBirthdate(String(editingPatient.birthdate).split('T')[0]);
     } else {
       setName('');
       setCpf('');
       setSex('Masculino');
       setRace('Amarelo');
-      setBirth('');
+      setBirthdate('');
     }
   }
 
   const patient = {
     cpf: cpf.replace(/[^0-9]+/g, ''),
-    nome_paciente: name,
-    sexo_paciente: sex,
-    cor_paciente: race,
-    datanasc_paciente: new Date(birth),
+    name,
+    sex,
+    race,
+    birthdate: new Date(birthdate),
   };
 
   async function handleCreateNewPatient(event: FormEvent) {
@@ -102,7 +102,12 @@ export function PatientForm({
       if (onRequestClose) {
         onRequestClose();
       }
+
       toast.success('Cadastro atualizado com sucesso!');
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch {
       toast.error('Erro! Atualização não efetuada');
     }
@@ -133,8 +138,8 @@ export function PatientForm({
         id="birth"
         label="Data de Nascimento"
         type="date"
-        value={birth}
-        onChange={(event) => setBirth(event.target.value)}
+        value={birthdate}
+        onChange={(event) => setBirthdate(event.target.value)}
         required
         mask=""
       />

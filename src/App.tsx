@@ -14,12 +14,12 @@ import { PageNotFound } from './pages/PageNotFound';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
 import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
-import { isAdmin, isAuthenticated } from './services/Auth';
+import { isAuthenticated, loggedUser } from './services/auth';
 import { GlobalStyle } from './styles/global';
 
 const PrivateRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
-    isAuthenticated() ? (
+    isAuthenticated ? (
       React.createElement(component, props)
     ) : (
       <Redirect to={{ pathname: '/login' }} />
@@ -29,7 +29,7 @@ const PrivateRoute = ({ component, ...rest }: any) => {
 
 const AdminRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
-    isAdmin() ? (
+    loggedUser.type === 'Administrador' ? (
       React.createElement(component, props)
     ) : (
       <Redirect to={{ pathname: '/inicio' }} />
@@ -41,33 +41,33 @@ function App() {
   return (
     <UsersProvider>
       <PatientsProvider>
-        <GlobalStyle />
-        <BrowserRouter>
-          <Header />
-          <Body>
-            <Switch>
-              <Route path="/login" exact={true} component={Login} />
-              <PrivateRoute exact={true} path="/" component={Home} />
-              <PrivateRoute exact={true} path="/inicio" component={Home} />
-              <AdminRoute exact={true} path="/usuarios" component={Users} />
-              <AdminRoute
-                exact={true}
-                path="/trocar-senha"
-                component={UserPasswordUpdateForm}
-              />
-              <PrivateRoute exact={true} path="/exames" component={Exams} />
-              <AdminRoute exact={true} path="/medicos" component={Doctors} />
-              <PrivateRoute
-                exact={true}
-                path="/pacientes"
-                component={Patients}
-              />
-              <PrivateRoute exact={true} path="/*" component={PageNotFound} />
-            </Switch>
-            <ToastContainer autoClose={3000} />
-          </Body>
-          <Footer />
-        </BrowserRouter>
+          <GlobalStyle />
+          <BrowserRouter>
+            <Header />
+            <Body>
+              <Switch>
+                <Route path="/login" exact={true} component={Login} />
+                <PrivateRoute exact={true} path="/" component={Home} />
+                <PrivateRoute exact={true} path="/inicio" component={Home} />
+                <AdminRoute exact={true} path="/usuarios" component={Users} />
+                <AdminRoute
+                  exact={true}
+                  path="/trocar-senha"
+                  component={UserPasswordUpdateForm}
+                />
+                <PrivateRoute exact={true} path="/exames" component={Exams} />
+                <AdminRoute exact={true} path="/medicos" component={Doctors} />
+                <PrivateRoute
+                  exact={true}
+                  path="/pacientes"
+                  component={Patients}
+                />
+                <PrivateRoute exact={true} path="/*" component={PageNotFound} />
+              </Switch>
+              <ToastContainer autoClose={2000} />
+            </Body>
+            <Footer />
+          </BrowserRouter>
       </PatientsProvider>
     </UsersProvider>
   );

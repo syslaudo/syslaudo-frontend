@@ -13,10 +13,10 @@ ReactModal.setAppElement('#root');
 interface Patient {
   id: string;
   cpf: string;
-  nome_paciente: string;
-  sexo_paciente: string;
-  cor_paciente: string;
-  datanasc_paciente: Date;
+  name: string;
+  sex: string;
+  race: string;
+  birthdate: Date;
 }
 
 export function Patients() {
@@ -55,13 +55,13 @@ export function Patients() {
       sortable: true,
       grow: 4,
     },
-    { name: 'Nome', selector: 'nome_paciente', sortable: true, grow: 6 },
-    { name: 'Sexo', selector: 'sexo_paciente', sortable: true, grow: 3 },
-    { name: 'Cor', selector: 'cor_paciente', sortable: true, grow: 3 },
+    { name: 'Nome', selector: 'name', sortable: true, grow: 6 },
+    { name: 'Sexo', selector: 'sex', sortable: true, grow: 3 },
+    { name: 'Cor', selector: 'race', sortable: true, grow: 3 },
     {
       name: 'Data de Nascimento',
-      selector: 'datanasc_paciente',
-      cell: (row: any) => String(row.datanasc_paciente).split('T')[0],
+      selector: 'birthdate',
+      cell: (row: any) => String(row.birthdate).split('T')[0],
       sortable: true,
       grow: 3,
     },

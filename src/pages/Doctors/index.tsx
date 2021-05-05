@@ -12,14 +12,14 @@ ReactModal.setAppElement('#root');
 
 interface Doctor {
   id: string;
+  email: string;
   cpf: string;
-  email_usuario: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 export function Doctors() {
@@ -54,16 +54,16 @@ export function Doctors() {
       sortable: true,
       grow: 3,
     },
-    { name: 'Nome', selector: 'nome_do_usuario', sortable: true, grow: 6 },
+    { name: 'Nome', selector: 'name', sortable: true, grow: 6 },
     { name: 'CRM', selector: 'crm', sortable: true, grow: 1 },
-    { name: 'Tipo', selector: 'tipo', sortable: true, grow: 2 },
+    { name: 'Tipo', selector: 'type', sortable: true, grow: 2 },
     {
       name: 'Início da Residência',
-      selector: 'data_residencia',
+      selector: 'residencyDate',
       sortable: true,
       grow: 2,
     },
-    { name: 'Titulação', selector: 'titulacao', sortable: true, grow: 2 },
+    { name: 'Titulação', selector: 'title', sortable: true, grow: 2 },
   ];
 
   function onRemove(e: any) {
@@ -100,7 +100,7 @@ export function Doctors() {
       <Table
         title="Lista de Médicos"
         columns={columns}
-        data={doctors.filter((doctor) => doctor.tipo !== 'Administrador')}
+        data={doctors.filter((doctor) => doctor.type !== 'Administrador')}
         onEdit={onEdit}
         onRemove={onRemove}
       />

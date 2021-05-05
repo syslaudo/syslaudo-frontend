@@ -15,14 +15,14 @@ const {
 
 interface User {
   id: string;
-  email_usuario: string;
+  email: string;
   cpf: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 interface UserFormProps {
@@ -42,31 +42,31 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
   useEffect(() => {
     setCpf(editingUser ? editingUser.cpf : '');
-    setEmail(editingUser ? editingUser.email_usuario : '');
-    setName(editingUser ? editingUser.nome_do_usuario : '');
-    setType(editingUser ? editingUser.tipo : 'Administrador');
+    setEmail(editingUser ? editingUser.email : '');
+    setName(editingUser ? editingUser.name : '');
+    setType(editingUser ? editingUser.type : 'Administrador');
     setCrm(editingUser?.crm ? editingUser.crm : '');
     setResidencyDate(
-      editingUser?.data_residencia
-        ? String(editingUser.data_residencia).split('T')[0]
+      editingUser?.residencyDate
+        ? String(editingUser.residencyDate).split('T')[0]
         : '',
     );
-    setTitle(editingUser?.titulacao ? editingUser.titulacao : '');
+    setTitle(editingUser?.title ? editingUser.title : '');
   }, [editingUser]);
 
   function handleReset() {
     if (editingUser) {
       setCpf(editingUser.cpf);
-      setEmail(editingUser.email_usuario);
-      setName(editingUser.nome_do_usuario);
+      setEmail(editingUser.email);
+      setName(editingUser.name);
       setCrm(editingUser.crm ? editingUser.crm : '');
-      setType(editingUser.tipo);
+      setType(editingUser.type);
       setResidencyDate(
-        editingUser.data_residencia
-          ? String(editingUser.data_residencia).split('T')[0]
+        editingUser.residencyDate
+          ? String(editingUser.residencyDate).split('T')[0]
           : '',
       );
-      setTitle(editingUser.titulacao ? editingUser.titulacao : '');
+      setTitle(editingUser.title ? editingUser.title : '');
     } else {
       setCpf('');
       setEmail('');
@@ -80,29 +80,29 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
   const user = {
     cpf: cpf.replace(/[^0-9]+/g, ''),
-    email_usuario: email,
-    nome_do_usuario: name,
-    tipo: type,
+    email: email,
+    name: name,
+    type: type,
     crm: '',
-    titulacao: '',
-    data_residencia: '',
+    title: '',
+    residencyDate: '',
   };
 
   if (type !== 'Administrador') {
     user.crm = crm;
   }
   if (type === 'Professor') {
-    user.titulacao = title;
+    user.title = title;
   }
   if (type === 'Residente') {
-    user.data_residencia = residencyDate;
+    user.residencyDate = residencyDate;
   }
 
   async function handleCreateNewUser(event: FormEvent) {
     event.preventDefault();
 
     try {
-      await createUser({ ...user, senha: '123456' });
+      await createUser({ ...user, password: '123456' });
       if (onRequestClose) {
         onRequestClose();
       } else {
@@ -127,7 +127,12 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       if (onRequestClose) {
         onRequestClose();
       }
+
       toast.success('Cadastro atualizado com sucesso!');
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch {
       toast.error('Erro! Atualização não efetuada');
     }
@@ -165,30 +170,30 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         required
         mask=""
       />
-      <RadioGroup id="tipo" label="Tipo">
+      <RadioGroup id="type" label="Tipo">
         <RadioButton
-          name="tipo"
+          name="type"
           id="Administrador"
           value="Administrador"
           onChange={(event) => setType(event.target.value)}
           checked={type === 'Administrador'}
         />
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Padrão"
           value="Médico"
           onChange={(event) => setType(event.target.value)}
           checked={type === 'Médico'}
         />
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Residente"
           value="Residente"
           onChange={(event) => setType(event.target.value)}
           checked={type === 'Residente'}
         />
         <RadioButton
-          name="tipo"
+          name="type"
           id="Médico Professor"
           value="Professor"
           onChange={(event) => setType(event.target.value)}
@@ -217,7 +222,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       <Select
         className="inputProfessor"
         label="Titulação"
-        id="titulacao"
+        id="title"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
         required={type === 'Professor' ? true : false}
