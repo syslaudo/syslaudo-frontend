@@ -27,7 +27,7 @@ interface PatientsContextData {
     patientId: string,
     patientInput: PatientInput,
   ) => Promise<void>;
-  findPatientByCpf: (cpf: string) => Patient | undefined;
+  getPatientByCpf: (cpf: string) => Patient | undefined;
 }
 
 interface PatientsProviderProps {
@@ -111,13 +111,13 @@ export function PatientsProvider({ children }: PatientsProviderProps) {
     setPatients(updatedPatients);
   }
 
-  function findPatientByCpf(cpf: string) {
+  function getPatientByCpf(cpf: string) {
     return patients.find(patient => patient.cpf === cpf);
   }
 
   return (
     <PatientsContext.Provider
-      value={{ patients, createPatient, removePatient, updatePatient, findPatientByCpf }}
+      value={{ patients, createPatient, removePatient, updatePatient, getPatientByCpf }}
     >
       {children}
     </PatientsContext.Provider>

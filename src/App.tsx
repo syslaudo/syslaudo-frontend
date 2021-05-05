@@ -4,10 +4,11 @@ import { ToastContainer } from 'react-toastify';
 import { Body } from './components/Body';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { ExamsProvider } from './hooks/useExams';
 import { PatientsProvider } from './hooks/usePatients';
 import { UsersProvider } from './hooks/useUsers';
 import { Doctors } from './pages/Doctors';
-import { Exams } from './pages/Exams';
+import { ExamRequests } from './pages/ExamRequests';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
@@ -41,6 +42,7 @@ function App() {
   return (
     <UsersProvider>
       <PatientsProvider>
+        <ExamsProvider>
           <GlobalStyle />
           <BrowserRouter>
             <Header />
@@ -55,7 +57,7 @@ function App() {
                   path="/trocar-senha"
                   component={UserPasswordUpdateForm}
                 />
-                <PrivateRoute exact={true} path="/exames" component={Exams} />
+                <PrivateRoute exact={true} path="/exames" component={ExamRequests} />
                 <AdminRoute exact={true} path="/medicos" component={Doctors} />
                 <PrivateRoute
                   exact={true}
@@ -68,6 +70,7 @@ function App() {
             </Body>
             <Footer />
           </BrowserRouter>
+        </ExamsProvider>
       </PatientsProvider>
     </UsersProvider>
   );
