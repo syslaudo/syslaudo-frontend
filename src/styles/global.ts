@@ -105,6 +105,15 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     position: relative;
     border-radius: 0.25rem;
 
+    a {
+      color: var(--primary);
+      transition: 0.2s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+
     h1 {
       text-transform: uppercase;
     }

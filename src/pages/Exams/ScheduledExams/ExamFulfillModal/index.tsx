@@ -1,6 +1,6 @@
 import { ExamFulfillForm } from '../ExamFulfillForm';
-import { Modal } from '../../../components/Modal';
-import { Exam } from '../../../hooks/useExams';
+import { Modal } from '../../../../components/Modal';
+import { Exam } from '../../../../hooks/useExams';
 
 interface ExamFulfillModalProps {
   isOpen: boolean;

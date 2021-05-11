@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormComponents } from '../../components/FormComponents';
 import { signIn } from '../../services/auth';
 import { LoginForm } from './styles';
@@ -9,13 +9,11 @@ const { Button, ButtonGroup, Input } = FormComponents;
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
       await signIn({ email, password });
-      history.push('/inicio');
       window.location.reload();
     } catch (error) {
       console.log(error);

@@ -6,9 +6,9 @@ export function ProfileSubmenu() {
     <ul className="profile">
       <li>
         <div>
-          <span>{loggedUser.name?.split(' ')[0]} &nbsp;&nbsp;</span>
-          <span>
-            <i className="far fa-user-circle"></i>
+          <span className="mob-hidden">{loggedUser.name?.split(' ')[0]} &nbsp;&nbsp;</span>
+          <span className="mob-hidden">
+            <i className="mob-hidden far fa-user-circle"></i>
           </span>
         </div>
         <ul className="logoutButton">

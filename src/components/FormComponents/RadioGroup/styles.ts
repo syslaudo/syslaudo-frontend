@@ -14,7 +14,7 @@ export const StyledRadioGroup = styled.div`
     display: flex;
     justify-content: flex-start;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 950px) {
       flex-direction: column;
       padding: 0;
     }

@@ -1,12 +1,12 @@
 import { ExamRequestForm } from '../ExamRequestForm';
-import { Modal } from '../../../components/Modal';
+import { Modal } from '../../../../components/Modal';
 
 interface ExamRequestModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
 }
 
-export function ExamRequestModal(props: ExamRequestModalProps) {
+export function ExamRequestCreateModal(props: ExamRequestModalProps) {
   const { isOpen, onRequestClose } = props;
 
   return (

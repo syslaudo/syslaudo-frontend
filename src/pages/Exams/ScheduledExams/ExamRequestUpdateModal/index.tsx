@@ -1,6 +1,6 @@
 import { ExamRequestForm } from '../ExamRequestForm';
-import { Modal } from '../../../components/Modal';
-import { Exam } from '../../../hooks/useExams';
+import { Modal } from '../../../../components/Modal';
+import { Exam } from '../../../../hooks/useExams';
 
 interface ExamUpdateModalProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface ExamUpdateModalProps {
   editingExam: Exam;
 }
 
-export function ExamUpdateModal(props: ExamUpdateModalProps) {
+export function ExamRequestUpdateModal(props: ExamUpdateModalProps) {
   const { isOpen, onRequestClose, editingExam } = props;
 
   return (

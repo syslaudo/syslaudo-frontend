@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FormComponents } from '../../../components/FormComponents';
-import { MultilineInput } from '../../../components/FormComponents/MultilineInput';
-import { useExams, Exam } from '../../../hooks/useExams';
-import { usePatients } from '../../../hooks/usePatients';
+import { FormComponents } from '../../../../components/FormComponents';
+import { MultilineInput } from '../../../../components/FormComponents/MultilineInput';
+import { useExams, Exam } from '../../../../hooks/useExams';
+import { usePatients } from '../../../../hooks/usePatients';
 import dateFormat from 'dateformat';
 
 const {
@@ -137,6 +137,7 @@ export function ExamFulfillForm({
         value={image}
         onChange={(event) => setImage(event.target.value)}
         mask=""
+        required
       />
 
       <ButtonGroup>

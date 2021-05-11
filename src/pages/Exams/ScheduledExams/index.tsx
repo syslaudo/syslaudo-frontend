@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { Button } from '../../components/FormComponents/Button';
-import { Table } from '../../components/Table';
-import { ActionButton } from '../../components/Table/styles';
-import { useExams, Exam } from '../../hooks/useExams';
-import { StyledContainer } from './styles';
-import { ExamRequestModal } from './ExamRequestModal';
-import { ExamUpdateModal } from './ExamUpdateModal';
+import { Button } from '../../../components/FormComponents/Button';
+import { Table } from '../../../components/Table';
+import { ActionButton } from '../../../components/Table/styles';
+import { Exam, useExams } from '../../../hooks/useExams';
 import { ExamFulfillModal } from './ExamFulfillModal';
+import { ExamRequestCreateModal } from './ExamRequestCreateModal';
+import { ExamRequestUpdateModal } from './ExamRequestUpdateModal';
+import { StyledContainer } from './styles';
 
 ReactModal.setAppElement('#root');
 
-export function ExamRequests() {
+export function ScheduledExams() {
   const { exams, removeExam } = useExams();
   const [examRequestModalIsOpen, setExamRequestModalIsOpen] = useState(false);
   const [examUpdateModalIsOpen, setExamUpdateModalIsOpen] = useState(false);
@@ -73,7 +73,7 @@ export function ExamRequests() {
     ) {
       removeExam(id);
       toast.success('Removido com sucesso!');
-      
+
       setTimeout(function () {
         window.location.reload();
       }, 2000);
@@ -138,16 +138,16 @@ export function ExamRequests() {
       <Table
         title="Lista de Exames"
         columns={columns}
-        data={exams}
+        data={exams.filter((exam) => exam.status === 'Agendado')}
         onEdit={onEdit}
         onRemove={onRemove}
         customActions={customActionsColumn}
       />
-      <ExamRequestModal
+      <ExamRequestCreateModal
         isOpen={examRequestModalIsOpen}
         onRequestClose={handleCloseExamRequestModal}
       />
-      <ExamUpdateModal
+      <ExamRequestUpdateModal
         isOpen={examUpdateModalIsOpen}
         onRequestClose={handleCloseExamUpdateModal}
         editingExam={editingExam}

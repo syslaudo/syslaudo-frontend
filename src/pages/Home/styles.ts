@@ -23,7 +23,7 @@ export const CardGroup = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 2rem;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     grid-template-columns: 1fr;
   }
 `;

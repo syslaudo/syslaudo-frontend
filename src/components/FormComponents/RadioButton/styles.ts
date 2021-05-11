@@ -23,7 +23,7 @@ export const StyledRadioButton = styled.label`
     box-shadow: 0 0 0 2px var(--primary-shadow);
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     width: 100%;
 
     span {

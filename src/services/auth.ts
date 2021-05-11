@@ -21,6 +21,8 @@ export async function signIn({ email, password }: SignInCredentials) {
     localStorage.setItem('USER.EMAIL', user.email_usuario);
     localStorage.setItem('USER.NAME', user.nome);
     localStorage.setItem('USER.TYPE', user.tipo);
+
+
   } catch (err) {
     console.log(err);
   }

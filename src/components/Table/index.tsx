@@ -13,6 +13,7 @@ interface TableProps extends IDataTableProps {
   title: string;
   columns: Column[];
   data: Object[];
+  removeActions?: boolean;
   customActions?: {
     name: string;
     cell: (row: any) => ReactNode;
@@ -28,22 +29,56 @@ export function Table(props: TableProps) {
     ? [...props.columns, props.customActions]
     : [
         ...props.columns,
-        {
-          name: 'Ações',
-          cell: (row: any) => (
-            <div data-tag="allowRowEvents">
-              <ActionButton id={row.id} type="button" onClick={props.onEdit}>
-                <i className="far fa-edit" title="Editar"></i>
-              </ActionButton>
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              <ActionButton id={row.id} type="button" onClick={props.onRemove}>
-                <i className="fas fa-trash-alt" title="Remover"></i>
-              </ActionButton>
-            </div>
-          ),
-          sortable: false,
-          grow: 1,
-        },
+        props.removeActions
+          ? {
+              name: 'Ações',
+              cell: (row: any) => (
+                <div data-tag="allowRowEvents">
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onEdit}
+                  >
+                    <i className="far fa-edit" title="Editar"></i>
+                  </ActionButton>
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onRemove}
+                  >
+                    <i className="fas fa-trash-alt" title="Remover"></i>
+                  </ActionButton>
+                </div>
+              ),
+              sortable: false,
+              grow: 1,
+              omit: true,
+            }
+          : {
+              name: 'Ações',
+              cell: (row: any) => (
+                <div data-tag="allowRowEvents">
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onEdit}
+                  >
+                    <i className="far fa-edit" title="Editar"></i>
+                  </ActionButton>
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onRemove}
+                  >
+                    <i className="fas fa-trash-alt" title="Remover"></i>
+                  </ActionButton>
+                </div>
+              ),
+              sortable: false,
+              grow: 1,
+            },
       ];
 
   const filterColumns = props.columns.reduce(function (acc: Column[], column) {
