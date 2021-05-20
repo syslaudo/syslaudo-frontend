@@ -15,11 +15,33 @@ export const StyledMobileNavbar = styled.nav<{
     > li {
       text-transform: uppercase;
 
-      span {
+      .mob-hidden {
         display: none;
       }
 
-      a {
+      span {
+        display: flex;
+        height: 3rem;
+        line-height: 3rem;
+        justify-content: center;
+        border-bottom: 1px solid var(--hover);
+        font-weight: bold;
+      }
+
+      > a {
+        display: flex;
+        height: 3rem;
+        line-height: 3rem;
+        justify-content: center;
+        border-bottom: 1px solid var(--hover);
+        font-weight: bold;
+
+        &:hover {
+          background: var(--hover);
+        }
+      }
+
+      > ul > a {
         display: flex;
         height: 3rem;
         line-height: 3rem;
@@ -29,6 +51,10 @@ export const StyledMobileNavbar = styled.nav<{
         &:hover {
           background: var(--hover);
         }
+      }
+
+      .logoutButton {
+        font-weight: bold;
       }
     }
   }

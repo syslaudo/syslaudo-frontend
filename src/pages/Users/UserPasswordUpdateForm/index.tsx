@@ -5,18 +5,6 @@ import { useUsers } from '../../../hooks/useUsers';
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
-interface User {
-  id: string;
-  email_usuario: string;
-  cpf: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
-  crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
-}
-
 export function UserPasswordUpdateForm() {
   const { users, updateUser } = useUsers();
   const [email, setEmail] = useState('');
@@ -32,7 +20,7 @@ export function UserPasswordUpdateForm() {
   async function handleUpdateUser(event: FormEvent) {
     event.preventDefault();
 
-    const editingUser = users.find((user) => user.email_usuario === email);
+    const editingUser = users.find((user) => user.email === email);
 
     try {
       if (!editingUser) {
@@ -40,7 +28,7 @@ export function UserPasswordUpdateForm() {
         return;
       }
 
-      const user = { ...editingUser, senha: password };
+      const user = { ...editingUser, password };
 
       await updateUser(editingUser.id, user);
       handleReset();

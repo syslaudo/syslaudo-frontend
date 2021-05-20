@@ -1,33 +1,25 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormComponents } from '../../components/FormComponents';
+import { signIn } from '../../services/auth';
 import { LoginForm } from './styles';
-import api from '../../services/api';
-import { login, setPermission, setUserName } from '../../services/Auth';
 
 const { Button, ButtonGroup, Input } = FormComponents;
 
 export function Login() {
-  const [email_usuario, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await api.post('/session/login', {
-        email_usuario,
-        senha,
-      });
-      login(response.data.token);
-      setUserName(response.data.user.nome);
-      setPermission(response.data.user.tipo);
-      history.push('/inicio');
+      await signIn({ email, password });
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <LoginForm onSubmit={handleSignIn}>
@@ -35,7 +27,7 @@ export function Login() {
         <Input
           id="email"
           label="Email"
-          value={email_usuario}
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
           mask=""
         />
@@ -43,8 +35,8 @@ export function Login() {
           id="password"
           label="Senha"
           type="password"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           mask=""
         />
         <Link

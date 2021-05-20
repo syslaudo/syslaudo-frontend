@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { useUsers } from '../../hooks/useUsers';
-import { StyledContainer } from './styles';
 import { Button } from '../../components/FormComponents/Button';
 import { Table } from '../../components/Table';
+import { useUsers } from '../../hooks/useUsers';
+import { StyledContainer } from './styles';
 import { UserCreateModal } from './UserCreateModal';
 import { UserUpdateModal } from './UserUpdateModal';
 
@@ -13,13 +13,13 @@ ReactModal.setAppElement('#root');
 interface User {
   id: string;
   cpf: string;
-  email_usuario: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  email: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 export function Users() {
@@ -54,9 +54,9 @@ export function Users() {
       sortable: true,
       grow: 4,
     },
-    { name: 'Nome', selector: 'nome_do_usuario', sortable: true, grow: 7 },
-    { name: 'E-mail', selector: 'email_usuario', sortable: true, grow: 5 },
-    { name: 'Tipo', selector: 'tipo', sortable: true, grow: 4 },
+    { name: 'Nome', selector: 'name', sortable: true, grow: 7 },
+    { name: 'E-mail', selector: 'email', sortable: true, grow: 5 },
+    { name: 'Tipo', selector: 'type', sortable: true, grow: 4 },
   ];
 
   function onRemove(e: any) {

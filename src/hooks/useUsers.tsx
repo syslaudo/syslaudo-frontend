@@ -6,18 +6,18 @@ import {
   useState,
 } from 'react';
 import api from '../services/api';
-import { isAdmin } from '../services/Auth';
+import { loggedUser } from '../services/auth';
 
 interface User {
   id: string;
   cpf: string;
-  email_usuario: string;
-  senha?: string;
-  nome_do_usuario: string;
-  tipo: string;
+  email: string;
+  password?: string;
+  name: string;
+  type: string;
   crm?: string;
-  data_residencia?: string;
-  titulacao?: string;
+  residencyDate?: string;
+  title?: string;
 }
 
 type UserInput = Omit<User, 'id'>;
@@ -40,18 +40,43 @@ export function UsersProvider({ children }: UsersProviderProps) {
 
   useEffect(() => {
     async function loadUsers() {
-      await api
-        .get('/usuario/listAll')
-        .then((response) => setUsers(response.data));
+      const response = await api.get('/usuario/listAll');
+
+      const users = response.data.map(
+        (user: any) =>
+          (user = {
+            id: user.id,
+            cpf: user.cpf,
+            email: user.email_usuario,
+            password: user.senha,
+            name: user.nome_do_usuario,
+            type: user.tipo,
+            crm: user.crm,
+            residencyDate: user.data_residencia,
+            title: user.titulacao
+          }),
+      );
+
+      setUsers(users);
     }
 
-    if (isAdmin()) {
+    if (loggedUser.type === 'Administrador') {
       loadUsers();
     }
   }, []);
 
   async function createUser(userInput: UserInput) {
-    const response = await api.post('/usuario/create', userInput);
+    const user = {
+      cpf: userInput.cpf,
+      email_usuario: userInput.email,
+      senha: userInput.password,
+      nome_do_usuario: userInput.name,
+      tipo: userInput.type,
+      crm: userInput.crm,
+      data_residencia: userInput.residencyDate,
+      titulacao: userInput.title
+    }
+    const response = await api.post('/usuario/create', user);
     setUsers([...users, response.data]);
   }
 
@@ -64,7 +89,19 @@ export function UsersProvider({ children }: UsersProviderProps) {
   }
 
   async function updateUser(userId: string, userInput: UserInput) {
-    const updatedUser = await api.put(`/usuario/update/${userId}`, userInput);
+    
+    const user = {
+      cpf: userInput.cpf,
+      email_usuario: userInput.email,
+      senha: userInput.password,
+      nome_do_usuario: userInput.name,
+      tipo: userInput.type,
+      crm: userInput.crm,
+      data_residencia: userInput.residencyDate,
+      titulacao: userInput.title
+    }
+
+    const updatedUser = await api.put(`/usuario/update/${userId}`, user);
 
     const updatedUsers = users.map((user) =>
       user.id !== updatedUser.data.id ? user : updatedUser.data,

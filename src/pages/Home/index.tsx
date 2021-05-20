@@ -4,16 +4,16 @@ import { Card, CardGroup } from './styles';
 export function Home() {
   return (
     <>
-      <h1>Solicitações</h1>
+      <h1>Cadastro</h1>
       <CardGroup>
         <Link to="/pacientes">
           <Card>
             <span>Cadastrar Paciente</span>
           </Card>
         </Link>
-        <Link to="/exames">
+        <Link to="/exames/agendados">
           <Card>
-            <span>Solicitar Exame</span>
+            <span>Agendar Exame</span>
           </Card>
         </Link>
       </CardGroup>
@@ -22,22 +22,22 @@ export function Home() {
       <CardGroup>
         <Link to="/exames">
           <Card>
-            <span>Lista de Exames</span>
+            <span>Cancelados</span>
           </Card>
         </Link>
         <Link to="/exames">
           <Card>
-            <span>Exames Pendentes</span>
+            <span>Laudo Pendente</span>
           </Card>
         </Link>
         <Link to="/exames">
           <Card>
-            <span>Laudos Pendentes</span>
+            <span>Laudo Provisório</span>
           </Card>
         </Link>
         <Link to="/exames">
           <Card>
-            <span>Laudos Aprovados</span>
+            <span>Concluidos</span>
           </Card>
         </Link>
       </CardGroup>

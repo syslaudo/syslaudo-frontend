@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
 import { useHistory } from 'react-router-dom';
-import { isAuthenticated, isAdmin } from '../../services/Auth';
+import { isAuthenticated, loggedUser } from '../../services/auth';
 
 export function Header() {
   const [displayMobile, setDisplayMobile] = useState(false);
 
   const history = useHistory();
+  
   useEffect(() => {
     return history.listen(() => {
       setDisplayMobile(false);
@@ -22,13 +23,13 @@ export function Header() {
     <div>
       <DesktopNavbar
         toggleMobile={toggleMobile}
-        isAuthenticated={isAuthenticated()}
-        isAdmin={isAdmin()}
+        isAuthenticated={isAuthenticated}
+        isAdmin={loggedUser.type === 'Administrador'}
       />
       <MobileNavbar
         displayMobile={displayMobile}
-        isAuthenticated={isAuthenticated()}
-        isAdmin={isAdmin()}
+        isAuthenticated={isAuthenticated}
+        isAdmin={loggedUser.type === 'Administrador'}
       />
     </div>
   );

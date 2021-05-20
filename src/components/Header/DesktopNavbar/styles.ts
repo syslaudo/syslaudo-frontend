@@ -41,7 +41,7 @@ export const StyledDesktopNavbar = styled.header<{
       margin-left: auto;
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 950px) {
       > ul {
         display: none;
       }
@@ -55,10 +55,6 @@ export const StyledDesktopNavbar = styled.header<{
 
   .navlinks {
     display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
-
-    .adminFunction {
-      display: ${(props) => (props.isAdmin ? 'inline-block' : 'none')};
-    }
 
     > li {
       display: inline-block;
@@ -96,6 +92,7 @@ export const StyledDesktopNavbar = styled.header<{
           text-align: center;
           padding: 0 1rem;
           transition: 0.2ms;
+          width: 10rem;
 
           &:hover {
             background: var(--primary);
@@ -105,7 +102,7 @@ export const StyledDesktopNavbar = styled.header<{
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 950px) {
       display: none;
     }
   }
@@ -179,7 +176,7 @@ export const StyledDesktopNavbar = styled.header<{
       }
     }
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 950px) {
       display: none;
     }
   }

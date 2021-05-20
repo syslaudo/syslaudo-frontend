@@ -27,7 +27,7 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 950px) {
     width: 100%;
     padding: 1rem;
     border: none;
