@@ -1,4 +1,4 @@
-import { StyledFooter } from "./styles";
+import { StyledFooter } from './styles';
 
 export function Footer() {
   return (

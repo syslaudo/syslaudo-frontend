@@ -1,12 +1,15 @@
-import { DoctorForm } from "../DoctorForm";
-import { Modal } from "../../../components/Modal";
+import { DoctorForm } from '../DoctorForm';
+import { Modal } from '../../../components/Modal';
 
 interface Doctor {
-  id: number;
+  id: string;
+  email: string;
+  cpf: string;
+  password?: string;
   name: string;
-  crm: string;
   type: string;
-  date?: Date;
+  crm?: string;
+  residencyDate?: string;
   title?: string;
 }
 

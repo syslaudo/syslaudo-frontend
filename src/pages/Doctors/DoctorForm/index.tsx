@@ -1,8 +1,8 @@
-import { FormEvent, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { FormComponents } from "../../../components/FormComponents";
-import { useDoctors } from "../../../hooks/useDoctors";
-import { StyledDoctorForm } from "./styles";
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { FormComponents } from '../../../components/FormComponents';
+import { useUsers } from '../../../hooks/useUsers';
+import { StyledDoctorForm } from './styles';
 
 const {
   Button,
@@ -14,11 +14,14 @@ const {
 } = FormComponents;
 
 interface Doctor {
-  id: number;
+  id: string;
+  email: string;
+  cpf: string;
+  password?: string;
   name: string;
-  crm: string;
   type: string;
-  date?: Date;
+  crm?: string;
+  residencyDate?: string;
   title?: string;
 }
 
@@ -28,97 +31,91 @@ interface DoctorFormProps {
 }
 
 export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
-  const { createDoctor, updateDoctor } = useDoctors();
-  const [name, setName] = useState("");
-  const [crm, setCrm] = useState("");
-  const [type, setType] = useState("Médico");
-  const [residencyStartingDate, setResidencyStartingDate] = useState("");
-  const [title, setTitle] = useState("");
-
-  if (editingDoctor?.title) {
-    console.log(editingDoctor?.title);
-  }
+  const { createUser: createDoctor, updateUser: updateDoctor } = useUsers();
+  const [cpf, setCpf] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [crm, setCrm] = useState('');
+  const [type, setType] = useState('Médico');
+  const [residencyDate, setResidencyDate] = useState('');
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
-    setName(editingDoctor ? editingDoctor.name : "");
-    setCrm(editingDoctor ? editingDoctor.crm : "");
-    setType(editingDoctor ? editingDoctor.type : "Médico");
-    setResidencyStartingDate(
-      editingDoctor?.date ? String(editingDoctor.date).split("T")[0] : ""
+    setCpf(editingDoctor ? editingDoctor.cpf : '');
+    setEmail(editingDoctor ? editingDoctor.email : '');
+    setName(editingDoctor ? editingDoctor.name : '');
+    setCrm(editingDoctor?.crm ? editingDoctor.crm : '');
+    setType(editingDoctor ? editingDoctor.type : 'Médico');
+    setResidencyDate(
+      editingDoctor?.residencyDate
+        ? String(editingDoctor.residencyDate).split('T')[0]
+        : '',
     );
-    setTitle(editingDoctor?.title ? editingDoctor.title : "");
+    setTitle(editingDoctor?.title ? editingDoctor.title : '');
   }, [editingDoctor]);
 
   function handleReset() {
     if (editingDoctor) {
+      setCpf(editingDoctor.cpf);
+      setEmail(editingDoctor.email);
       setName(editingDoctor.name);
-      setCrm(editingDoctor.crm);
+      setCrm(editingDoctor.crm ? editingDoctor.crm : '');
       setType(editingDoctor.type);
-      setResidencyStartingDate(
-        editingDoctor.date ? String(editingDoctor.date).split("T")[0] : ""
+      setResidencyDate(
+        editingDoctor.residencyDate
+          ? String(editingDoctor.residencyDate).split('T')[0]
+          : '',
       );
-      setTitle(editingDoctor.title ? editingDoctor.title : "");
+      setTitle(editingDoctor.title ? editingDoctor.title : '');
     } else {
-      setName("");
-      setCrm("");
-      setType("Médico");
-      setResidencyStartingDate("");
-      setTitle("");
+      setCpf('');
+      setEmail('');
+      setName('');
+      setCrm('');
+      setType('Médico');
+      setResidencyDate('');
+      setTitle('');
     }
+  }
+
+  const doctor = {
+    cpf: cpf.replace(/[^0-9]+/g, ''),
+    email: email,
+    name: name,
+    type: type,
+    crm: '',
+    title: '',
+    residencyDate: '',
+  };
+
+  if (type !== 'Administrador') {
+    doctor.crm = crm;
+  }
+  if (type === 'Professor') {
+    doctor.title = title;
+  }
+  if (type === 'Residente') {
+    doctor.residencyDate = residencyDate;
   }
 
   async function handleCreateNewDoctor(event: FormEvent) {
     event.preventDefault();
 
-    const doctor = {
-      name,
-      crm,
-      type,
-    };
-
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
-    } else {
-      Object.assign(doctor, { title: null });
-    }
-    if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
-    } else {
-      Object.assign(doctor, { date: null });
-    }
-
     try {
-      await createDoctor(doctor);
+      await createDoctor({ ...doctor, password: '123456' });
       if (onRequestClose) {
         onRequestClose();
       } else {
         handleReset();
       }
-      toast.success("Cadastro realizado com sucesso!");
+      toast.success('Cadastro realizado com sucesso!');
     } catch {
-      toast.error("Erro! Cadastro não efetuado");
+      toast.error('Erro! Cadastro não efetuado');
     }
   }
 
   async function handleUpdateDoctor(event: FormEvent) {
     event.preventDefault();
-
-    const doctor = {
-      name,
-      crm,
-      type,
-    };
-
-    if (type === "Professor") {
-      Object.assign(doctor, { title });
-    } else {
-      Object.assign(doctor, { title: null });
-    }
-    if (type === "Residente") {
-      Object.assign(doctor, { date: new Date(residencyStartingDate) });
-    } else {
-      Object.assign(doctor, { date: null });
-    }
 
     try {
       if (!editingDoctor) {
@@ -129,89 +126,113 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       if (onRequestClose) {
         onRequestClose();
       }
-      toast.success("Cadastro atualizado com sucesso!");
+      
+      toast.success('Cadastro atualizado com sucesso!');
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch {
-      toast.error("Erro! Atualização não efetuada");
+      toast.error('Erro! Atualização não efetuada');
     }
   }
 
   return (
-    <>
-      <StyledDoctorForm
-        doctorType={type}
-        onSubmit={editingDoctor ? handleUpdateDoctor : handleCreateNewDoctor}
+    <StyledDoctorForm
+      doctorType={type}
+      onSubmit={editingDoctor ? handleUpdateDoctor : handleCreateNewDoctor}
+    >
+      <Input
+        id="name"
+        label="Nome"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        required
+        mask=""
+      />
+      <Input
+        id="cpf"
+        label="CPF"
+        value={cpf}
+        onChange={(event) => setCpf(event.target.value)}
+        required
+        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
+        mask="999.999.999-99"
+      />
+      <Input
+        id="crm"
+        label="CRM"
+        value={crm}
+        onChange={(event) => setCrm(event.target.value)}
+        required
+        mask=""
+      />
+      <Input
+        id="email"
+        label="e-mail"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        type="email"
+        required
+        mask=""
+      />
+
+      <RadioGroup id="type" label="Tipo">
+        <RadioButton
+          name="type"
+          id="Médico Padrão"
+          value="Médico"
+          onChange={(event) => setType(event.target.value)}
+          checked={type === 'Médico'}
+        />
+        <RadioButton
+          name="type"
+          id="Médico Residente"
+          value="Residente"
+          onChange={(event) => setType(event.target.value)}
+          checked={type === 'Residente'}
+        />
+        <RadioButton
+          name="type"
+          id="Médico Professor"
+          value="Professor"
+          onChange={(event) => setType(event.target.value)}
+          checked={type === 'Professor'}
+        />
+      </RadioGroup>
+
+      <Input
+        className="inputResidente"
+        label="Data de Início da Residência"
+        id="data-residencia"
+        type="date"
+        value={residencyDate}
+        onChange={(event) => setResidencyDate(event.target.value)}
+        required={type === 'Residente' ? true : false}
+        mask=""
+      />
+
+      <Select
+        className="inputProfessor"
+        label="Titulação"
+        id="title"
+        value={title}
+        onChange={(event) => setTitle(event.target.value)}
+        required={type === 'Professor' ? true : false}
       >
-        <Input
-          id="name"
-          label="Nome"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          required
-        />
-        <Input
-          id="crm"
-          label="CRM"
-          value={crm}
-          onChange={(event) => setCrm(event.target.value)}
-          required
-        />
+        <option value="Especialista">Especialista</option>
+        <option value="Mestre">Mestre</option>
+        <option value="Doutor">Doutor</option>
+      </Select>
 
-        <RadioGroup id="tipo" label="Tipo">
-          <RadioButton
-            name="tipo"
-            id="Médico Padrão"
-            value="Médico"
-            onChange={(event) => setType(event.target.value)}
-            checked={type === "Médico"}
-          />
-          <RadioButton
-            name="tipo"
-            id="Médico Residente"
-            value="Residente"
-            onChange={(event) => setType(event.target.value)}
-            checked={type === "Residente"}
-          />
-          <RadioButton
-            name="tipo"
-            id="Médico Professor"
-            value="Professor"
-            onChange={(event) => setType(event.target.value)}
-            checked={type === "Professor"}
-          />
-        </RadioGroup>
-
-        <Input
-          className="inputResidente"
-          label="Data de Início da Residência"
-          id="data-residencia"
-          type="date"
-          value={residencyStartingDate}
-          onChange={(event) => setResidencyStartingDate(event.target.value)}
-          required={type === "Residente" ? true : false}
-        />
-
-        <Select
-          className="inputProfessor"
-          label="Titulação"
-          id="titulacao"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          required={type === "Professor" ? true : false}
-        >
-          <option value="Especialista">Especialista</option>
-          <option value="Mestre">Mestre</option>
-          <option value="Doutor">Doutor</option>
-        </Select>
-
-        <ButtonGroup>
-          <Button type="submit" primary>
-            Enviar
-          </Button>
-          <Button type="button" onClick={handleReset}>
-            Descartar
-          </Button>
-        </ButtonGroup>
-      </StyledDoctorForm>
-    </>
+      <ButtonGroup>
+        <Button type="submit" primary>
+          Enviar
+        </Button>
+        <Button type="button" onClick={handleReset}>
+          Descartar
+        </Button>
+      </ButtonGroup>
+    </StyledDoctorForm>
   );
 }

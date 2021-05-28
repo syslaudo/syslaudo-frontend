@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { StyledForm } from "../../components/FormComponents/Form/styles";
+import styled from 'styled-components';
+import { StyledForm } from '../../components/FormComponents/Form/styles';
 
 export const LoginForm = styled(StyledForm)`
   margin-top: 5vh;
@@ -19,7 +19,7 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
-  p {
+  p.link {
     position: relative;
     font-size: 0.9rem;
     text-align: right;
@@ -27,7 +27,17 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
-  @media screen and (max-width: 900px) {
+  p.errorMessage {
+    position: relative;
+    top: 1rem;
+    color: red;
+
+    &::before {
+      content: "* "
+    }
+  }
+
+  @media screen and (max-width: 950px) {
     width: 100%;
     padding: 1rem;
     border: none;

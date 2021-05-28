@@ -1,5 +1,5 @@
-import "react-toastify/dist/ReactToastify.css";
-import { createGlobalStyle } from "styled-components";
+import 'react-toastify/dist/ReactToastify.css';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -97,11 +97,22 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   .react-modal-content {
     width: 900px;
     max-width: 80%;
+    max-height: 90%;
+    overflow-y: auto;
     background: var(--background);
     color: var(--text);
     padding: 3rem;
     position: relative;
     border-radius: 0.25rem;
+
+    a {
+      color: var(--primary);
+      transition: 0.2s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
 
     h1 {
       text-transform: uppercase;

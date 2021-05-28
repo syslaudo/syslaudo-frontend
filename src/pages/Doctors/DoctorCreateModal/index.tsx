@@ -1,5 +1,5 @@
-import { DoctorForm } from "../DoctorForm";
-import { Modal } from "../../../components/Modal";
+import { DoctorForm } from '../DoctorForm';
+import { Modal } from '../../../components/Modal';
 
 interface DoctorCreateModalProps {
   isOpen: boolean;

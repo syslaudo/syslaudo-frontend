@@ -1,4 +1,4 @@
-import { StyledButton } from "./styles";
+import { StyledButton } from './styles';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   primary?: boolean;

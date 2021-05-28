@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledInput = styled.div`
   display: block;
@@ -13,7 +13,7 @@ export const StyledInput = styled.div`
   input {
     padding: 0.6rem;
     color: var(--text);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     border: 1px solid var(--text);
     background: var(--background);

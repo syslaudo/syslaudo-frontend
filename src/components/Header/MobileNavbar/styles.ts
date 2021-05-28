@@ -1,8 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const StyledMobileNavbar = styled.nav<{ displayMobile: boolean }>`
+export const StyledMobileNavbar = styled.nav<{
+  displayMobile: boolean;
+  isAuthenticated: boolean;
+  isAdmin: boolean;
+}>`
   width: 100vw;
-  display: ${(props) => (props.displayMobile ? "flex" : "none")};
+  display: ${(props) => (props.displayMobile ? 'flex' : 'none')};
   flex-direction: column;
   font-size: 1.1rem;
 
@@ -11,11 +15,33 @@ export const StyledMobileNavbar = styled.nav<{ displayMobile: boolean }>`
     > li {
       text-transform: uppercase;
 
-      span {
+      .mob-hidden {
         display: none;
       }
 
-      a {
+      span {
+        display: flex;
+        height: 3rem;
+        line-height: 3rem;
+        justify-content: center;
+        border-bottom: 1px solid var(--hover);
+        font-weight: bold;
+      }
+
+      > a {
+        display: flex;
+        height: 3rem;
+        line-height: 3rem;
+        justify-content: center;
+        border-bottom: 1px solid var(--hover);
+        font-weight: bold;
+
+        &:hover {
+          background: var(--hover);
+        }
+      }
+
+      > ul > a {
         display: flex;
         height: 3rem;
         line-height: 3rem;
@@ -26,7 +52,15 @@ export const StyledMobileNavbar = styled.nav<{ displayMobile: boolean }>`
           background: var(--hover);
         }
       }
+
+      .logoutButton {
+        font-weight: bold;
+      }
     }
+  }
+
+  .logoutButton {
+    display: ${(props) => (props.isAuthenticated ? '' : 'none')};
   }
 
   @media screen and (min-width: 901px) {

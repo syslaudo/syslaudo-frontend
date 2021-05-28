@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from 'react';
 import DataTable, {
   IDataTableColumn,
   IDataTableProps,
-} from "react-data-table-component";
-import { ActionButton, customStyles, FilterInput } from "./styles";
+} from 'react-data-table-component';
+import { ActionButton, customStyles, FilterInput } from './styles';
 
 interface Column extends IDataTableColumn<Object> {
   selector: string;
@@ -13,41 +13,83 @@ interface TableProps extends IDataTableProps {
   title: string;
   columns: Column[];
   data: Object[];
-  selectableRows?: boolean;
+  removeActions?: boolean;
+  customActions?: {
+    name: string;
+    cell: (row: any) => ReactNode;
+    sortable: boolean;
+    grow: number;
+  };
   onRemove: (e: any) => void;
   onEdit: (e: any) => void;
 }
 
 export function Table(props: TableProps) {
-  const columns = [
-    ...props.columns,
-    {
-      name: "Ações",
-      cell: (row: any) => (
-        <div data-tag="allowRowEvents">
-          <ActionButton id={row.id} type="button" onClick={props.onEdit}>
-            <i className="far fa-edit" title="Editar"></i>
-          </ActionButton>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <ActionButton id={row.id} type="button" onClick={props.onRemove}>
-            <i className="fas fa-trash-alt" title="Remover"></i>
-          </ActionButton>
-        </div>
-      ),
-      sortable: false,
-      grow: 1,
-    },
-  ];
+  const columns = props.customActions
+    ? [...props.columns, props.customActions]
+    : [
+        ...props.columns,
+        props.removeActions
+          ? {
+              name: 'Ações',
+              cell: (row: any) => (
+                <div data-tag="allowRowEvents">
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onEdit}
+                  >
+                    <i className="far fa-edit" title="Editar"></i>
+                  </ActionButton>
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onRemove}
+                  >
+                    <i className="fas fa-trash-alt" title="Remover"></i>
+                  </ActionButton>
+                </div>
+              ),
+              sortable: false,
+              grow: 1,
+              omit: true,
+            }
+          : {
+              name: 'Ações',
+              cell: (row: any) => (
+                <div data-tag="allowRowEvents">
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onEdit}
+                  >
+                    <i className="far fa-edit" title="Editar"></i>
+                  </ActionButton>
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  <ActionButton
+                    id={row.id}
+                    type="button"
+                    onClick={props.onRemove}
+                  >
+                    <i className="fas fa-trash-alt" title="Remover"></i>
+                  </ActionButton>
+                </div>
+              ),
+              sortable: false,
+              grow: 1,
+            },
+      ];
 
   const filterColumns = props.columns.reduce(function (acc: Column[], column) {
-    if (!(column.selector === "id")) {
+    if (!(column.name === 'Id')) {
       acc.push(column);
     }
     return acc;
   }, []);
 
   const [filterBy, setFilterBy] = useState(filterColumns[0].selector);
-  const [filterQuery, setFilterQuery] = useState("");
+  const [filterQuery, setFilterQuery] = useState('');
   const [filteredData, setFilteredData] = useState(props.data);
 
   useEffect(() => {
@@ -57,7 +99,7 @@ export function Table(props: TableProps) {
   function filterData(filterQuery: string) {
     const filtered = props.data.filter((item) =>
       // @ts-ignore
-      String(item[filterBy]).toLowerCase().includes(filterQuery.toLowerCase())
+      String(item[filterBy]).toLowerCase().includes(filterQuery.toLowerCase()),
     );
 
     setFilteredData(filtered);
@@ -73,7 +115,7 @@ export function Table(props: TableProps) {
             id="filter-by"
             onChange={(e) => {
               setFilterBy(e.target.value);
-              setFilterQuery("");
+              setFilterQuery('');
               setFilteredData(props.data);
             }}
           >
@@ -95,7 +137,7 @@ export function Table(props: TableProps) {
           />
           <button
             onClick={() => {
-              setFilterQuery("");
+              setFilterQuery('');
               setFilteredData(props.data);
             }}
           >

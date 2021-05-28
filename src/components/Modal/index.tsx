@@ -1,5 +1,5 @@
-import { ReactNode, useEffect, useState } from "react";
-import ReactModal from "react-modal";
+import { ReactNode, useEffect, useState } from 'react';
+import ReactModal from 'react-modal';
 
 interface ModalProps {
   children: ReactNode;

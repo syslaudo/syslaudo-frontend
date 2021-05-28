@@ -1,26 +1,17 @@
-import React from "react";
-import { StyledInput } from "./styles";
+import React from 'react';
+import ReactInputMask, { Props as MaskedInputProps } from 'react-input-mask';
+import { StyledInput } from './styles';
 
-interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    React.ClassAttributes<HTMLInputElement> {
+interface InputProps extends MaskedInputProps {
   label: string;
+  mask_?: string;
 }
 
-export function Input(props: InputProps) {
+export function Input({ label, className, ...props }: InputProps) {
   return (
-    <StyledInput className={props.className}>
-      <label htmlFor={props.id}>{props.label}</label>
-      <input
-        id={props.id}
-        placeholder={props.placeholder}
-        type={props.type}
-        disabled={props.disabled}
-        value={props.value}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
-        required={props.required}
-      />
+    <StyledInput className={className}>
+      <label htmlFor={props.id}>{label}</label>
+      <ReactInputMask {...props} />
     </StyledInput>
   );
 }

@@ -1,43 +1,43 @@
-import { Link } from "react-router-dom";
-import { Card, CardGroup } from "./styles";
+import { Link } from 'react-router-dom';
+import { Card, CardGroup } from './styles';
 
 export function Home() {
   return (
     <>
-      <h1>Solicitações</h1>
+      <h1>Cadastro</h1>
       <CardGroup>
-        <Link to="/pacientes/cadastro">
+        <Link to="/pacientes">
           <Card>
             <span>Cadastrar Paciente</span>
           </Card>
         </Link>
-        <Link to="/exames/solicitacao">
+        <Link to="/exames/agendados">
           <Card>
-            <span>Solicitar Exame</span>
+            <span>Agendar Exame</span>
           </Card>
         </Link>
       </CardGroup>
 
       <h1>Exames</h1>
       <CardGroup>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
-            <span>Lista de Exames</span>
+            <span>Cancelados</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
-            <span>Exames Pendentes</span>
+            <span>Laudo Pendente</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
-            <span>Laudos Pendentes</span>
+            <span>Laudo Provisório</span>
           </Card>
         </Link>
-        <Link to="/exames/lista">
+        <Link to="/exames">
           <Card>
-            <span>Laudos Aprovados</span>
+            <span>Concluidos</span>
           </Card>
         </Link>
       </CardGroup>

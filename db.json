@@ -1,60 +1,59 @@
 {
-  "doctors": [
+  "exams": [
     {
-      "name": "Alisson Felipe Lima Santos",
-      "crm": "1565",
-      "type": "Professor",
-      "title": "Mestre",
-      "date": null,
+      "cpf": "03563117594",
+      "type": "Eletrocardiograma",
+      "date": "2021-05-10T23:55:20.814Z",
+      "status": "Concluido",
+      "hypotesis": "la la la",
+      "image": "http://www.africau.edu/images/default/sample.pdf",
+      "report": "",
+      "report_status": "Aguardando laudo",
       "id": 1
     },
     {
-      "name": "Bruno César Fontes Vieira",
-      "crm": 8422,
-      "type": "Residente",
-      "title": null,
-      "date": "2021-04-13T00:00:00.000Z",
+      "cpf": "00000000001",
+      "type": "Mapa",
+      "date": "2021-05-05T20:21:44.131Z",
+      "status": "Agendado",
+      "hypotesis": "hiphip\n",
+      "image": "",
+      "report": "",
+      "report_status": "Aguardando laudo",
       "id": 2
     },
     {
-      "name": "Fernanda Amaral de Souza",
-      "crm": 5454,
-      "type": "Professor",
-      "title": "Doutor",
-      "date": null,
+      "cpf": "00000000001",
+      "type": "Mapa",
+      "date": "2021-05-05T20:21:44.131Z",
+      "status": "Agendado",
+      "hypotesis": "hiphip\n",
+      "image": "",
+      "report": "",
+      "report_status": "Aguardando laudo",
       "id": 3
+    }
+  ],
+  "recommendations": [
+    {
+      "id": 1,
+      "exam": "Ecocardiograma",
+      "recommendations": "Recomendações para ecocardiograma."
     },
     {
-      "name": "Lucas Santos Souza",
-      "crm": 8233,
-      "type": "Professor",
-      "title": "Doutor",
-      "date": null,
-      "id": 4
+      "id": 2,
+      "exam": "Eletrocardiograma",
+      "recommendations": "Recomendações para eletrocardiograma."
     },
     {
-      "name": "Natalia Braga da Fonseca",
-      "crm": 4545,
-      "type": "Médico",
-      "title": null,
-      "date": null,
-      "id": 5
+      "id": 3,
+      "exam": "Mapa",
+      "recommendations": "Recomendações para mapa."
     },
     {
-      "name": "Natan Nascimento Oliveira Matos",
-      "crm": "4546",
-      "type": "Professor",
-      "title": "Especialista",
-      "date": null,
-      "id": 6
-    },
-    {
-      "name": "Natalie Pereira Macedo",
-      "crm": 8484,
-      "type": "Residente",
-      "title": null,
-      "date": "2021-04-13T00:00:00.000Z",
-      "id": 7
+      "id": 4,
+      "exam": "Router",
+      "recommendations": "Recomendações para router."
     }
   ]
 }
