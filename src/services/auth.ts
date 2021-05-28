@@ -9,7 +9,7 @@ export const isAuthenticated = localStorage.getItem('TOKEN') !== null;
 export const token = localStorage.getItem('TOKEN');
 
 export async function signIn({ email, password }: SignInCredentials) {
-  try {
+
     const response = await api.post('session/login', {
       email_usuario: email,
       senha: password,
@@ -21,11 +21,8 @@ export async function signIn({ email, password }: SignInCredentials) {
     localStorage.setItem('USER.EMAIL', user.email_usuario);
     localStorage.setItem('USER.NAME', user.nome);
     localStorage.setItem('USER.TYPE', user.tipo);
-
-
-  } catch (err) {
-    console.log(err);
-  }
+    
+    window.location.reload();
 }
 
 export const loggedUser = {

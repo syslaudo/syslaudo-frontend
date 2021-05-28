@@ -19,12 +19,22 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
-  p {
+  p.link {
     position: relative;
     font-size: 0.9rem;
     text-align: right;
     top: -2rem;
     color: var(--primary);
+  }
+
+  p.errorMessage {
+    position: relative;
+    top: 1rem;
+    color: red;
+
+    &::before {
+      content: "* "
+    }
   }
 
   @media screen and (max-width: 950px) {
