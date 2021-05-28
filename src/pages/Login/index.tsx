@@ -9,14 +9,14 @@ const { Button, ButtonGroup, Input } = FormComponents;
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
       await signIn({ email, password });
-      window.location.reload();
     } catch (error) {
-      console.log(error);
+      setMessage(error.response.data.message);
     }
   };
 
@@ -24,6 +24,9 @@ export function Login() {
     <>
       <LoginForm onSubmit={handleSignIn}>
         <h5>Login</h5>
+        <p className="errorMessage">
+        {message !== '' && message}
+        </p>
         <Input
           id="email"
           label="Email"
@@ -39,14 +42,18 @@ export function Login() {
           onChange={(e) => setPassword(e.target.value)}
           mask=""
         />
-        <Link
-          to="#"
-          onClick={() =>
-            alert('Para resetar sua senha, entre em contato com o setor de TI.')
-          }
-        >
-          <p>Esqueceu sua senha?</p>
-        </Link>
+        <p className="link">
+          <Link
+            to="#"
+            onClick={() =>
+              alert(
+                'Para resetar sua senha, entre em contato com o setor de TI.',
+              )
+            }
+          >
+            Esqueceu sua senha?
+          </Link>
+        </p>
         <ButtonGroup>
           <Button primary type="submit">
             Login
