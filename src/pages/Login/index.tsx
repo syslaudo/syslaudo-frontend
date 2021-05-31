@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { FormComponents } from '../../components/FormComponents';
 import { signIn } from '../../services/auth';
 import { LoginForm } from './styles';
@@ -9,14 +10,13 @@ const { Button, ButtonGroup, Input } = FormComponents;
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
       await signIn({ email, password });
     } catch (error) {
-      setMessage(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -24,9 +24,6 @@ export function Login() {
     <>
       <LoginForm onSubmit={handleSignIn}>
         <h5>Login</h5>
-        <p className="errorMessage">
-        {message !== '' && message}
-        </p>
         <Input
           id="email"
           label="Email"

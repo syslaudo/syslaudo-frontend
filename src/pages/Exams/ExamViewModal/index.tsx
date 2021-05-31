@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { Modal } from '../../../components/Modal';
 import { Exam } from '../../../hooks/useExams';
 import { usePatients } from '../../../hooks/usePatients';
@@ -24,25 +25,25 @@ export function ExamViewModal(props: ExamViewModalProps) {
           <strong>Paciente: </strong> {patient?.name}
         </p>
         <p>
-          <strong>CPF: </strong> {viewingExam.cpf}
+          <strong>CPF: </strong> {viewingExam.cpf?.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')}
         </p>
         <p>
           <strong>Tipo do Exame: </strong> {viewingExam.type}
         </p>
         <p>
-          <strong>Data: </strong> {viewingExam.date}
+          <strong>Data: </strong> {dateFormat(viewingExam.date, 'dd/mm/yyyy', true)}
         </p>
         <br />
 
+        <a href={viewingExam.image} target="_blank">
+          <p>Abrir em nova aba</p>
+        </a>
         <iframe
           src={viewingExam.image}
           title="Imagem do exame"
           width="100%"
           height="800px"
         />
-        <a href={viewingExam.image} target="_blank">
-          <p>Abrir em nova aba</p>
-        </a>
       </StyledContainer>
     </Modal>
   );

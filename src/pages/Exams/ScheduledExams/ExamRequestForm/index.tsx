@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormComponents } from '../../../../components/FormComponents';
@@ -5,14 +6,8 @@ import { MultilineInput } from '../../../../components/FormComponents/MultilineI
 import { useExams, Exam } from '../../../../hooks/useExams';
 import { usePatients } from '../../../../hooks/usePatients';
 
-const {
-  Form,
-  Button,
-  ButtonGroup,
-  Input,
-  RadioButton,
-  RadioGroup,
-} = FormComponents;
+const { Form, Button, ButtonGroup, Input, RadioButton, RadioGroup } =
+  FormComponents;
 
 interface ExamRequestFormProps {
   editingExam?: Exam;
@@ -44,7 +39,7 @@ export function ExamRequestForm({
       setType(editingExam.type);
       setHypotesis(editingExam.hypotesis);
       setRecommendations(getRecommendationByExamType(editingExam.type));
-      setDate(String(editingExam.date).split('T')[0]);
+      setDate(dateFormat(editingExam.date, 'dd/mm/yyyy', true));
     } else {
       setName('');
       setCpf('');
@@ -67,7 +62,7 @@ export function ExamRequestForm({
       setType(editingExam.type);
       setHypotesis(editingExam.hypotesis);
       setRecommendations(getRecommendationByExamType(editingExam.type));
-      setDate(String(editingExam.date).split('T')[0]);
+      setDate(dateFormat(editingExam.date, 'dd/mm/yyyy', true));
     } else {
       setCpf('');
       setType('Ecocardiograma');
@@ -99,8 +94,8 @@ export function ExamRequestForm({
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
-    } catch {
-      toast.error('Erro! Cadastro não efetuado');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -133,8 +128,8 @@ export function ExamRequestForm({
       setTimeout(function () {
         window.location.reload();
       }, 2000);
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -147,11 +142,12 @@ export function ExamRequestForm({
       <Input
         id="cpf"
         label="CPF do Paciente"
-        mask=""
         value={cpf}
+        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
+        mask="999.999.999-99"
         onChange={(event) => setCpf(event.target.value)}
         onBlur={(event) => {
-          const patient = getPatientByCpf(event.target.value);
+          const patient = getPatientByCpf(event.target.value.replace(/[^0-9]+/g, ''));
 
           if (patient) {
             setName(patient.name);

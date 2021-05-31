@@ -13,7 +13,6 @@ export function MobileNavbar(props: MobileNavbarProps) {
     <StyledMobileNavbar
       displayMobile={props.displayMobile}
       isAuthenticated={props.isAuthenticated}
-      isAdmin={props.isAdmin}
     >
       <Navlinks />
       <ProfileSubmenu />
