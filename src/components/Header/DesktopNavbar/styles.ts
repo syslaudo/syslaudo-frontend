@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledDesktopNavbar = styled.header<{
-  isAuthenticated: boolean;
-}>`
+export const StyledDesktopNavbar = styled.header`
   height: 5rem;
   border-bottom: 1px solid var(--hover);
 
@@ -46,14 +44,13 @@ export const StyledDesktopNavbar = styled.header<{
       }
 
       button {
-        display: ${(props) =>
-          props.isAuthenticated ? 'inline-block' : 'none'};
+        display: inline-block;
       }
     }
   }
 
   .navlinks {
-    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
+    display: flex;
 
     > li {
       display: inline-block;
@@ -107,7 +104,7 @@ export const StyledDesktopNavbar = styled.header<{
   }
 
   .profile {
-    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
+    display: flex;
 
     > li {
       display: inline-block;
