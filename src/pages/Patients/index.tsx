@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -61,7 +62,7 @@ export function Patients() {
     {
       name: 'Data de Nascimento',
       selector: 'birthdate',
-      cell: (row: any) => String(row.birthdate).split('T')[0],
+      cell: (row: any) => dateFormat(row.birthdate, 'dd/mm/yyyy', true),
       sortable: true,
       grow: 3,
     },
@@ -79,8 +80,8 @@ export function Patients() {
         removePatient(id);
         toast.success('Removido com sucesso!');
       }
-    } catch {
-      toast.error('Erro! O paciente não foi removido.');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 

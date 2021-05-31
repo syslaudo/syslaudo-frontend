@@ -14,7 +14,7 @@
     {
       "cpf": "00000000001",
       "type": "Mapa",
-      "date": "2021-05-05T20:21:44.131Z",
+      "date": "2021-05-12T00:00:00.000Z",
       "status": "Agendado",
       "hypotesis": "hiphip\n",
       "image": "",
@@ -25,7 +25,18 @@
     {
       "cpf": "00000000001",
       "type": "Mapa",
-      "date": "2021-05-05T20:21:44.131Z",
+      "date": "2021-05-12T00:00:00.000Z",
+      "status": "Cancelado",
+      "hypotesis": "hiphip\n",
+      "image": "",
+      "report": "",
+      "report_status": "Aguardando laudo",
+      "id": 2
+    },
+    {
+      "cpf": "00000000001",
+      "type": "Mapa",
+      "date": "2021-05-05T00:00:00.000Z",
       "status": "Agendado",
       "hypotesis": "hiphip\n",
       "image": "",

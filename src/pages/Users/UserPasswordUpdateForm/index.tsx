@@ -33,8 +33,8 @@ export function UserPasswordUpdateForm() {
       await updateUser(editingUser.id, user);
       handleReset();
       toast.success('Senha atualizado com sucesso!');
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 

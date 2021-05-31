@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const StyledMobileNavbar = styled.nav<{
   displayMobile: boolean;
   isAuthenticated: boolean;
-  isAdmin: boolean;
 }>`
   width: 100vw;
   display: ${(props) => (props.displayMobile ? 'flex' : 'none')};

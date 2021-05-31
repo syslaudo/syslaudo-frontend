@@ -3,15 +3,10 @@ import { toast } from 'react-toastify';
 import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
 import { StyledDoctorForm } from './styles';
+import dateFormat from 'dateformat';
 
-const {
-  Button,
-  ButtonGroup,
-  Input,
-  RadioButton,
-  RadioGroup,
-  Select,
-} = FormComponents;
+const { Button, ButtonGroup, Input, RadioButton, RadioGroup, Select } =
+  FormComponents;
 
 interface Doctor {
   id: string;
@@ -48,7 +43,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     setType(editingDoctor ? editingDoctor.type : 'Médico');
     setResidencyDate(
       editingDoctor?.residencyDate
-        ? String(editingDoctor.residencyDate).split('T')[0]
+        ? dateFormat(editingDoctor.residencyDate, 'dd/mm/yyyy', true)
         : '',
     );
     setTitle(editingDoctor?.title ? editingDoctor.title : '');
@@ -63,7 +58,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       setType(editingDoctor.type);
       setResidencyDate(
         editingDoctor.residencyDate
-          ? String(editingDoctor.residencyDate).split('T')[0]
+          ? dateFormat(editingDoctor.residencyDate, 'dd/mm/yyyy', true)
           : '',
       );
       setTitle(editingDoctor.title ? editingDoctor.title : '');
@@ -109,8 +104,8 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
-    } catch {
-      toast.error('Erro! Cadastro não efetuado');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -126,14 +121,14 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       if (onRequestClose) {
         onRequestClose();
       }
-      
+
       toast.success('Cadastro atualizado com sucesso!');
 
       setTimeout(function () {
         window.location.reload();
       }, 2000);
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 

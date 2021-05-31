@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const StyledDesktopNavbar = styled.header<{
   isAuthenticated: boolean;
-  isAdmin: boolean;
 }>`
   height: 5rem;
   border-bottom: 1px solid var(--hover);

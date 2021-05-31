@@ -14,7 +14,6 @@ export function DesktopNavbar(props: NavbarProps) {
   return (
     <StyledDesktopNavbar
       isAuthenticated={props.isAuthenticated}
-      isAdmin={props.isAdmin}
     >
       <div>
         <Link to="/inicio">

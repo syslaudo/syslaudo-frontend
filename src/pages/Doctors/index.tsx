@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -60,6 +61,7 @@ export function Doctors() {
     {
       name: 'Início da Residência',
       selector: 'residencyDate',
+      cell: (row: any) => (row.residencyDate && dateFormat(row.residencyDate, 'dd/mm/yyyy', true)),
       sortable: true,
       grow: 2,
     },

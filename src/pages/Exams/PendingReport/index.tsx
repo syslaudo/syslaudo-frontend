@@ -6,6 +6,7 @@ import { ActionButton } from '../../../components/Table/styles';
 import { Exam, useExams } from '../../../hooks/useExams';
 import { StyledContainer } from './styles';
 import { ExamViewModal } from '../ExamViewModal';
+import dateFormat from 'dateformat';
 
 ReactModal.setAppElement('#root');
 
@@ -36,7 +37,7 @@ export function PendingReport() {
     {
       name: 'Data',
       selector: 'date',
-      cell: (row: any) => String(row.date).split('T')[0],
+      cell: (row: any) => dateFormat(row.date, 'dd/mm/yyyy', true),
       sortable: true,
       grow: 3,
     },

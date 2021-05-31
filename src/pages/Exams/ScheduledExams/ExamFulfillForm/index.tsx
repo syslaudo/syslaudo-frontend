@@ -6,14 +6,8 @@ import { useExams, Exam } from '../../../../hooks/useExams';
 import { usePatients } from '../../../../hooks/usePatients';
 import dateFormat from 'dateformat';
 
-const {
-  Form,
-  Button,
-  ButtonGroup,
-  Input,
-  RadioButton,
-  RadioGroup,
-} = FormComponents;
+const { Form, Button, ButtonGroup, Input, RadioButton, RadioGroup } =
+  FormComponents;
 
 interface ExamFulfillFormProps {
   editingExam: Exam;
@@ -67,14 +61,21 @@ export function ExamFulfillForm({
       setTimeout(function () {
         window.location.reload();
       }, 2000);
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
   return (
     <Form onSubmit={handleFulfillExam}>
-      <Input id="cpf" label="CPF do Paciente" mask="" value={cpf} disabled />
+      <Input
+        id="cpf"
+        label="CPF do Paciente"
+        pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}"
+        mask="999.999.999-99"
+        value={cpf}
+        disabled
+      />
       <Input id="name" label="Nome do Paciente" value={name} mask="" disabled />
 
       <RadioGroup id="type" label="Exame">
@@ -112,7 +113,7 @@ export function ExamFulfillForm({
         id="data"
         label="Data"
         type="date"
-        value={dateFormat(date, 'isoDate')}
+        value={dateFormat(date, 'dd/mm/yyyy', true)}
         mask=""
         disabled
       />

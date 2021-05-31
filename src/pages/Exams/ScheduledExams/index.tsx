@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -58,7 +59,7 @@ export function ScheduledExams() {
     {
       name: 'Data',
       selector: 'date',
-      cell: (row: any) => String(row.date).split('T')[0],
+      cell: (row: any) => dateFormat(row.date, 'dd/mm/yyyy', true),
       sortable: true,
       grow: 5,
     },
