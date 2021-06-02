@@ -27,6 +27,16 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
+  div.logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .svg {
+    height: 4rem;
+    margin: 1rem auto 3rem;
+  }
+
   @media screen and (max-width: 950px) {
     width: 100%;
     padding: 1rem;
