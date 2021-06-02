@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormComponents } from '../../../components/FormComponents';
@@ -48,7 +49,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
     setCrm(editingUser?.crm ? editingUser.crm : '');
     setResidencyDate(
       editingUser?.residencyDate
-        ? String(editingUser.residencyDate).split('T')[0]
+        ? dateFormat(editingUser.residencyDate, 'isoDate', true)
         : '',
     );
     setTitle(editingUser?.title ? editingUser.title : '');
@@ -63,7 +64,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       setType(editingUser.type);
       setResidencyDate(
         editingUser.residencyDate
-          ? String(editingUser.residencyDate).split('T')[0]
+          ? dateFormat(editingUser.residencyDate, 'isoDate', true)
           : '',
       );
       setTitle(editingUser.title ? editingUser.title : '');
@@ -109,8 +110,8 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
-    } catch {
-      toast.error('Erro! Cadastro não efetuado');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -133,8 +134,8 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       setTimeout(function () {
         window.location.reload();
       }, 2000);
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 

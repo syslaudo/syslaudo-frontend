@@ -4,40 +4,35 @@ import { Card, CardGroup } from './styles';
 export function Home() {
   return (
     <>
-      <h1>Cadastro</h1>
       <CardGroup>
         <Link to="/pacientes">
           <Card>
-            <span>Cadastrar Paciente</span>
+            <span>Cadastro de Pacientes</span>
           </Card>
         </Link>
         <Link to="/exames/agendados">
           <Card>
-            <span>Agendar Exame</span>
+            <span>Agendamento de Exames</span>
           </Card>
         </Link>
-      </CardGroup>
-
-      <h1>Exames</h1>
-      <CardGroup>
-        <Link to="/exames">
+        <Link to="/exames/cancelados">
           <Card>
-            <span>Cancelados</span>
+            <span>Exames Cancelados</span>
           </Card>
         </Link>
-        <Link to="/exames">
+        <Link to="/exames/pendentes">
           <Card>
-            <span>Laudo Pendente</span>
+            <span>Exames com Laudo Pendente</span>
           </Card>
         </Link>
-        <Link to="/exames">
+        <Link to="/exames/provisorios">
           <Card>
-            <span>Laudo Provisório</span>
+            <span>Exames com Laudo Provisório</span>
           </Card>
         </Link>
-        <Link to="/exames">
+        <Link to="/exames/concluidos">
           <Card>
-            <span>Concluidos</span>
+            <span>Exames Concluídos</span>
           </Card>
         </Link>
       </CardGroup>

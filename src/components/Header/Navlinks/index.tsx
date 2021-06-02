@@ -17,11 +17,11 @@ export function Navlinks() {
           EXAMES &nbsp; <i className="mob-hidden fas fa-caret-down"></i>
         </span>
         <ul>
-          <a href="/exames/agendados">Agendados</a>
-          <a href="/exames/cancelados">Cancelados</a>
-          <a href="/exames/pendentes">Laudo Pendente</a>
-          <a href="/exames/provisorios">Laudo Provisório</a>
-          <a href="/exames/concluidos">Finalizados</a>
+          <Link to="/exames/agendados">Agendados</Link>
+          <Link to="/exames/cancelados">Cancelados</Link>
+          <Link to="/exames/pendentes">Laudo Pendente</Link>
+          <Link to="/exames/provisorios">Laudo Provisório</Link>
+          <Link to="/exames/concluidos">Finalizados</Link>
         </ul>
       </li>
 
@@ -29,10 +29,9 @@ export function Navlinks() {
         <li>
           <Link to="/medicos">MÉDICOS</Link>
         </li>
-
-      <li>
-        <Link to="/usuarios">USUÁRIOS</Link>
-      </li>
+        <li>
+          <Link to="/usuarios">USUÁRIOS</Link>
+        </li>
       </Can>
     </ul>
   );

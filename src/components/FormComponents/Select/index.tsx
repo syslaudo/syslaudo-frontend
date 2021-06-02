@@ -9,14 +9,7 @@ export function Select(props: SelectProps) {
   return (
     <StyledSelect className={props.className}>
       <label htmlFor={props.id}>{props.label}</label>
-      <select
-        id={props.id}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-        value={props.value}
-        onChange={props.onChange}
-        required={props.required}
-      >
+      <select {...props} >
         {props.children}
       </select>
     </StyledSelect>

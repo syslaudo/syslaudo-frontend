@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Body } from './components/Body';
+import { Can } from './components/Can';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ExamsProvider } from './hooks/useExams';
@@ -10,8 +11,10 @@ import { UsersProvider } from './hooks/useUsers';
 import { Doctors } from './pages/Doctors';
 import { Exams } from './pages/Exams';
 import { CanceledExams } from './pages/Exams/CanceledExams';
+import { FinalizedExam } from './pages/Exams/FinalizedExam';
 import { PendingReport } from './pages/Exams/PendingReport';
 import { ScheduledExams } from './pages/Exams/ScheduledExams';
+import { TemporaryReport } from './pages/Exams/TemporaryReport';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
@@ -25,7 +28,7 @@ const LoginRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
     isAuthenticated ? (
       <Redirect to={{ pathname: '/inicio' }} />
-      ) : (
+    ) : (
       React.createElement(component, props)
     );
   return <Route {...rest} render={routeComponent} />;
@@ -58,22 +61,53 @@ function App() {
         <ExamsProvider>
           <GlobalStyle />
           <BrowserRouter>
-            <Header />
+            <Can
+              authorizedTypes={[
+                'Administrador',
+                'Médico',
+                'Residente',
+                'Professor',
+              ]}
+            >
+              <Header />
+            </Can>
             <Body>
               <Switch>
                 <LoginRoute path="/login" exact={true} component={Login} />
                 <PrivateRoute exact={true} path="/" component={Home} />
                 <PrivateRoute exact={true} path="/inicio" component={Home} />
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
-                <AdminRoute
+                <PrivateRoute
                   exact={true}
                   path="/trocar-senha"
                   component={UserPasswordUpdateForm}
                 />
                 <PrivateRoute exact={true} path="/exames" component={Exams} />
-                <PrivateRoute exact={true} path="/exames/agendados" component={ScheduledExams} />
-                <PrivateRoute exact={true} path="/exames/cancelados" component={CanceledExams} />
-                <PrivateRoute exact={true} path="/exames/pendentes" component={PendingReport} />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/agendados"
+                  component={ScheduledExams}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/cancelados"
+                  component={CanceledExams}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/pendentes"
+                  component={PendingReport}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/provisorios"
+                  component={TemporaryReport}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/concluidos"
+                  component={FinalizedExam}
+                />
                 <AdminRoute exact={true} path="/medicos" component={Doctors} />
                 <PrivateRoute
                   exact={true}
@@ -84,7 +118,16 @@ function App() {
               </Switch>
               <ToastContainer autoClose={2000} />
             </Body>
+            <Can
+              authorizedTypes={[
+                'Administrador',
+                'Médico',
+                'Residente',
+                'Professor',
+              ]}
+            >
             <Footer />
+            </Can>
           </BrowserRouter>
         </ExamsProvider>
       </PatientsProvider>

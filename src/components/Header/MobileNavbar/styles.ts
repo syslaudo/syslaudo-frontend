@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const StyledMobileNavbar = styled.nav<{
   displayMobile: boolean;
-  isAuthenticated: boolean;
-  isAdmin: boolean;
 }>`
   width: 100vw;
   display: ${(props) => (props.displayMobile ? 'flex' : 'none')};
@@ -52,18 +50,10 @@ export const StyledMobileNavbar = styled.nav<{
           background: var(--hover);
         }
       }
-
-      .logoutButton {
-        font-weight: bold;
-      }
     }
   }
-
-  .logoutButton {
-    display: ${(props) => (props.isAuthenticated ? '' : 'none')};
-  }
-
-  @media screen and (min-width: 901px) {
+  
+  @media screen and (min-width: 951px) {
     display: none;
   }
 `;

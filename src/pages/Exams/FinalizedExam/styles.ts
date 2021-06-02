@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const StyledContainer = styled.div`
-  a > p {
-    text-align: right;
-  }
-
-  iframe {
-    margin-bottom: 3rem;
+  > button {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 2rem;
   }
 `;

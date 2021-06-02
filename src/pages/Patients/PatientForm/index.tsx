@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormComponents } from '../../../components/FormComponents';
@@ -44,7 +45,7 @@ export function PatientForm({
     setRace(editingPatient ? editingPatient.race : 'Amarelo');
     setBirthdate(
       editingPatient
-        ? String(editingPatient.birthdate).split('T')[0]
+        ? dateFormat(editingPatient.birthdate, 'isoDate', true)
         : '',
     );
   }, [editingPatient]);
@@ -55,7 +56,7 @@ export function PatientForm({
       setCpf(editingPatient.cpf);
       setSex(editingPatient.sex);
       setRace(editingPatient.race);
-      setBirthdate(String(editingPatient.birthdate).split('T')[0]);
+      setBirthdate(dateFormat(editingPatient.birthdate, 'isoDate', true));
     } else {
       setName('');
       setCpf('');
@@ -78,14 +79,19 @@ export function PatientForm({
 
     try {
       await createPatient(patient);
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
       toast.success('Cadastro realizado com sucesso!');
-    } catch {
-      toast.error('Erro! Cadastro não efetuado');
+
+      setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+        window.location.reload();
+      }, 2000);
+
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -99,17 +105,17 @@ export function PatientForm({
 
       await updatePatient(editingPatient.id, patient);
 
-      if (onRequestClose) {
-        onRequestClose();
-      }
-
+      
       toast.success('Cadastro atualizado com sucesso!');
-
+      
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
         window.location.reload();
       }, 2000);
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 

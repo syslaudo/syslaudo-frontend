@@ -1,0 +1,13 @@
+Funcionalidade: realizar login na plataforma do syslaudo # features/login.feature:3
+  Como usuário da plataforma
+  Eu quero acessar a plataforma
+  Para executar uma determinada atividade
+  Contexto: acessar a plataforma do syslaudo  # features/login.feature:11
+
+  Cenário: realizar login na plataforma do syslaudo  # features/login.feature:14
+    Dado que acesso a plataforma do syslaudo         # steps/steps.py:11
+    Dado que preencho o campo de Email               # steps/steps.py:15
+    E preencho a Senha                               # steps/steps.py:20
+    Quando clico no botão de login                   # steps/steps.py:25
+    Então devo acessar a plataforma                  # steps/steps.py:30
+

@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledDesktopNavbar = styled.header<{
-  isAuthenticated: boolean;
-  isAdmin: boolean;
-}>`
+export const StyledDesktopNavbar = styled.header`
   height: 5rem;
   border-bottom: 1px solid var(--hover);
 
@@ -47,14 +44,13 @@ export const StyledDesktopNavbar = styled.header<{
       }
 
       button {
-        display: ${(props) =>
-          props.isAuthenticated ? 'inline-block' : 'none'};
+        display: inline-block;
       }
     }
   }
 
   .navlinks {
-    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
+    display: flex;
 
     > li {
       display: inline-block;
@@ -64,7 +60,7 @@ export const StyledDesktopNavbar = styled.header<{
       line-height: 5rem;
       color: var(--text);
       transition: 0.2s;
-      margin-left: 2rem;
+      margin-left: 1.5rem;
 
       &:hover > span,
       &:hover > a {
@@ -108,7 +104,7 @@ export const StyledDesktopNavbar = styled.header<{
   }
 
   .profile {
-    display: ${(props) => (props.isAuthenticated ? 'flex' : 'none')};
+    display: flex;
 
     > li {
       display: inline-block;
@@ -158,6 +154,7 @@ export const StyledDesktopNavbar = styled.header<{
         background-color: var(--background);
         border: 1px solid var(--hover);
         padding: 0.3rem;
+        left: -2rem;
 
         > a {
           position: relative;
@@ -166,7 +163,7 @@ export const StyledDesktopNavbar = styled.header<{
           text-align: center;
           padding: 0 1rem;
           transition: 0.2ms;
-          min-width: 5rem;
+          width: 11rem;
 
           &:hover {
             background: var(--primary);

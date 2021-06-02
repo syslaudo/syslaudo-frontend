@@ -27,16 +27,6 @@ export const LoginForm = styled(StyledForm)`
     color: var(--primary);
   }
 
-  p.errorMessage {
-    position: relative;
-    top: 1rem;
-    color: red;
-
-    &::before {
-      content: "* "
-    }
-  }
-
   @media screen and (max-width: 950px) {
     width: 100%;
     padding: 1rem;

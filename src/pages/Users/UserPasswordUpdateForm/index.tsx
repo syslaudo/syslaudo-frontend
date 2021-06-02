@@ -1,13 +1,15 @@
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Can } from '../../../components/Can';
 import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
+import { loggedUser } from '../../../services/auth'
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
 export function UserPasswordUpdateForm() {
   const { users, updateUser } = useUsers();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(loggedUser.email ? loggedUser.email : '');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
 
@@ -33,8 +35,8 @@ export function UserPasswordUpdateForm() {
       await updateUser(editingUser.id, user);
       handleReset();
       toast.success('Senha atualizado com sucesso!');
-    } catch {
-      toast.error('Erro! Atualização não efetuada');
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -42,18 +44,32 @@ export function UserPasswordUpdateForm() {
     <>
       <h1>Atualização de Senha</h1>
       <Form onSubmit={handleUpdateUser}>
-        <Input
-          id="email"
-          label="e-mail"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          type="email"
-          required
-          mask=""
-        />
+        <Can authorizedTypes={['Administrador']}>
+          <Input
+            id="email"
+            label="e-mail"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            type="email"
+            required
+            mask=""
+          />
+        </Can>
+        <Can authorizedTypes={['Médico', 'Residente', 'Professor']}>
+          <Input
+            id="email"
+            label="e-mail"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            type="email"
+            required
+            mask=""
+            disabled
+          />
+        </Can>
         <Input
           id="password"
-          label="Senha"
+          label="Nova senha"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           type="password"

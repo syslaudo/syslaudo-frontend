@@ -9,13 +9,7 @@ export function MultilineInput(props: MultilineInputProps) {
   return (
     <StyledMultilineInput>
       <label htmlFor={props.id}>{props.label}</label>
-      <textarea
-        id={props.id}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-        value={props.value}
-        onChange={props.onChange}
-      />
+      <textarea {...props} />
     </StyledMultilineInput>
   );
 }

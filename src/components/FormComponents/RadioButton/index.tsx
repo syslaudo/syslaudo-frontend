@@ -8,14 +8,7 @@ export function RadioButton(props: RadioButtonProps) {
   return (
     <StyledRadioButton>
       <input
-        type="radio"
-        name={props.name}
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
-        checked={props.checked}
-        defaultChecked={props.defaultChecked}
-      />
+        type="radio" {...props} />
       <span>{props.id}</span>
     </StyledRadioButton>
   );

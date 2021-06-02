@@ -8,7 +8,7 @@ export const Card = styled.div`
   background: var(--background);
   border-radius: 10px;
   box-shadow: 0 0 20px var(--shadow);
-  min-height: 8rem;
+  min-height: 12rem;
   padding: 1.5rem;
   margin-bottom: 2rem;
 

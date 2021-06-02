@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -51,14 +52,14 @@ export function ScheduledExams() {
       cell: (row: any) =>
         row.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
       sortable: true,
-      grow: 3,
+      grow: 4,
     },
     { name: 'Tipo', selector: 'type', sortable: true, grow: 4 },
     { name: 'Status', selector: 'status', sortable: true, grow: 3 },
     {
       name: 'Data',
       selector: 'date',
-      cell: (row: any) => String(row.date).split('T')[0],
+      cell: (row: any) => dateFormat(row.date, 'dd/mm/yyyy', true),
       sortable: true,
       grow: 5,
     },
@@ -120,13 +121,17 @@ export function ScheduledExams() {
           <i className="fas fa-trash-alt" title="Remover"></i>
         </ActionButton>
         &nbsp;&nbsp;|&nbsp;&nbsp;
+        <ActionButton id={row.id} type="button" onClick={onEdit}>
+          <i className="fas fa-print" title="Imprimir detalhes"></i>
+        </ActionButton>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
         <ActionButton id={row.id} type="button" onClick={onFulfill}>
           <i className="fas fa-check-square" title="Concluir"></i>
         </ActionButton>
       </div>
     ),
     sortable: false,
-    grow: 3,
+    grow: 4,
   };
 
   return (
