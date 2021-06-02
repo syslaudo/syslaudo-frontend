@@ -49,7 +49,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
     setCrm(editingUser?.crm ? editingUser.crm : '');
     setResidencyDate(
       editingUser?.residencyDate
-        ? dateFormat(editingUser.residencyDate, 'dd/mm/yyyy', true)
+        ? dateFormat(editingUser.residencyDate, 'isoDate', true)
         : '',
     );
     setTitle(editingUser?.title ? editingUser.title : '');
@@ -64,7 +64,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       setType(editingUser.type);
       setResidencyDate(
         editingUser.residencyDate
-          ? dateFormat(editingUser.residencyDate, 'dd/mm/yyyy', true)
+          ? dateFormat(editingUser.residencyDate, 'isoDate', true)
           : '',
       );
       setTitle(editingUser.title ? editingUser.title : '');

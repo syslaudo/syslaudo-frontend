@@ -11,8 +11,10 @@ import { UsersProvider } from './hooks/useUsers';
 import { Doctors } from './pages/Doctors';
 import { Exams } from './pages/Exams';
 import { CanceledExams } from './pages/Exams/CanceledExams';
+import { FinalizedExam } from './pages/Exams/FinalizedExam';
 import { PendingReport } from './pages/Exams/PendingReport';
 import { ScheduledExams } from './pages/Exams/ScheduledExams';
+import { TemporaryReport } from './pages/Exams/TemporaryReport';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
@@ -75,7 +77,7 @@ function App() {
                 <PrivateRoute exact={true} path="/" component={Home} />
                 <PrivateRoute exact={true} path="/inicio" component={Home} />
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
-                <AdminRoute
+                <PrivateRoute
                   exact={true}
                   path="/trocar-senha"
                   component={UserPasswordUpdateForm}
@@ -95,6 +97,16 @@ function App() {
                   exact={true}
                   path="/exames/pendentes"
                   component={PendingReport}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/provisorios"
+                  component={TemporaryReport}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/exames/concluidos"
+                  component={FinalizedExam}
                 />
                 <AdminRoute exact={true} path="/medicos" component={Doctors} />
                 <PrivateRoute

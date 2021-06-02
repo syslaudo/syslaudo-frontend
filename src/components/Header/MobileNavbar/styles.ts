@@ -50,14 +50,10 @@ export const StyledMobileNavbar = styled.nav<{
           background: var(--hover);
         }
       }
-
-      .logoutButton {
-        font-weight: bold;
-      }
     }
   }
-
-  @media screen and (min-width: 901px) {
+  
+  @media screen and (min-width: 951px) {
     display: none;
   }
 `;

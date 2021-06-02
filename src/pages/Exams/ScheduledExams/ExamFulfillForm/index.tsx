@@ -43,7 +43,7 @@ export function ExamFulfillForm({
       cpf: cpf.replace(/[^0-9]+/g, ''),
       type,
       date,
-      status: 'Concluido',
+      status: 'Concluído',
       hypotesis,
       image,
       report: editingExam.report,

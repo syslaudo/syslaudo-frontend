@@ -43,7 +43,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
     setType(editingDoctor ? editingDoctor.type : 'Médico');
     setResidencyDate(
       editingDoctor?.residencyDate
-        ? dateFormat(editingDoctor.residencyDate, 'dd/mm/yyyy', true)
+        ? dateFormat(editingDoctor.residencyDate, 'isoDate', true)
         : '',
     );
     setTitle(editingDoctor?.title ? editingDoctor.title : '');
@@ -58,7 +58,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       setType(editingDoctor.type);
       setResidencyDate(
         editingDoctor.residencyDate
-          ? dateFormat(editingDoctor.residencyDate, 'dd/mm/yyyy', true)
+          ? dateFormat(editingDoctor.residencyDate, 'isoDate', true)
           : '',
       );
       setTitle(editingDoctor.title ? editingDoctor.title : '');

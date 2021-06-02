@@ -12,7 +12,7 @@ import { StyledContainer } from './styles';
 
 ReactModal.setAppElement('#root');
 
-export function PendingReport() {
+export function TemporaryReport() {
   const { exams, removeExam } = useExams();
   const [examViewModalIsOpen, setExamViewModalIsOpen] = useState(false);
   const [reportModalIsOpen, setReportModalIsOpen] = useState(false);
@@ -109,7 +109,7 @@ export function PendingReport() {
         <Can authorizedTypes={['Residente', 'Professor']}>
           &nbsp;&nbsp;|&nbsp;&nbsp;
           <ActionButton id={row.id} type="button" onClick={onEdit}>
-            <i className="far fa-edit" title="Cadastrar laudo"></i>
+            <i className="far fa-edit" title="Revisar laudo"></i>
           </ActionButton>
         </Can>
         &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -124,14 +124,13 @@ export function PendingReport() {
 
   return (
     <StyledContainer>
-      <h1>Exames com Laudo Pendente</h1>
+      <h1>Exames com Laudo Provisório</h1>
       <Table
         title="Lista de Exames"
         columns={columns}
         data={exams.filter(
           (exam) =>
-            exam.status === 'Concluído' &&
-            exam.report_status === 'Aguardando laudo',
+            exam.status === 'Concluído' && exam.report_status === 'Provisório',
         )}
         onEdit={onEdit}
         onRemove={onRemove}
