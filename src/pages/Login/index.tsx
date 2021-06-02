@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { FormComponents } from '../../components/FormComponents';
 import { signIn } from '../../services/auth';
 import { LoginForm } from './styles';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 const { Button, ButtonGroup, Input } = FormComponents;
 
@@ -23,6 +24,9 @@ export function Login() {
   return (
     <>
       <LoginForm onSubmit={handleSignIn}>
+        <div className="logo">
+          <Logo className="svg" />
+        </div>
         <h5>Login</h5>
         <Input
           id="email"
