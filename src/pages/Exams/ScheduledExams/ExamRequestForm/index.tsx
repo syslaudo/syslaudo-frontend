@@ -39,7 +39,7 @@ export function ExamRequestForm({
       setType(editingExam.type);
       setHypotesis(editingExam.hypotesis);
       setRecommendations(getRecommendationByExamType(editingExam.type));
-      setDate(dateFormat(editingExam.date, 'dd/mm/yyyy', true));
+      setDate(dateFormat(editingExam.date, 'isoDate', true));
     } else {
       setName('');
       setCpf('');
@@ -62,7 +62,7 @@ export function ExamRequestForm({
       setType(editingExam.type);
       setHypotesis(editingExam.hypotesis);
       setRecommendations(getRecommendationByExamType(editingExam.type));
-      setDate(dateFormat(editingExam.date, 'dd/mm/yyyy', true));
+      setDate(dateFormat(editingExam.date, 'isoDate', true));
     } else {
       setCpf('');
       setType('Ecocardiograma');

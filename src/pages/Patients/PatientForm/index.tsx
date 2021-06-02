@@ -45,7 +45,7 @@ export function PatientForm({
     setRace(editingPatient ? editingPatient.race : 'Amarelo');
     setBirthdate(
       editingPatient
-        ? dateFormat(editingPatient.birthdate, 'dd/mm/yyyy', true)
+        ? dateFormat(editingPatient.birthdate, 'isoDate', true)
         : '',
     );
   }, [editingPatient]);
@@ -56,7 +56,7 @@ export function PatientForm({
       setCpf(editingPatient.cpf);
       setSex(editingPatient.sex);
       setRace(editingPatient.race);
-      setBirthdate(dateFormat(editingPatient.birthdate, 'dd/mm/yyyy', true));
+      setBirthdate(dateFormat(editingPatient.birthdate, 'isoDate', true));
     } else {
       setName('');
       setCpf('');
@@ -79,12 +79,17 @@ export function PatientForm({
 
     try {
       await createPatient(patient);
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
       toast.success('Cadastro realizado com sucesso!');
+
+      setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+        window.location.reload();
+      }, 2000);
+
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -100,13 +105,13 @@ export function PatientForm({
 
       await updatePatient(editingPatient.id, patient);
 
-      if (onRequestClose) {
-        onRequestClose();
-      }
-
+      
       toast.success('Cadastro atualizado com sucesso!');
-
+      
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
         window.location.reload();
       }, 2000);
     } catch (error) {

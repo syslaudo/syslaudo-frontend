@@ -33,6 +33,9 @@ export function ExamViewModal(props: ExamViewModalProps) {
         <p>
           <strong>Data: </strong> {dateFormat(viewingExam.date, 'dd/mm/yyyy', true)}
         </p>
+        <p>
+          <strong>Laudo: </strong> {viewingExam.report? viewingExam.report : 'Laudo pendente'}
+        </p>
         <br />
 
         <a href={viewingExam.image} target="_blank">

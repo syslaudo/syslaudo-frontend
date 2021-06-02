@@ -2,7 +2,6 @@ import dateFormat from 'dateformat';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { Can } from '../../../components/Can';
 import { Table } from '../../../components/Table';
 import { ActionButton } from '../../../components/Table/styles';
 import { Exam, useExams } from '../../../hooks/useExams';
@@ -12,7 +11,7 @@ import { StyledContainer } from './styles';
 
 ReactModal.setAppElement('#root');
 
-export function PendingReport() {
+export function FinalizedExam() {
   const { exams, removeExam } = useExams();
   const [examViewModalIsOpen, setExamViewModalIsOpen] = useState(false);
   const [reportModalIsOpen, setReportModalIsOpen] = useState(false);
@@ -52,7 +51,7 @@ export function PendingReport() {
       sortable: true,
       grow: 3,
     },
-    { name: 'Status', selector: 'report_status', sortable: true, grow: 8 },
+    { name: 'Status', selector: 'report_status', sortable: true, grow: 7 },
   ];
 
   function onRemove(e: any) {
@@ -106,32 +105,25 @@ export function PendingReport() {
         <ActionButton id={row.id} type="button" onClick={onView}>
           <i className="fas fa-search" title="Ver detalhes"></i>
         </ActionButton>
-        <Can authorizedTypes={['Residente', 'Professor']}>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <ActionButton id={row.id} type="button" onClick={onEdit}>
-            <i className="far fa-edit" title="Cadastrar laudo"></i>
-          </ActionButton>
-        </Can>
         &nbsp;&nbsp;|&nbsp;&nbsp;
         <ActionButton id={row.id} type="button" onClick={onEdit}>
-          <i className="fas fa-print" title="Imprimir detalhes"></i>
+          <i className="fas fa-print" title="Imprimir resultado"></i>
         </ActionButton>
       </div>
     ),
     sortable: false,
-    grow: 3,
+    grow: 2,
   };
 
   return (
     <StyledContainer>
-      <h1>Exames com Laudo Pendente</h1>
+      <h1>Exames Concluídos</h1>
       <Table
         title="Lista de Exames"
         columns={columns}
         data={exams.filter(
           (exam) =>
-            exam.status === 'Concluído' &&
-            exam.report_status === 'Aguardando laudo',
+            exam.status === 'Concluído' && exam.report_status === 'Concluído',
         )}
         onEdit={onEdit}
         onRemove={onRemove}
