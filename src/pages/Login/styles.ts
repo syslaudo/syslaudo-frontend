@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { StyledForm } from '../../components/FormComponents/Form/styles';
 
 export const LoginForm = styled(StyledForm)`
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-top: calc((100vh - 43.9rem)/2);
   width: 50%;
   background: var(--background);
   border: 1px solid var(--hover);
