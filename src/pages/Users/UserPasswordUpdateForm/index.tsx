@@ -1,15 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Can } from '../../../components/Can';
 import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
-import { loggedUser } from '../../../services/auth'
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
 export function UserPasswordUpdateForm() {
   const { users, updateUser } = useUsers();
-  const [email, setEmail] = useState(loggedUser.email ? loggedUser.email : '');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
 
@@ -44,7 +42,6 @@ export function UserPasswordUpdateForm() {
     <>
       <h1>Atualização de Senha</h1>
       <Form onSubmit={handleUpdateUser}>
-        <Can authorizedTypes={['Administrador']}>
           <Input
             id="email"
             label="e-mail"
@@ -54,19 +51,6 @@ export function UserPasswordUpdateForm() {
             required
             mask=""
           />
-        </Can>
-        <Can authorizedTypes={['Médico', 'Residente', 'Professor']}>
-          <Input
-            id="email"
-            label="e-mail"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-            required
-            mask=""
-            disabled
-          />
-        </Can>
         <Input
           id="password"
           label="Nova senha"

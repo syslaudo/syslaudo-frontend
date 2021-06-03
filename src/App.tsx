@@ -84,7 +84,7 @@ function App() {
                   component={Dashboard}
                 />
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
-                <PrivateRoute
+                <AdminRoute
                   exact={true}
                   path="/trocar-senha"
                   component={UserPasswordUpdateForm}
