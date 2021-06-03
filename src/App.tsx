@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { ExamsProvider } from './hooks/useExams';
 import { PatientsProvider } from './hooks/usePatients';
 import { UsersProvider } from './hooks/useUsers';
+import { Dashboard } from './pages/Dashboard';
 import { Doctors } from './pages/Doctors';
 import { Exams } from './pages/Exams';
 import { CanceledExams } from './pages/Exams/CanceledExams';
@@ -18,6 +19,7 @@ import { TemporaryReport } from './pages/Exams/TemporaryReport';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
+import { PatientAccess } from './pages/PatientAccess';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
 import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
@@ -27,7 +29,7 @@ import { GlobalStyle } from './styles/global';
 const LoginRoute = ({ component, ...rest }: any) => {
   const routeComponent = (props: any) =>
     isAuthenticated ? (
-      <Redirect to={{ pathname: '/inicio' }} />
+      <Redirect to={{ pathname: '/dashboard' }} />
     ) : (
       React.createElement(component, props)
     );
@@ -39,7 +41,7 @@ const PrivateRoute = ({ component, ...rest }: any) => {
     isAuthenticated ? (
       React.createElement(component, props)
     ) : (
-      <Redirect to={{ pathname: '/login' }} />
+      <Redirect to={{ pathname: '/' }} />
     );
   return <Route {...rest} render={routeComponent} />;
 };
@@ -49,7 +51,7 @@ const AdminRoute = ({ component, ...rest }: any) => {
     loggedUser.type === 'Administrador' ? (
       React.createElement(component, props)
     ) : (
-      <Redirect to={{ pathname: '/inicio' }} />
+      <Redirect to={{ pathname: '/dashboard' }} />
     );
   return <Route {...rest} render={routeComponent} />;
 };
@@ -74,8 +76,13 @@ function App() {
             <Body>
               <Switch>
                 <LoginRoute path="/login" exact={true} component={Login} />
-                <PrivateRoute exact={true} path="/" component={Home} />
-                <PrivateRoute exact={true} path="/inicio" component={Home} />
+                <LoginRoute exact={true} path="/" component={Home} />
+                <Route exact={true} path="/acesso-paciente" component={PatientAccess} />
+                <PrivateRoute
+                  exact={true}
+                  path="/dashboard"
+                  component={Dashboard}
+                />
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
                 <PrivateRoute
                   exact={true}
@@ -126,7 +133,7 @@ function App() {
                 'Professor',
               ]}
             >
-            <Footer />
+              <Footer />
             </Can>
           </BrowserRouter>
         </ExamsProvider>
