@@ -1,25 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledContainer = styled.div`
-  div.logo {
-    display: flex;
-    align-items: center;
-
-    .svg {
-      height: 8rem;
-      margin: 5rem auto;
-
-      @media screen and (max-width: 950px) {
-        max-height: 10vh;
-        margin: 0rem auto 3rem;
-      }
-    }
-  }
-`;
-
 export const Card = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   border: 1px solid var(--hover);
   border-left: 5px solid var(--primary);
@@ -34,27 +16,14 @@ export const Card = styled.div`
     font-size: 1.5rem;
     font-weight: bold;
   }
-
-  .svg {
-    max-width: 80%;
-    max-height: 25vh;
-    margin-bottom: 2rem;
-
-    @media screen and (max-width: 950px) {
-      max-height: 18vh;
-
-  }
-  }
 `;
 
 export const CardGroup = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 3rem;
-  margin-top: calc((50vh - 24.5rem) / 2);
+  grid-column-gap: 2rem;
 
   @media screen and (max-width: 950px) {
     grid-template-columns: 1fr;
-    margin-top: 0px;
   }
 `;
