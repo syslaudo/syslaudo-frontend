@@ -1,41 +1,32 @@
 import { Link } from 'react-router-dom';
 import { Card, CardGroup } from './styles';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { StyledContainer } from './styles';
+import { ReactComponent as Doctors } from '../../assets/undraw_doctors_hwty.svg';
+import { ReactComponent as Patients } from '../../assets/undraw_injured_9757.svg';
+
 
 export function Home() {
   return (
-    <>
+    <StyledContainer>
+      <div className="logo">
+        <Logo className="svg" />
+      </div>
       <CardGroup>
-        <Link to="/pacientes">
+        <Link to="/acesso-paciente">
           <Card>
-            <span>Cadastro de Pacientes</span>
+            <Patients className="svg" />
+            <span>Paciente</span>
           </Card>
         </Link>
-        <Link to="/exames/agendados">
+        <Link to="/login">
           <Card>
-            <span>Agendamento de Exames</span>
-          </Card>
-        </Link>
-        <Link to="/exames/cancelados">
-          <Card>
-            <span>Exames Cancelados</span>
-          </Card>
-        </Link>
-        <Link to="/exames/pendentes">
-          <Card>
-            <span>Exames com Laudo Pendente</span>
-          </Card>
-        </Link>
-        <Link to="/exames/provisorios">
-          <Card>
-            <span>Exames com Laudo Provisório</span>
-          </Card>
-        </Link>
-        <Link to="/exames/concluidos">
-          <Card>
-            <span>Exames Concluídos</span>
+          <Doctors className="svg" />
+
+            <span>Médico</span>
           </Card>
         </Link>
       </CardGroup>
-    </>
+    </StyledContainer>
   );
 }
