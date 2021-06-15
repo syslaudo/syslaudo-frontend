@@ -13,7 +13,7 @@ export function DesktopNavbar(props: NavbarProps) {
     <StyledDesktopNavbar
     >
       <div>
-        <Link to="/inicio">
+        <Link to="/dashboard">
           <Logo className="svg" />
         </Link>
         <Navlinks />

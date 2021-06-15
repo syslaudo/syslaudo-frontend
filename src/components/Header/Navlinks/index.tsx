@@ -5,7 +5,7 @@ export function Navlinks() {
   return (
     <ul className="navlinks">
       <li>
-        <Link to="/inicio">INÍCIO</Link>
+        <Link to="/dashboard">INÍCIO</Link>
       </li>
 
       <li>
