@@ -94,6 +94,9 @@ export function ExamRequestForm({
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data.message);
     }
