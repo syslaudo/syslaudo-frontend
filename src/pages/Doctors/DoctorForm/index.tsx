@@ -33,7 +33,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
   const [crm, setCrm] = useState('');
   const [type, setType] = useState('Médico');
   const [residencyDate, setResidencyDate] = useState('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Especialista');
 
   useEffect(() => {
     setCpf(editingDoctor ? editingDoctor.cpf : '');
@@ -46,7 +46,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         ? dateFormat(editingDoctor.residencyDate, 'isoDate', true)
         : '',
     );
-    setTitle(editingDoctor?.title ? editingDoctor.title : '');
+    setTitle(editingDoctor?.title ? editingDoctor.title : 'Especialista');
   }, [editingDoctor]);
 
   function handleReset() {
@@ -61,7 +61,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
           ? dateFormat(editingDoctor.residencyDate, 'isoDate', true)
           : '',
       );
-      setTitle(editingDoctor.title ? editingDoctor.title : '');
+      setTitle(editingDoctor.title ? editingDoctor.title : 'Especialista');
     } else {
       setCpf('');
       setEmail('');
@@ -69,7 +69,7 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       setCrm('');
       setType('Médico');
       setResidencyDate('');
-      setTitle('');
+      setTitle('Especialista');
     }
   }
 
@@ -104,6 +104,9 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data.message);
     }

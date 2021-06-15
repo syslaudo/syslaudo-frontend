@@ -39,7 +39,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
   const [crm, setCrm] = useState('');
   const [type, setType] = useState('Administrador');
   const [residencyDate, setResidencyDate] = useState('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Especialista');
 
   useEffect(() => {
     setCpf(editingUser ? editingUser.cpf : '');
@@ -52,7 +52,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         ? dateFormat(editingUser.residencyDate, 'isoDate', true)
         : '',
     );
-    setTitle(editingUser?.title ? editingUser.title : '');
+    setTitle(editingUser?.title ? editingUser.title : 'Especialista');
   }, [editingUser]);
 
   function handleReset() {
@@ -67,7 +67,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
           ? dateFormat(editingUser.residencyDate, 'isoDate', true)
           : '',
       );
-      setTitle(editingUser.title ? editingUser.title : '');
+      setTitle(editingUser.title ? editingUser.title : 'Especialista');
     } else {
       setCpf('');
       setEmail('');
@@ -75,7 +75,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       setCrm('');
       setType('Administrador');
       setResidencyDate('');
-      setTitle('');
+      setTitle('Especialista');
     }
   }
 
@@ -110,6 +110,9 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         handleReset();
       }
       toast.success('Cadastro realizado com sucesso!');
+      setTimeout(function () {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data.message);
     }
