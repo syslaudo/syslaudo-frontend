@@ -15,6 +15,7 @@ ReactModal.setAppElement('#root');
 
 export function ScheduledExams() {
   const { exams, removeExam } = useExams();
+  console.log(exams);
   const [examRequestModalIsOpen, setExamRequestModalIsOpen] = useState(false);
   const [examUpdateModalIsOpen, setExamUpdateModalIsOpen] = useState(false);
   const [examFulfillModalIsOpen, setExamFulfillModalIsOpen] = useState(false);
@@ -95,6 +96,20 @@ export function ScheduledExams() {
     handleOpenExamUpdateModal();
   }
 
+  function onPrint(e: any) {
+    var id = e.target.parentNode.id;
+
+    const exam = exams.find((exam) => String(exam.id) === String(id));
+
+    if (!exam) {
+      toast.error('Exam not in database.');
+      return;
+    }
+
+    setEditingExam(exam);
+    window.open(`/print1?id=${id}`, "_blank");
+  }
+
   function onFulfill(e: any) {
     var id = e.target.parentNode.id;
 
@@ -121,7 +136,7 @@ export function ScheduledExams() {
           <i className="fas fa-trash-alt" title="Remover"></i>
         </ActionButton>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <ActionButton id={row.id} type="button" onClick={onEdit}>
+        <ActionButton id={row.id} type="button" onClick={onPrint}>
           <i className="fas fa-print" title="Imprimir detalhes"></i>
         </ActionButton>
         &nbsp;&nbsp;|&nbsp;&nbsp;

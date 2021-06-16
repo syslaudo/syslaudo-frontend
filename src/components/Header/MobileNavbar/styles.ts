@@ -56,4 +56,8 @@ export const StyledMobileNavbar = styled.nav<{
   @media screen and (min-width: 951px) {
     display: none;
   }
+
+  @media print {
+    display: none;
+  }
 `;
