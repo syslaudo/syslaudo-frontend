@@ -98,15 +98,19 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
 
     try {
       await createDoctor({ ...doctor, password: '123456' });
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
+
       toast.success('Cadastro realizado com sucesso!');
+      
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+    
         window.location.reload();
       }, 2000);
+    
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -121,15 +125,16 @@ export function DoctorForm({ editingDoctor, onRequestClose }: DoctorFormProps) {
       }
 
       await updateDoctor(editingDoctor.id, doctor);
-      if (onRequestClose) {
-        onRequestClose();
-      }
-
       toast.success('Cadastro atualizado com sucesso!');
 
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
+
         window.location.reload();
       }, 2000);
+
     } catch (error) {
       toast.error(error.response.data.message);
     }

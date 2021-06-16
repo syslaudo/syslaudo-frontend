@@ -5,14 +5,8 @@ import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
 import { StyledUserForm } from './styles';
 
-const {
-  Button,
-  ButtonGroup,
-  Input,
-  RadioButton,
-  RadioGroup,
-  Select,
-} = FormComponents;
+const { Button, ButtonGroup, Input, RadioButton, RadioGroup, Select } =
+  FormComponents;
 
 interface User {
   id: string;
@@ -104,13 +98,16 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
     try {
       await createUser({ ...user, password: '123456' });
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
+
       toast.success('Cadastro realizado com sucesso!');
+      
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+
         window.location.reload();
       }, 2000);
     } catch (error) {
@@ -128,13 +125,13 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
       await updateUser(editingUser.id, user);
 
-      if (onRequestClose) {
-        onRequestClose();
-      }
-
       toast.success('Cadastro atualizado com sucesso!');
 
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
+
         window.location.reload();
       }, 2000);
     } catch (error) {

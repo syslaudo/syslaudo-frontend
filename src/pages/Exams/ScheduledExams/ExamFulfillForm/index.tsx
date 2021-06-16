@@ -52,13 +52,14 @@ export function ExamFulfillForm({
 
     try {
       await updateExam(editingExam.id, exam);
-      if (onRequestClose) {
-        onRequestClose();
-      }
 
       toast.success('Atualizado com sucesso!');
 
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
+
         window.location.reload();
       }, 2000);
     } catch (error) {
