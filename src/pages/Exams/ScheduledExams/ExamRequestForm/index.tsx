@@ -45,7 +45,7 @@ export function ExamRequestForm({
       setCpf('');
       setType('Ecocardiograma');
       setHypotesis('');
-      setRecommendations('');
+      setRecommendations(getRecommendationByExamType('Ecocardiograma'));
       setDate('');
     }
   }, [editingExam, getPatientByCpf, getRecommendationByExamType]);
@@ -67,7 +67,7 @@ export function ExamRequestForm({
       setCpf('');
       setType('Ecocardiograma');
       setHypotesis('');
-      setRecommendations('');
+      setRecommendations(getRecommendationByExamType('Ecocardiograma'));
       setDate('');
     }
   }

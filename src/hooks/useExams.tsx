@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { dummyApi as api } from '../services/dummyApi';
+import api from '../services/api';
 import { isAuthenticated } from '../services/auth';
 
 export interface Exam {
@@ -18,6 +18,7 @@ export interface Exam {
   image: string;
   report: string;
   report_status: string;
+  password?: string;
 }
 
 export interface Recommendation {
@@ -49,20 +50,21 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
 
   useEffect(() => {
     async function loadExams() {
-      const response = await api.get('/exams');
+      const response = await api.get('/exame/listAll');
 
       const exams = response.data.map(
-        (exam: Exam) =>
+        (exam: any) =>
           (exam = {
-            id: exam.id,
+            id: exam.id_exame,
             cpf: exam.cpf,
             type: exam.type,
-            date: exam.date,
+            date: exam.data_realizacao,
             status: exam.status,
-            hypotesis: exam.hypotesis,
+            hypotesis: exam.hipotese,
             image: exam.image,
             report: exam.report,
             report_status: exam.report_status,
+            password: exam.senha
           }),
       );
 
@@ -70,14 +72,14 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
     }
 
     async function loadRecommendations() {
-      const response = await api.get('/recommendations');
+      const response = await api.get('/recomendacao/listAll');
 
       const recommendations = response.data.map(
-        (recommendation: Recommendation) =>
+        (recommendation: any) =>
           (recommendation = {
-            id: recommendation.id,
-            exam: recommendation.exam,
-            recommendations: recommendation.recommendations,
+            id: recommendation.id_recomendacao,
+            exam: recommendation.exame,
+            recommendations: recommendation.recomendacao,
           }),
       );
 
@@ -94,19 +96,19 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
     const exam = {
       cpf: examInput.cpf,
       type: examInput.type,
-      date: examInput.date,
+      data_realizacao: examInput.date,
       status: examInput.status,
-      hypotesis: examInput.hypotesis,
+      hipotese: examInput.hypotesis,
       image: examInput.image,
       report: examInput.report,
       report_status: examInput.report_status,
     };
-    const response = await api.post('/exams', exam);
+    const response = await api.post('/exame/create', exam);
     setExams([...exams, response.data]);
   }
 
   async function removeExam(examId: string) {
-    await api.delete(`/exams/${examId}`);
+    await api.delete(`/exame/delete/${examId}`);
 
     const examsFiltered = exams.filter((exam) => exam.id !== examId);
 
@@ -117,15 +119,15 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
     const exam = {
       cpf: examInput.cpf,
       type: examInput.type,
-      date: examInput.date,
+      data_realizacao: examInput.date,
       status: examInput.status,
-      hypotesis: examInput.hypotesis,
+      hipotese: examInput.hypotesis,
       image: examInput.image,
       report: examInput.report,
       report_status: examInput.report_status,
     };
 
-    const updatedExam = await api.put(`/exams/${examId}`, exam);
+    const updatedExam = await api.put(`/exame/update/${examId}`, exam);
 
     const updatedExams = exams.map((exam) =>
       exam.id !== updatedExam.data.id ? exam : updatedExam.data,
