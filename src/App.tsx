@@ -13,6 +13,10 @@ import { Doctors } from './pages/Doctors';
 import { Exams } from './pages/Exams';
 import { CanceledExams } from './pages/Exams/CanceledExams';
 import { FinalizedExam } from './pages/Exams/FinalizedExam';
+import { InfoPrint1 } from './pages/Exams/InfoPrint1';
+import { InfoPrint2 } from './pages/Exams/InfoPrint2';
+import { InfoPrint3 } from './pages/Exams/InfoPrint3';
+import { InfoPrintPatient } from './pages/Exams/InfoPrintPatient';
 import { PendingReport } from './pages/Exams/PendingReport';
 import { ScheduledExams } from './pages/Exams/ScheduledExams';
 import { TemporaryReport } from './pages/Exams/TemporaryReport';
@@ -22,6 +26,8 @@ import { PageNotFound } from './pages/PageNotFound';
 import { PatientAccess } from './pages/PatientAccess';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
+import { AdminPasswordUpdateForm } from './pages/Users/AdminPasswordUpdateForm';
+import { CreateNewPasswordForm } from './pages/Users/CreateNewPasswordForm';
 import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
 import { isAuthenticated, loggedUser } from './services/auth';
 import { GlobalStyle } from './styles/global';
@@ -77,7 +83,31 @@ function App() {
               <Switch>
                 <LoginRoute path="/login" exact={true} component={Login} />
                 <LoginRoute exact={true} path="/" component={Home} />
-                <Route exact={true} path="/acesso-paciente" component={PatientAccess} />
+                <Route
+                  exact={true}
+                  path="/acesso-paciente"
+                  component={PatientAccess}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/print1"
+                  component={InfoPrint1}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/print2"
+                  component={InfoPrint2}
+                />
+                <PrivateRoute
+                  exact={true}
+                  path="/print3"
+                  component={InfoPrint3}
+                />
+                <Route
+                  exact={true}
+                  path="/printpatient"
+                  component={InfoPrintPatient}
+                />
                 <PrivateRoute
                   exact={true}
                   path="/dashboard"
@@ -86,8 +116,18 @@ function App() {
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
                 <AdminRoute
                   exact={true}
-                  path="/trocar-senha"
+                  path="/admin-alterar-senha"
+                  component={AdminPasswordUpdateForm}
+                />
+                <Route
+                  exact={true}
+                  path="/alterar-senha"
                   component={UserPasswordUpdateForm}
+                />
+                <Route
+                  exact={true}
+                  path="/redefinir-senha"
+                  component={CreateNewPasswordForm}
                 />
                 <PrivateRoute exact={true} path="/exames" component={Exams} />
                 <PrivateRoute

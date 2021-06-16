@@ -14,7 +14,10 @@ export function ProfileSubmenu() {
         </div>
         <ul>
           <Can authorizedTypes={['Administrador']}>
-            <Link to="/trocar-senha">Trocar senha</Link>
+            <Link to="/admin-alterar-senha">Alterar senha</Link>
+          </Can>
+          <Can authorizedTypes={['Médico', 'Professor', 'Residente']}>
+            <Link to="/alterar-senha">Alterar senha</Link>
           </Can>
           <Link to="/inicio" onClick={signOut}>
             Sair

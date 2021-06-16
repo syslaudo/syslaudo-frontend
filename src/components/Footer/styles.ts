@@ -51,4 +51,8 @@ export const StyledFooter = styled.footer`
       }
     }
   }
+
+  @media print {
+    display: none;
+  }
 `;

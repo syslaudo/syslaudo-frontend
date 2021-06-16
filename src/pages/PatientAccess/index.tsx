@@ -2,18 +2,33 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { FormComponents } from '../../components/FormComponents';
+import { useExams } from '../../hooks/useExams';
 import { LoginForm } from './styles';
 
 const { Button, ButtonGroup, Input } = FormComponents;
 
 export function PatientAccess() {
+  const { getResult } = useExams();
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
+
+    const cpfInput = cpf.replace(/[^0-9]+/g, '');
+
     try {
-      // Método para obtenção do Laudo
+      const exam = await getResult(cpfInput, password);
+
+      if (!exam) {
+        toast.error('Exam not in database.');
+        return;
+      }
+
+      window.open(
+        `/printpatient?date=${exam.date}&cpf=${exam.cpf}&type=${exam.type}&status=${exam.status}&hipotesys=${exam.hypotesis}&report=${exam.report}&image=${exam.image}&name=${exam.name}`,
+        '_blank',
+      );
     } catch (error) {
       toast.error(error.response.data.message);
     }

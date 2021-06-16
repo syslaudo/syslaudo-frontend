@@ -39,8 +39,7 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
-    "dev": "concurrently \"yarn start\" \"yarn server\"",
-    "server": "json-server db.json -p 3005",
+    "dev": "cross-env PORT=3006 react-scripts start",
     "start": "cross-env PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

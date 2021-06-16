@@ -5,14 +5,8 @@ import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
 import { StyledUserForm } from './styles';
 
-const {
-  Button,
-  ButtonGroup,
-  Input,
-  RadioButton,
-  RadioGroup,
-  Select,
-} = FormComponents;
+const { Button, ButtonGroup, Input, RadioButton, RadioGroup, Select } =
+  FormComponents;
 
 interface User {
   id: string;
@@ -39,7 +33,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
   const [crm, setCrm] = useState('');
   const [type, setType] = useState('Administrador');
   const [residencyDate, setResidencyDate] = useState('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Especialista');
 
   useEffect(() => {
     setCpf(editingUser ? editingUser.cpf : '');
@@ -52,7 +46,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
         ? dateFormat(editingUser.residencyDate, 'isoDate', true)
         : '',
     );
-    setTitle(editingUser?.title ? editingUser.title : '');
+    setTitle(editingUser?.title ? editingUser.title : 'Especialista');
   }, [editingUser]);
 
   function handleReset() {
@@ -67,7 +61,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
           ? dateFormat(editingUser.residencyDate, 'isoDate', true)
           : '',
       );
-      setTitle(editingUser.title ? editingUser.title : '');
+      setTitle(editingUser.title ? editingUser.title : 'Especialista');
     } else {
       setCpf('');
       setEmail('');
@@ -75,7 +69,7 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
       setCrm('');
       setType('Administrador');
       setResidencyDate('');
-      setTitle('');
+      setTitle('Especialista');
     }
   }
 
@@ -104,12 +98,18 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
     try {
       await createUser({ ...user, password: '123456' });
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
+
       toast.success('Cadastro realizado com sucesso!');
+      
+      setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -125,13 +125,13 @@ export function UserForm({ editingUser, onRequestClose }: UserFormProps) {
 
       await updateUser(editingUser.id, user);
 
-      if (onRequestClose) {
-        onRequestClose();
-      }
-
       toast.success('Cadastro atualizado com sucesso!');
 
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
+
         window.location.reload();
       }, 2000);
     } catch (error) {

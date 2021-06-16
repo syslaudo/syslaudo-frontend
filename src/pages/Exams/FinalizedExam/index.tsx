@@ -70,6 +70,34 @@ export function FinalizedExam() {
     }
   }
 
+  function onPrint2(e: any) {
+    var id = e.target.parentNode.id;
+
+    const exam = exams.find((exam) => String(exam.id) === String(id));
+
+    if (!exam) {
+      toast.error('Exam not in database.');
+      return;
+    }
+
+    setEditingExam(exam);
+    window.open(`/print2?id=${id}`, '_blank');
+  }
+
+  function onPrint3(e: any) {
+    var id = e.target.parentNode.id;
+
+    const exam = exams.find((exam) => String(exam.id) === String(id));
+
+    if (!exam) {
+      toast.error('Exam not in database.');
+      return;
+    }
+
+    setEditingExam(exam);
+    window.open(`/print3?id=${id}`, '_blank');
+  }
+
   function onEdit(e: any) {
     var id = e.target.parentNode.id;
 
@@ -106,13 +134,17 @@ export function FinalizedExam() {
           <i className="fas fa-search" title="Ver detalhes"></i>
         </ActionButton>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <ActionButton id={row.id} type="button" onClick={onEdit}>
+        <ActionButton id={row.id} type="button" onClick={onPrint2}>
+          <i className="fas fa-key" title="Imprimir informações"></i>
+        </ActionButton>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <ActionButton id={row.id} type="button" onClick={onPrint3}>
           <i className="fas fa-print" title="Imprimir resultado"></i>
         </ActionButton>
       </div>
     ),
     sortable: false,
-    grow: 2,
+    grow: 3,
   };
 
   return (

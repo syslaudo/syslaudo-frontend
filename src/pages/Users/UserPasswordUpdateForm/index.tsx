@@ -2,77 +2,54 @@ import { FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
+import { loggedUser } from '../../../services/auth';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { StyledContainer } from './styles';
+import { Link } from 'react-router-dom';
+
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
 export function UserPasswordUpdateForm() {
-  const { users, updateUser } = useUsers();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
+  const { requestPasswordReset } = useUsers();
+  const [email, setEmail] = useState(loggedUser?.email ? loggedUser.email : '');
 
   function handleReset() {
-    setEmail('');
-    setPassword('');
-    setPasswordCheck('');
+    setEmail(loggedUser?.email ? loggedUser.email : '');
   }
 
   async function handleUpdateUser(event: FormEvent) {
     event.preventDefault();
 
-    const editingUser = users.find((user) => user.email === email);
-
     try {
-      if (!editingUser) {
-        toast.error('Não há usuário com esse e-mail no banco de dados');
-        return;
-      }
-
-      const user = { ...editingUser, password };
-
-      await updateUser(editingUser.id, user);
+      await requestPasswordReset(email);
       handleReset();
-      toast.success('Senha atualizado com sucesso!');
+      toast.success('Solicitação enviada com sucesso!');
     } catch (error) {
       toast.error(error.response.data.message);
     }
   }
 
   return (
-    <>
-      <h1>Atualização de Senha</h1>
+    <StyledContainer>
+      {!loggedUser.id && (
+        <Link to="/" className="logo">
+            <Logo className="svg" />
+        </Link>
+      )}
+
+      <h1>Redefinição de Senha</h1>
       <Form onSubmit={handleUpdateUser}>
-          <Input
-            id="email"
-            label="e-mail"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-            required
-            mask=""
-          />
         <Input
-          id="password"
-          label="Nova senha"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          type="password"
+          id="email"
+          label="e-mail"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          type="email"
           required
-          pattern="\S{6,}"
-          title="Mínimo de 6 dígitos"
           mask=""
         />
-        <Input
-          id="password-check"
-          label="Confirme a senha"
-          value={passwordCheck}
-          onChange={(event) => setPasswordCheck(event.target.value)}
-          type="password"
-          required
-          pattern={password}
-          title="Senhas não conferem"
-          mask=""
-        />
+
         <ButtonGroup>
           <Button type="submit" primary>
             Enviar
@@ -82,6 +59,6 @@ export function UserPasswordUpdateForm() {
           </Button>
         </ButtonGroup>
       </Form>
-    </>
+    </StyledContainer>
   );
 }

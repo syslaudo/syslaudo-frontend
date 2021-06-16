@@ -45,7 +45,7 @@ export function ExamRequestForm({
       setCpf('');
       setType('Ecocardiograma');
       setHypotesis('');
-      setRecommendations('');
+      setRecommendations(getRecommendationByExamType('Ecocardiograma'));
       setDate('');
     }
   }, [editingExam, getPatientByCpf, getRecommendationByExamType]);
@@ -67,7 +67,7 @@ export function ExamRequestForm({
       setCpf('');
       setType('Ecocardiograma');
       setHypotesis('');
-      setRecommendations('');
+      setRecommendations(getRecommendationByExamType('Ecocardiograma'));
       setDate('');
     }
   }
@@ -88,12 +88,18 @@ export function ExamRequestForm({
 
     try {
       await createExam(exam);
-      if (onRequestClose) {
-        onRequestClose();
-      } else {
-        handleReset();
-      }
+
       toast.success('Cadastro realizado com sucesso!');
+
+      setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        } else {
+          handleReset();
+        }
+
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -119,13 +125,14 @@ export function ExamRequestForm({
 
     try {
       await updateExam(editingExam.id, exam);
-      if (onRequestClose) {
-        onRequestClose();
-      }
 
       toast.success('Atualizado com sucesso!');
 
       setTimeout(function () {
+        if (onRequestClose) {
+          onRequestClose();
+        }
+
         window.location.reload();
       }, 2000);
     } catch (error) {

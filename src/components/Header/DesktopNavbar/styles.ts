@@ -177,4 +177,8 @@ export const StyledDesktopNavbar = styled.header`
       display: none;
     }
   }
+
+  @media print {
+    display: none;
+  }
 `;

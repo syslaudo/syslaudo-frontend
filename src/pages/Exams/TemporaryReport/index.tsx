@@ -71,6 +71,20 @@ export function TemporaryReport() {
     }
   }
 
+  function onPrint(e: any) {
+    var id = e.target.parentNode.id;
+
+    const exam = exams.find((exam) => String(exam.id) === String(id));
+
+    if (!exam) {
+      toast.error('Exam not in database.');
+      return;
+    }
+
+    setEditingExam(exam);
+    window.open(`/print2?id=${id}`, '_blank');
+  }
+
   function onEdit(e: any) {
     var id = e.target.parentNode.id;
 
@@ -113,7 +127,7 @@ export function TemporaryReport() {
           </ActionButton>
         </Can>
         &nbsp;&nbsp;|&nbsp;&nbsp;
-        <ActionButton id={row.id} type="button" onClick={onEdit}>
+        <ActionButton id={row.id} type="button" onClick={onPrint}>
           <i className="fas fa-print" title="Imprimir detalhes"></i>
         </ActionButton>
       </div>
