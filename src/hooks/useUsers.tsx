@@ -27,6 +27,7 @@ interface UsersContextData {
   createUser: (userInput: UserInput) => Promise<void>;
   removeUser: (userId: string) => Promise<void>;
   updateUser: (userId: string, userInput: UserInput) => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<void>;
 }
 
 interface UsersProviderProps {
@@ -53,7 +54,7 @@ export function UsersProvider({ children }: UsersProviderProps) {
             type: user.tipo,
             crm: user.crm,
             residencyDate: user.data_residencia,
-            title: user.titulacao
+            title: user.titulacao,
           }),
       );
 
@@ -74,8 +75,8 @@ export function UsersProvider({ children }: UsersProviderProps) {
       tipo: userInput.type,
       crm: userInput.crm,
       data_residencia: userInput.residencyDate,
-      titulacao: userInput.title
-    }
+      titulacao: userInput.title,
+    };
     const response = await api.post('/usuario/create', user);
     setUsers([...users, response.data]);
   }
@@ -89,7 +90,6 @@ export function UsersProvider({ children }: UsersProviderProps) {
   }
 
   async function updateUser(userId: string, userInput: UserInput) {
-    
     const user = {
       cpf: userInput.cpf,
       email_usuario: userInput.email,
@@ -98,8 +98,8 @@ export function UsersProvider({ children }: UsersProviderProps) {
       tipo: userInput.type,
       crm: userInput.crm,
       data_residencia: userInput.residencyDate,
-      titulacao: userInput.title
-    }
+      titulacao: userInput.title,
+    };
 
     const updatedUser = await api.put(`/usuario/update/${userId}`, user);
 
@@ -110,9 +110,13 @@ export function UsersProvider({ children }: UsersProviderProps) {
     setUsers(updatedUsers);
   }
 
+  async function requestPasswordReset(email: string) {
+    await api.post(`/session/forgot-password`, { email_usuario: email });
+  }
+
   return (
     <UsersContext.Provider
-      value={{ users, createUser, removeUser, updateUser }}
+      value={{ users, createUser, removeUser, updateUser, requestPasswordReset }}
     >
       {children}
     </UsersContext.Provider>

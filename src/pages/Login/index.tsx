@@ -45,12 +45,7 @@ export function Login() {
         />
         <p className="link">
           <Link
-            to="#"
-            onClick={() =>
-              alert(
-                'Para resetar sua senha, entre em contato com o setor de TI.',
-              )
-            }
+            to="/alterar-senha"
           >
             Esqueceu sua senha?
           </Link>

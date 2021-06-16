@@ -10,21 +10,23 @@ import { Link } from 'react-router-dom';
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
-export function UserPasswordUpdateForm() {
-  const { requestPasswordReset } = useUsers();
-  const [email, setEmail] = useState(loggedUser?.email ? loggedUser.email : '');
+export function CreateNewPasswordForm() {
+  // const { requestPasswordReset } = useUsers();
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+
 
   function handleReset() {
-    setEmail(loggedUser?.email ? loggedUser.email : '');
+    setPassword('');
   }
 
   async function handleUpdateUser(event: FormEvent) {
     event.preventDefault();
 
     try {
-      await requestPasswordReset(email);
+      // await requestPasswordReset(email);
       handleReset();
-      toast.success('Solicitação enviada com sucesso!');
+      toast.success('Senha alterada com sucesso!');
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -41,12 +43,26 @@ export function UserPasswordUpdateForm() {
       <h1>Redefinição de Senha</h1>
       <Form onSubmit={handleUpdateUser}>
         <Input
-          id="email"
-          label="e-mail"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          type="email"
+          id="password"
+          label="Nova senha"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          type="password"
           required
+          pattern="\S{6,}"
+          title="Mínimo de 6 dígitos"
+          mask=""
+        />
+
+        <Input
+          id="password-check"
+          label="Confirme a senha"
+          value={passwordCheck}
+          onChange={(event) => setPasswordCheck(event.target.value)}
+          type="password"
+          required
+          pattern={password}
+          title="Senhas não conferem"
           mask=""
         />
 

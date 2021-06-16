@@ -22,7 +22,8 @@ import { PageNotFound } from './pages/PageNotFound';
 import { PatientAccess } from './pages/PatientAccess';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
-import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
+import { AdminPasswordUpdateForm } from './pages/Users/AdminPasswordUpdateForm';
+import { UserPasswordUpdateForm } from "./pages/Users/UserPasswordUpdateForm";
 import { isAuthenticated, loggedUser } from './services/auth';
 import { GlobalStyle } from './styles/global';
 
@@ -86,9 +87,10 @@ function App() {
                 <AdminRoute exact={true} path="/usuarios" component={Users} />
                 <AdminRoute
                   exact={true}
-                  path="/trocar-senha"
-                  component={UserPasswordUpdateForm}
+                  path="/admin-alterar-senha"
+                  component={AdminPasswordUpdateForm}
                 />
+                <Route exact={true} path="/alterar-senha" component={UserPasswordUpdateForm} />
                 <PrivateRoute exact={true} path="/exames" component={Exams} />
                 <PrivateRoute
                   exact={true}
