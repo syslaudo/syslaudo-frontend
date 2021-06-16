@@ -1,30 +1,36 @@
 import { FormEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import { FormComponents } from '../../../components/FormComponents';
 import { useUsers } from '../../../hooks/useUsers';
 import { loggedUser } from '../../../services/auth';
-import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import { StyledContainer } from './styles';
-import { Link } from 'react-router-dom';
-
 
 const { Form, Button, ButtonGroup, Input } = FormComponents;
 
-export function CreateNewPasswordForm() {
-  // const { requestPasswordReset } = useUsers();
+export function CreateNewPasswordForm(props: any) {
+  const { changePassword } = useUsers();
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-
 
   function handleReset() {
     setPassword('');
   }
 
+  const search = new URLSearchParams(props.location.search);
+  const token = search.get('token');
+  const id = search.get('id');
+
   async function handleUpdateUser(event: FormEvent) {
     event.preventDefault();
 
     try {
-      // await requestPasswordReset(email);
+      if (token && id) {
+        await changePassword(password, passwordCheck, token, id);
+      } else {
+        throw new Error('Usuário inválido')
+      }
       handleReset();
       toast.success('Senha alterada com sucesso!');
     } catch (error) {
@@ -36,7 +42,7 @@ export function CreateNewPasswordForm() {
     <StyledContainer>
       {!loggedUser.id && (
         <Link to="/" className="logo">
-            <Logo className="svg" />
+          <Logo className="svg" />
         </Link>
       )}
 

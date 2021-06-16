@@ -28,6 +28,7 @@ interface UsersContextData {
   removeUser: (userId: string) => Promise<void>;
   updateUser: (userId: string, userInput: UserInput) => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
+  changePassword: (password: string, passwordCheck: string, token:string, id:string) => Promise<void>;
 }
 
 interface UsersProviderProps {
@@ -114,9 +115,13 @@ export function UsersProvider({ children }: UsersProviderProps) {
     await api.post(`/session/forgot-password`, { email_usuario: email });
   }
 
+  async function changePassword(password: string, passwordCheck: string, token:string, id:string) {
+      await api.post(`/session/reset-password/${id}/${token}`, { password, passwordConfirmation: passwordCheck })
+  }
+
   return (
     <UsersContext.Provider
-      value={{ users, createUser, removeUser, updateUser, requestPasswordReset }}
+      value={{ users, createUser, removeUser, updateUser, requestPasswordReset, changePassword }}
     >
       {children}
     </UsersContext.Provider>
