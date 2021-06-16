@@ -16,6 +16,7 @@ import { FinalizedExam } from './pages/Exams/FinalizedExam';
 import { InfoPrint1 } from './pages/Exams/InfoPrint1';
 import { InfoPrint2 } from './pages/Exams/InfoPrint2';
 import { InfoPrint3 } from './pages/Exams/InfoPrint3';
+import { InfoPrintPatient } from './pages/Exams/InfoPrintPatient';
 import { PendingReport } from './pages/Exams/PendingReport';
 import { ScheduledExams } from './pages/Exams/ScheduledExams';
 import { TemporaryReport } from './pages/Exams/TemporaryReport';
@@ -96,10 +97,15 @@ function App() {
                   path="/print2"
                   component={InfoPrint2}
                 />
-                <Route
+                <PrivateRoute
                   exact={true}
                   path="/print3"
                   component={InfoPrint3}
+                />
+                <Route
+                  exact={true}
+                  path="/printpatient"
+                  component={InfoPrintPatient}
                 />
                 <PrivateRoute
                   exact={true}

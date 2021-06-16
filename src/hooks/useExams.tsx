@@ -21,6 +21,17 @@ export interface Exam {
   password?: string;
 }
 
+export interface Result {
+  cpf: string;
+  type: string;
+  date: Date;
+  status: string;
+  hypotesis: string;
+  image: string;
+  report: string;
+  name: string;
+}
+
 export interface Recommendation {
   id: string;
   exam: string;
@@ -36,6 +47,7 @@ interface ExamsContextData {
   removeExam: (examId: string) => Promise<void>;
   updateExam: (examId: string, examInput: ExamInput) => Promise<void>;
   getRecommendationByExamType: (examType: string) => string;
+  getResult: (cpf: string, password: string) => Promise<Result>;
 }
 
 interface ExamsProviderProps {
@@ -64,7 +76,7 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
             image: exam.image,
             report: exam.report,
             report_status: exam.report_status,
-            password: exam.senha
+            password: exam.senha,
           }),
       );
 
@@ -115,6 +127,26 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
     setExams(examsFiltered);
   }
 
+  async function getResult(cpf: string, password: string) {
+    const response = await api.post('session/acesso-paciente', {
+      cpf,
+      senha: password,
+    });
+
+    const exam = {
+      cpf: response.data.cpf,
+      type: response.data.type,
+      date: response.data.data_realizacao,
+      status: response.data.status,
+      hypotesis: response.data.hipotese,
+      image: response.data.image,
+      report: response.data.report,
+      name: response.data.nome,
+    };
+
+    return exam;
+  }
+
   async function updateExam(examId: string, examInput: ExamInput) {
     const exam = {
       cpf: examInput.cpf,
@@ -157,6 +189,7 @@ export function ExamsProvider({ children }: ExamsProviderProps) {
         removeExam,
         updateExam,
         getRecommendationByExamType,
+        getResult,
       }}
     >
       {children}
