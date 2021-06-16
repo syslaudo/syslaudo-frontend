@@ -27,6 +27,7 @@ import { PatientAccess } from './pages/PatientAccess';
 import { Patients } from './pages/Patients';
 import { Users } from './pages/Users';
 import { AdminPasswordUpdateForm } from './pages/Users/AdminPasswordUpdateForm';
+import { CreateNewPasswordForm } from './pages/Users/CreateNewPasswordForm';
 import { UserPasswordUpdateForm } from './pages/Users/UserPasswordUpdateForm';
 import { isAuthenticated, loggedUser } from './services/auth';
 import { GlobalStyle } from './styles/global';
@@ -122,6 +123,11 @@ function App() {
                   exact={true}
                   path="/alterar-senha"
                   component={UserPasswordUpdateForm}
+                />
+                <Route
+                  exact={true}
+                  path="/redefinir-senha"
+                  component={CreateNewPasswordForm}
                 />
                 <PrivateRoute exact={true} path="/exames" component={Exams} />
                 <PrivateRoute
